@@ -51,18 +51,17 @@ func NewArray(capacity int) *Array {
 
 // 指定位置添加值
 func (a *Array) Add(idx int, val interface{}) {
-	if idx < 0 || idx >= a.Cap() {
+	if idx < 0 || idx > a.size {
 		panic("Add failed, index is illegal")
 	}
-
-	for i := a.size - 1; i > idx; i-- { // idx往后移1位
-		a.data[i] = a.data[i-1]
-	}
-	a.data[idx] = val
-	a.size++
 	if a.size == a.Cap() { // size和数组长度一致时，需要扩容
 		a.rezise(2 * a.Cap())
 	}
+	for i := a.size - 1; i >= idx; i-- { // idx往后移1位
+		a.data[i+1] = a.data[i]
+	}
+	a.data[idx] = val
+	a.size++
 }
 
 // 头插
@@ -190,9 +189,12 @@ var _ ArrayInterface = (*Array)(nil) // 确保Array实现了ArrayInterface接口
 func main() {
 	array := NewArray(5)
 	dump(array)
-	array.Add(2, 2)
+	array.Add(0, 2)
+	dump(array)
 	array.AddFirst(1)
+	dump(array)
 	array.AddFirst(0)
+	dump(array)
 	array.AddLast(3)
 	dump(array)
 	array.AddLast(4)
@@ -215,9 +217,15 @@ func main() {
 	/*
 		Array: size = 0, capacity = 5
 		[]
+		Array: size = 1, capacity = 5
+		[2]
+		Array: size = 2, capacity = 5
+		[1,2]
+		Array: size = 3, capacity = 5
+		[0,1,2]
 		Array: size = 4, capacity = 5
 		[0,1,2,3]
-		Array: size = 5, capacity = 10
+		Array: size = 5, capacity = 5
 		[0,1,2,3,4]
 		Array: size = 6, capacity = 10
 		[0,1,2,3,4,5]
