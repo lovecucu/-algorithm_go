@@ -28,10 +28,8 @@ type ArrayInterface interface {
 	Get(int) interface{}
 	// 修改指定索引的值
 	Set(int, interface{})
-	// 容量
-	Cap() int
 	// 当前大小
-	Len() int
+	Size() int
 	// 是否为空
 	IsEmpty() bool
 }
@@ -54,8 +52,8 @@ func (a *Array) Add(idx int, val interface{}) {
 	if idx < 0 || idx > a.size {
 		panic("Add failed, index is illegal")
 	}
-	if a.size == a.Cap() { // size和数组长度一致时，需要扩容
-		a.rezise(2 * a.Cap())
+	if a.size == len(a.data) { // size和数组长度一致时，需要扩容
+		a.rezise(2 * len(a.data))
 	}
 	for i := a.size - 1; i >= idx; i-- { // idx往后移1位
 		a.data[i+1] = a.data[i]
@@ -86,8 +84,8 @@ func (a *Array) Remove(idx int) interface{} {
 	}
 	a.size--             // 长度减少
 	a.data[a.size] = nil // 清理最后一个元素（防止指针）
-	if a.size == a.Cap()/4 && a.Cap()/2 > 0 {
-		a.rezise(a.Cap() / 2)
+	if a.size == len(a.data)/4 && len(a.data)/2 > 0 {
+		a.rezise(len(a.data) / 2)
 	}
 	return removeEle
 }
@@ -143,13 +141,8 @@ func (a *Array) Set(idx int, val interface{}) {
 	a.data[idx] = val
 }
 
-// 获取容量
-func (a *Array) Cap() int {
-	return len(a.data)
-}
-
 // 获取当前数组长度
-func (a *Array) Len() int {
+func (a *Array) Size() int {
 	return a.size
 }
 
@@ -169,7 +162,7 @@ func (a *Array) rezise(newCapacity int) {
 
 func (a *Array) String() string {
 	var buffer bytes.Buffer
-	buffer.WriteString(fmt.Sprintf("Array: size = %d, capacity = %d\n", a.Len(), a.Cap()))
+	buffer.WriteString(fmt.Sprintf("Array: size = %d, capacity = %d\n", a.Size(), len(a.data)))
 	buffer.WriteString("[")
 	for i := 0; i < a.size; i++ {
 		buffer.WriteString(fmt.Sprint(a.data[i]))
