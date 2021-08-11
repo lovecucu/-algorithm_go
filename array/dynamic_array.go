@@ -1,4 +1,4 @@
-package main
+package array
 
 import (
 	"bytes"
@@ -124,10 +124,7 @@ func (a *Array) FindAll(val interface{}) (indexs []int) {
 
 // 校验数组是否包含特定值
 func (a *Array) Contains(val interface{}) bool {
-	if a.Find(val) == -1 {
-		return false
-	}
-	return true
+	return a.Find(val) != -1
 }
 
 // 获取指定索引的值
@@ -185,65 +182,3 @@ func (a *Array) String() string {
 }
 
 var _ ArrayInterface = (*Array)(nil) // 确保Array实现了ArrayInterface接口
-
-func main() {
-	array := NewArray(5)
-	dump(array)
-	array.Add(0, 2)
-	dump(array)
-	array.AddFirst(1)
-	dump(array)
-	array.AddFirst(0)
-	dump(array)
-	array.AddLast(3)
-	dump(array)
-	array.AddLast(4)
-	dump(array)
-	array.AddLast(5)
-	dump(array)
-	array.Remove(2)
-	dump(array)
-	array.RemoveLast()
-	dump(array)
-	array.RemoveFirst()
-	dump(array)
-	array.RemoveFirst()
-	dump(array)
-	array.RemoveFirst()
-	dump(array)
-	fmt.Println(array.Contains(4))
-	fmt.Println(array.RemoveLast())
-
-	/*
-		Array: size = 0, capacity = 5
-		[]
-		Array: size = 1, capacity = 5
-		[2]
-		Array: size = 2, capacity = 5
-		[1,2]
-		Array: size = 3, capacity = 5
-		[0,1,2]
-		Array: size = 4, capacity = 5
-		[0,1,2,3]
-		Array: size = 5, capacity = 5
-		[0,1,2,3,4]
-		Array: size = 6, capacity = 10
-		[0,1,2,3,4,5]
-		Array: size = 5, capacity = 10
-		[0,1,3,4,5]
-		Array: size = 4, capacity = 10
-		[0,1,3,4]
-		Array: size = 3, capacity = 10
-		[1,3,4]
-		Array: size = 2, capacity = 5
-		[3,4]
-		Array: size = 1, capacity = 2
-		[4]
-		true
-		4
-	*/
-}
-
-func dump(a *Array) {
-	fmt.Println(a)
-}
