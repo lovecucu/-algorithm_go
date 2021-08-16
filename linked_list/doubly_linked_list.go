@@ -1,6 +1,6 @@
 package linked_list
 
-// node 结构体
+// 双向链表
 type Element struct {
 	prev, next *Element
 	list       *List // 找出所属的List

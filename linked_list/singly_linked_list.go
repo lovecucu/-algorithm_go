@@ -5,20 +5,7 @@ import (
 	"fmt"
 )
 
-// 单链表 接口
-type SingleLinkedListInterface interface {
-	InsertAfter(*ListNode, interface{}) bool
-	InsertBefore(*ListNode, interface{}) bool
-	InsertToHead(interface{}) bool
-	InsertToTail(interface{}) bool
-	FindByIndex(int) *ListNode
-	DeleteNode(*ListNode) bool
-	Contains(*ListNode) bool
-	Len() int
-	IsEmpty() bool
-}
-
-// node 结构体
+// 单向链表
 type ListNode struct {
 	next  *ListNode
 	value interface{}
@@ -211,5 +198,3 @@ func (s *SingleLinkedList) getTailNode() (tail *ListNode) {
 	}
 	return
 }
-
-var _ SingleLinkedListInterface = (*SingleLinkedList)(nil)
