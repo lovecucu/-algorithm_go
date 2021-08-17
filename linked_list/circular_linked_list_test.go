@@ -25,9 +25,14 @@ func TestCircularDo(t *testing.T) {
 		r = r.Next()
 	}
 
+	target := "01234"
+	real := ""
 	r.Do(func(i interface{}) {
-		fmt.Println(i)
+		real += fmt.Sprint(i)
 	})
+	if target != real {
+		t.Error(`TestCircularDo failed`)
+	}
 }
 
 func TestCircularMove(t *testing.T) {
@@ -43,9 +48,14 @@ func TestCircularMove(t *testing.T) {
 		r.Value = n - i
 	}
 
+	target := "43210"
+	real := ""
 	r.Do(func(i interface{}) {
-		fmt.Println(i)
+		real += fmt.Sprint(i)
 	})
+	if target != real {
+		t.Error(`TestCircularMove failed`)
+	}
 
 	node := r.Move(2)
 	if node.Value != 2 {
@@ -88,26 +98,38 @@ func TestCircularLink(t *testing.T) {
 		t.Error(`TestCircularPrevNext failed`)
 	}
 
+	target := "02"
+	real := ""
+	ring1.Do(func(i interface{}) {
+		real += fmt.Sprint(i)
+	})
+	if target != real {
+		t.Error(`TestCircularPrevNext failed`)
+	}
+
 	ring2 := NewRing(n)
 	for i := 0; i < n; i++ {
 		ring2.Value = i + n
 		ring2 = ring2.Next()
 	}
 
-	ring1.Do(func(i interface{}) {
-		fmt.Println(i)
-	})
-
+	target = "345"
+	real = ""
 	ring2.Do(func(i interface{}) {
-		fmt.Println(i)
+		real += fmt.Sprint(i)
 	})
+	if target != real {
+		t.Error(`TestCircularPrevNext failed`)
+	}
 
 	node := ring1.Link(ring2)
+	target = "20345"
+	real = ""
 	node.Do(func(i interface{}) {
-		fmt.Println(i)
+		real += fmt.Sprint(i)
 	})
-	if node.Len() != 5 || node.Prev().Value != 5 {
-		t.Error(`TestCircularPrevNext failed`, node.Prev().Value)
+	if target != real {
+		t.Error(`TestCircularPrevNext failed`)
 	}
 }
 
@@ -119,10 +141,6 @@ func TestCircularUnlink(t *testing.T) {
 		r = r.Next()
 	}
 
-	r.Do(func(i interface{}) {
-		fmt.Println(i)
-	})
-
 	if r.Unlink(-1) != nil {
 		t.Error(`TestCircularUnlink failed`)
 	}
@@ -132,7 +150,12 @@ func TestCircularUnlink(t *testing.T) {
 	if r.Len() != (n - 5%n) {
 		t.Error(`TestCircularUnlink failed`)
 	}
+	target := "0"
+	real := ""
 	r.Do(func(i interface{}) {
-		fmt.Println(i)
+		real += fmt.Sprint(i)
 	})
+	if target != real {
+		t.Error(`TestCircularUnlink failed`)
+	}
 }
