@@ -6,19 +6,19 @@ import (
 )
 
 // 单向链表
-type ListNode struct {
-	next  *ListNode
+type Node struct {
+	next  *Node
 	value interface{}
 }
 
 // 根据值new一个Node
-func NewListNode(v interface{}) *ListNode {
-	return &ListNode{nil, v}
+func NewNode(v interface{}) *Node {
+	return &Node{nil, v}
 }
 
 // 单链表结构体
 type SingleLinkedList struct {
-	head   *ListNode
+	head   *Node
 	length int
 }
 
@@ -29,7 +29,7 @@ func NewSingleLinkedList() *SingleLinkedList {
 
 // 头插
 func (s *SingleLinkedList) InsertToHead(v interface{}) bool {
-	newNode := NewListNode(v)
+	newNode := NewNode(v)
 	if s.IsEmpty() { // 链表为空，则初始化head结点
 		s.head = newNode
 		s.length++
@@ -40,7 +40,7 @@ func (s *SingleLinkedList) InsertToHead(v interface{}) bool {
 
 // 尾插
 func (s *SingleLinkedList) InsertToTail(v interface{}) bool {
-	newNode := NewListNode(v)
+	newNode := NewNode(v)
 	if s.IsEmpty() { // 链表为空，则初始化head结点
 		s.head = newNode
 		s.length++
@@ -50,13 +50,13 @@ func (s *SingleLinkedList) InsertToTail(v interface{}) bool {
 }
 
 // 插入指定node后
-func (s *SingleLinkedList) InsertAfter(n *ListNode, v interface{}) bool {
+func (s *SingleLinkedList) InsertAfter(n *Node, v interface{}) bool {
 	if !s.Contains(n) {
 		return false
 	}
 
 	// 将newNode插入到n后面
-	newNode := NewListNode(v)
+	newNode := NewNode(v)
 	oldNext := n.next
 	newNode.next = oldNext
 	n.next = newNode
@@ -65,13 +65,13 @@ func (s *SingleLinkedList) InsertAfter(n *ListNode, v interface{}) bool {
 }
 
 // 插入指定node前
-func (s *SingleLinkedList) InsertBefore(n *ListNode, v interface{}) bool {
+func (s *SingleLinkedList) InsertBefore(n *Node, v interface{}) bool {
 	if !s.Contains(n) {
 		return false
 	}
 
 	if s.isHeadNode(n) { // n为head结点，则换head
-		newNode := NewListNode(v)
+		newNode := NewNode(v)
 		s.head = newNode
 		newNode.next = n
 		s.length++
@@ -80,7 +80,7 @@ func (s *SingleLinkedList) InsertBefore(n *ListNode, v interface{}) bool {
 		if nil == pre {
 			return false
 		}
-		newNode := NewListNode(v)
+		newNode := NewNode(v)
 		pre.next = newNode
 		newNode.next = n
 		s.length++
@@ -90,7 +90,7 @@ func (s *SingleLinkedList) InsertBefore(n *ListNode, v interface{}) bool {
 }
 
 // 根据索引获取结点
-func (s *SingleLinkedList) FindByIndex(idx int) (n *ListNode) {
+func (s *SingleLinkedList) FindByIndex(idx int) (n *Node) {
 	if idx >= s.length {
 		return
 	}
@@ -105,7 +105,7 @@ func (s *SingleLinkedList) FindByIndex(idx int) (n *ListNode) {
 }
 
 // 删除结点
-func (s *SingleLinkedList) DeleteNode(n *ListNode) bool {
+func (s *SingleLinkedList) DeleteNode(n *Node) bool {
 	if !s.Contains(n) {
 		return false
 	}
@@ -121,7 +121,7 @@ func (s *SingleLinkedList) DeleteNode(n *ListNode) bool {
 }
 
 // 是否包含
-func (s *SingleLinkedList) Contains(n *ListNode) bool {
+func (s *SingleLinkedList) Contains(n *Node) bool {
 	if n == nil || s.IsEmpty() {
 		return false
 	}
@@ -164,12 +164,12 @@ func (s *SingleLinkedList) String() string {
 }
 
 // 是否为head结点
-func (s *SingleLinkedList) isHeadNode(n *ListNode) bool {
+func (s *SingleLinkedList) isHeadNode(n *Node) bool {
 	return n != nil && n == s.head
 }
 
 // 获取结点的pre结点
-func (s *SingleLinkedList) getPreNode(n *ListNode) (pre *ListNode) {
+func (s *SingleLinkedList) getPreNode(n *Node) (pre *Node) {
 	if !s.Contains(n) {
 		return
 	}
@@ -186,7 +186,7 @@ func (s *SingleLinkedList) getPreNode(n *ListNode) (pre *ListNode) {
 }
 
 // 获取结点的tail结点
-func (s *SingleLinkedList) getTailNode() (tail *ListNode) {
+func (s *SingleLinkedList) getTailNode() (tail *Node) {
 	if s.IsEmpty() {
 		return
 	}

@@ -2,10 +2,10 @@ package linked_list
 
 import "testing"
 
-func TestNewListNode(t *testing.T) {
-	newNode := NewListNode(10)
+func TestNewNode(t *testing.T) {
+	newNode := NewNode(10)
 	if newNode.next != nil || newNode.value != 10 {
-		t.Error(`TestNewListNode failed`)
+		t.Error(`TestNewNode failed`)
 	}
 }
 
@@ -73,7 +73,7 @@ func TestInsertBefore(t *testing.T) {
 	if singleLinkedList.FindByIndex(1).value != 3 {
 		t.Error(`TestInsertBefore failed`)
 	}
-	noExistNode := NewListNode(10)
+	noExistNode := NewNode(10)
 	if singleLinkedList.InsertBefore(noExistNode, 3) {
 		t.Error(`TestInsertBefore failed`)
 	}
