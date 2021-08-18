@@ -78,11 +78,11 @@ func TestListStackSearch(t *testing.T) {
 	stack.Push(1)
 	stack.Push(2)
 	if stack.Search(2) != 1 || stack.Search(1) != 2 || stack.Search(3) != -1 {
-		t.Error(`TestListStackPeek failed`, stack.Search(1))
+		t.Error(`TestListStackSearch failed`, stack.Search(1))
 	}
 	stack.Pop()
 	stack.Pop()
 	if stack.Search(1) != -1 {
-		t.Error(`TestListStackPeek failed`)
+		t.Error(`TestListStackSearch failed`)
 	}
 }
