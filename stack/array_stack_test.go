@@ -70,6 +70,10 @@ func TestArrayStackEmpty(t *testing.T) {
 	if stack.Empty() {
 		t.Error(`TestArrayStackEmpty failed`)
 	}
+	stack.Pop()
+	if !stack.Empty() {
+		t.Error(`TestListStackEmpty failed`)
+	}
 }
 
 func TestArrayStackSearch(t *testing.T) {
