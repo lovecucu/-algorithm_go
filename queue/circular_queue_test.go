@@ -1,6 +1,8 @@
 package queue
 
-import "testing"
+import (
+	"testing"
+)
 
 // MyCircularQueue circularQueue = new MyCircularQueue(3); // 设置长度为 3
 // circularQueue.enQueue(1);  // 返回 true
@@ -40,7 +42,8 @@ func TestMyCircularEnqueue(t *testing.T) {
 }
 
 func TestMyCircularDequeue(t *testing.T) {
-	circularQueue := Constructor(3)
+	circularQueue := new(MyCircularQueue)
+	circularQueue.cap = 3
 	circularQueue.EnQueue(1)
 	circularQueue.EnQueue(2)
 	circularQueue.EnQueue(3)
@@ -54,6 +57,10 @@ func TestMyCircularDequeue(t *testing.T) {
 	}
 
 	if !circularQueue.DeQueue() || circularQueue.len != 0 || circularQueue.head != 0 {
+		t.Error(`TestMyCircularDequeue failed`)
+	}
+
+	if circularQueue.DeQueue() {
 		t.Error(`TestMyCircularDequeue failed`)
 	}
 }
@@ -94,7 +101,7 @@ func TestMyCircularRear(t *testing.T) {
 		t.Error(`TestMyCircularFront failed`, rear)
 	}
 	circularQueue.DeQueue()
-	rear = circularQueue.Front()
+	rear = circularQueue.Rear()
 	if rear != -1 {
 		t.Error(`TestMyCircularFront failed`)
 	}
