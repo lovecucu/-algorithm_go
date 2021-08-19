@@ -53,8 +53,8 @@ func (s *ArrayQueue) Empty() bool {
 	return s.length == 0
 }
 
-// 如果e在栈上，返回从1开始的索引值（top结点为1）
-// 如果e不栈上，返回-1
+// 如果e在队列上，返回从1开始的索引值（top结点为1）
+// 如果e不队列上，返回-1
 func (s *ArrayQueue) Search(e interface{}) int {
 	if s.Empty() {
 		return -1
