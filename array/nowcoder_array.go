@@ -1,5 +1,7 @@
 package array
 
+import "math"
+
 /**
 
 合并两个有序数组
@@ -238,6 +240,8 @@ func MoreThanHalfNum(numbers []int) int {
 
 三个数的最大乘积
 
+思路：max(max1*max2*max3, max1*min1*min2)
+
 描述
 给定一个长度为  的无序数组  ，包含正数、负数和 0 ，请从中找出 3 个数，使得乘积最大，返回这个乘积。
 
@@ -263,19 +267,39 @@ func MoreThanHalfNum(numbers []int) int {
  * @return long长整型
  */
 func solve(A []int) int64 {
-	var top, mid, low int64
-	for _, n := range A {
-		n64 := int64(n)
-		if n64 >= top {
-			low = mid
-			mid = top
-			top = n64
-		} else if n64 >= mid {
-			low = mid
-			mid = n64
-		} else if n64 >= low {
-			low = n64
+	// write code here
+	if len(A) < 3 {
+		return 0
+	}
+	var (
+		max1, max2, max3 int64 = math.MinInt64, math.MinInt64, math.MinInt64
+		min1, min2       int64 = math.MaxInt64, math.MaxInt64
+	)
+
+	for _, i := range A {
+		j := int64(i)
+		if j > max1 {
+			max1, max2, max3 = j, max1, max2
+		} else {
+			if j > max2 {
+				max2, max3 = j, max2
+			} else if j > max3 {
+				max3 = j
+			}
+		}
+
+		if j < min1 {
+			min1, min2 = j, min1
+		} else if j < min2 {
+			min2 = j
 		}
 	}
-	return top * mid * low
+	return max(max1*max2*max3, max1*min1*min2)
+}
+
+func max(i, j int64) int64 {
+	if i < j {
+		return j
+	}
+	return i
 }
