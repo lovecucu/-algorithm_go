@@ -29,12 +29,10 @@ func ReverseList(pHead *ListNode) *ListNode {
 	var pre *ListNode
 	for cur := pHead; cur != nil; {
 		tmp := cur.Next
-		if pre == nil {
-			pre = cur
-		} else {
+		if pre != nil {
 			cur.Next = pre
-			pre = cur
 		}
+		pre = cur
 		cur = tmp
 	}
 	return pre
@@ -80,6 +78,14 @@ func ReverseList(pHead *ListNode) *ListNode {
  * @return bool布尔型
  */
 func hasCycle(head *ListNode) bool {
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+		if fast == slow {
+			return true
+		}
+	}
 	return false
 }
 
@@ -110,9 +116,43 @@ func hasCycle(head *ListNode) bool {
  * @param pHead2 ListNode类
  * @return ListNode类
  */
-// func Merge(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
-// 	// write code here
-// }
+func Merge(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
+	if pHead1 == nil {
+		return pHead2
+	}
+
+	if pHead2 == nil {
+		return pHead1
+	}
+
+	var head, pre, cur *ListNode
+	for pHead1 != nil && pHead2 != nil {
+		if pHead1.Val <= pHead2.Val {
+			cur = pHead1
+			pHead1 = pHead1.Next
+		} else {
+			cur = pHead2
+			pHead2 = pHead2.Next
+		}
+
+		if head == nil {
+			head = cur
+		} else {
+			pre.Next = cur
+		}
+		pre = cur
+
+		if pHead1 == nil {
+			pre.Next = pHead2
+			break
+		} else if pHead2 == nil {
+			pre.Next = pHead1
+			break
+		}
+	}
+
+	return head
+}
 
 /**
 
@@ -138,9 +178,52 @@ func hasCycle(head *ListNode) bool {
  * @param head ListNode类 the head node
  * @return ListNode类
  */
-// func sortInList(head *ListNode) *ListNode {
-// 	// write code here
-// }
+func sortInList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	var new, next *ListNode
+	for head != nil {
+		next = head.Next
+		head.Next = nil
+		if new == nil { // 第一个元素
+			new = head
+			head = next
+			continue
+		}
+
+		// 遍历插入
+		new = iterationInsert(new, head)
+		head = next
+	}
+	return new
+}
+
+// 插入排序
+func iterationInsert(head, node *ListNode) *ListNode {
+	var new, pre *ListNode
+	for cur := head; cur != nil; {
+		if node.Val < cur.Val { // 可以插入到pre之后，cur之前
+			node.Next = cur
+			if pre == nil {
+				new = node
+			} else {
+				pre.Next = node
+			}
+			break
+		} else { // 更新pre
+			if new == nil {
+				new = cur
+			}
+			pre = cur
+			cur = cur.Next
+			if cur == nil { // 所有结点都大于node，则node放到最后
+				pre.Next = node
+			}
+		}
+	}
+	return new
+}
 
 /**
 
@@ -185,9 +268,22 @@ true
  * @param head ListNode类 the head
  * @return bool布尔型
  */
-// func isPail(head *ListNode) bool {
-// 	// write code here
-// }
+func isPail(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return true
+	}
+	values := make([]int, 0)
+	for i := 0; head != nil; head = head.Next {
+		values = append(values, head.Val)
+		i++
+	}
+	for i, n := range values {
+		if n != values[len(values)-i-1] {
+			return false
+		}
+	}
+	return true
+}
 
 /**
 
@@ -229,9 +325,24 @@ true
  * @param pHead2 ListNode类
  * @return ListNode类
  */
-// func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
-// 	// write code here
-// }
+func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
+	if pHead1 == nil || pHead2 == nil {
+		return nil
+	}
+	mapNode := make(map[*ListNode]int, 0)
+	for pHead1 != nil {
+		mapNode[pHead1] = 1
+		pHead1 = pHead1.Next
+	}
+
+	for pHead2 != nil {
+		if _, ok := mapNode[pHead2]; ok {
+			return pHead2
+		}
+		pHead2 = pHead2.Next
+	}
+	return nil
+}
 
 /**
 
@@ -263,6 +374,23 @@ true
  * @param head ListNode类
  * @return ListNode类
  */
-// func deleteDuplicates(head *ListNode) *ListNode {
-// 	// write code here
-// }
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var pre *ListNode
+	mapVals := make(map[int]struct{})
+	for cur := head; cur != nil; {
+		next := cur.Next
+		_, ok := mapVals[cur.Val]
+		if !ok {
+			pre = cur
+			mapVals[cur.Val] = struct{}{}
+		} else { // 删除当前结点
+			pre.Next = next
+		}
+		cur = next
+	}
+	return head
+}
