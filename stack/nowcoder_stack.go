@@ -24,9 +24,23 @@ package stack
 var stack1 []int
 var stack2 []int
 
-func Push(node int) {}
+func QueuePush(node int) {
+	stack1 = append(stack1, node)
+}
 
-func Pop() int {
+func QueuePop() int {
+	len1 := len(stack1)
+	if len(stack2) == 0 && len1 > 0 {
+		for i := len1 - 1; i >= 0; i-- {
+			stack2 = append(stack2, stack1[i])
+		}
+		stack1 = stack1[0:0]
+	}
+	if len(stack2) > 0 {
+		node := stack2[0]
+		stack2 = stack2[1:]
+		return node
+	}
 	return -1
 }
 
@@ -58,7 +72,27 @@ true
  * @return bool布尔型
  */
 func isValid(s string) bool {
-	// write code here
+	maps := map[rune]rune{
+		')': '(',
+		'}': '{',
+		']': '[',
+	}
+
+	var stack1 []rune
+
+	for _, b := range s {
+		if v, ok := maps[b]; ok {
+			if len(stack1) == 0 || stack1[0] != v {
+				return false
+			} else {
+				stack1 = stack1[1:]
+			}
+		} else {
+			stack1 = append(stack1, b)
+		}
+	}
+
+	return len(stack1) == 0
 }
 
 /**
@@ -101,7 +135,9 @@ func Pop() {
 }
 func Top() int {
 	// write code here
+	return -1
 }
 func Min() int {
 	// write code here
+	return -1
 }
