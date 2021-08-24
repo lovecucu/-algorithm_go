@@ -28,10 +28,9 @@ package linked_list
 func ReverseList(pHead *ListNode) *ListNode {
 	var pre *ListNode
 	for cur := pHead; cur != nil; {
+		// pre, cur, cur.Next = cur, cur.Next, pre //这行代码效果等同于下面
 		tmp := cur.Next
-		if pre != nil {
-			cur.Next = pre
-		}
+		cur.Next = pre
 		pre = cur
 		cur = tmp
 	}
