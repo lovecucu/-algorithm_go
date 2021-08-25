@@ -1,6 +1,6 @@
 package stack
 
-import "fmt"
+import "math"
 
 /**
 
@@ -92,7 +92,6 @@ func isValid(s string) bool {
 		} else {
 			stack1 = append(stack1, b)
 		}
-		fmt.Println(stack1)
 	}
 
 	return len(stack1) == 0
@@ -131,16 +130,23 @@ min():获取栈中最小元素
 */
 
 func Push(node int) {
-	// write code here
+	stack1 = append(stack1, node)
+	if node < Min() {
+		stack2 = append(stack2, node)
+	}
 }
 func Pop() {
-	// write code here
+	if len(stack1) > 0 {
+		stack1 = stack1[1:]
+	}
 }
 func Top() int {
-	// write code here
-	return -1
+	return stack1[len(stack1)-1]
 }
 func Min() int {
-	// write code here
-	return -1
+	min := math.MaxInt64
+	if len(stack2) > 0 {
+		min = stack2[len(stack2)-1]
+	}
+	return min
 }

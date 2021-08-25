@@ -49,3 +49,25 @@ func TestNcStackIsValid(t *testing.T) {
 		t.Error(`TestNcStackIsValid failed`)
 	}
 }
+
+func TestNcStackPushPopMin(t *testing.T) {
+	stack1 = stack1[0:0]
+	stack2 = stack2[0:0]
+	// ["PSH-1","PSH2","MIN","TOP","POP","PSH1","TOP","MIN"]
+	Push(-1)
+	Push(2)
+	if Min() != -1 {
+		t.Error(`TestNcStackPushPopMin failed`)
+	}
+	if Top() != 2 {
+		t.Error(`TestNcStackPushPopMin failed`)
+	}
+	Pop()
+	Push(1)
+	if Top() != 1 {
+		t.Error(`TestNcStackPushPopMin failed`)
+	}
+	if Min() != -1 {
+		t.Error(`TestNcStackPushPopMin failed`)
+	}
+}
