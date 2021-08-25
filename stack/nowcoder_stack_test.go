@@ -5,6 +5,8 @@ import (
 )
 
 func TestNcStackQueuePush(t *testing.T) {
+	stack1 = stack1[0:0]
+	stack2 = stack2[0:0]
 	QueuePush(1)
 	QueuePush(2)
 	QueuePush(3)
@@ -14,15 +16,15 @@ func TestNcStackQueuePush(t *testing.T) {
 }
 
 func TestNcStackQueuePop(t *testing.T) {
+	stack1 = stack1[0:0]
+	stack2 = stack2[0:0]
 	QueuePush(1)
 	QueuePush(2)
-	QueuePush(3)
 	pop1 := QueuePop()
 	pop2 := QueuePop()
 	pop3 := QueuePop()
-	pop4 := QueuePop()
-	if pop1 != 3 || pop2 != 2 || pop3 != 1 || pop4 != -1 {
-		t.Error(`TestNcStackQueuePop failed`, pop1, pop2, pop3, pop4)
+	if pop1 != 1 || pop2 != 2 || pop3 != -1 {
+		t.Error(`TestNcStackQueuePop failed`, pop1, pop2, pop3)
 	}
 }
 
@@ -39,7 +41,11 @@ func TestNcStackIsValid(t *testing.T) {
 		t.Error(`TestNcStackIsValid failed`, isValid("()[]{}"))
 	}
 
-	if isValid("([])") {
+	if !isValid("([])") {
 		t.Error(`TestNcStackIsValid failed`, isValid("([])"))
+	}
+
+	if isValid("([)]") {
+		t.Error(`TestNcStackIsValid failed`)
 	}
 }

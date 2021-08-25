@@ -1,5 +1,7 @@
 package stack
 
+import "fmt"
+
 /**
 
 两个栈实现队列
@@ -37,8 +39,8 @@ func QueuePop() int {
 		stack1 = stack1[0:0]
 	}
 	if len(stack2) > 0 {
-		node := stack2[0]
-		stack2 = stack2[1:]
+		node := stack2[len(stack2)-1]
+		stack2 = stack2[0 : len(stack2)-1]
 		return node
 	}
 	return -1
@@ -82,14 +84,15 @@ func isValid(s string) bool {
 
 	for _, b := range s {
 		if v, ok := maps[b]; ok {
-			if len(stack1) == 0 || stack1[0] != v {
+			if len(stack1) == 0 || stack1[len(stack1)-1] != v {
 				return false
 			} else {
-				stack1 = stack1[1:]
+				stack1 = stack1[0 : len(stack1)-1]
 			}
 		} else {
 			stack1 = append(stack1, b)
 		}
+		fmt.Println(stack1)
 	}
 
 	return len(stack1) == 0
