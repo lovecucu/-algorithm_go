@@ -68,6 +68,6 @@ func TestNcStackPushPopMin(t *testing.T) {
 		t.Error(`TestNcStackPushPopMin failed`)
 	}
 	if Min() != -1 {
-		t.Error(`TestNcStackPushPopMin failed`)
+		t.Error(`TestNcStackPushPopMin failed`, Min())
 	}
 }

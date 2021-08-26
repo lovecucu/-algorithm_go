@@ -1,6 +1,8 @@
 package stack
 
-import "math"
+import (
+	"math"
+)
 
 /**
 
@@ -131,13 +133,17 @@ min():获取栈中最小元素
 
 func Push(node int) {
 	stack1 = append(stack1, node)
-	if node < Min() {
+	if node <= Min() {
 		stack2 = append(stack2, node)
 	}
 }
 func Pop() {
 	if len(stack1) > 0 {
-		stack1 = stack1[1:]
+		var pop = stack1[len(stack1)-1]
+		stack1 = stack1[:len(stack1)-1]
+		if pop == Min() {
+			stack2 = stack2[:len(stack2)-1]
+		}
 	}
 }
 func Top() int {
