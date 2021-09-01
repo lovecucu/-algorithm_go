@@ -79,6 +79,27 @@ func jumpFloor(number int) int {
 }
 
 /**
+链表反转递归实现
+*/
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func ReverseList(pHead *ListNode) *ListNode {
+	var pre *ListNode
+	for cur := pHead; cur != nil; {
+		// pre, cur, cur.Next = cur, cur.Next, pre //这行代码效果等同于下面
+		tmp := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = tmp
+	}
+	return pre
+}
+
+/**
 斐波那契数列、
 全排列、
 ⼋皇后、
@@ -88,3 +109,62 @@ DFS、
 ⼆叉树遍历、
 链表反转递归实现等
 */
+
+/**
+
+全排列
+
+给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。
+
+示例 1：
+输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
+示例 2：
+输入：nums = [0,1]
+输出：[[0,1],[1,0]]
+
+示例 3：
+输入：nums = [1]
+输出：[[1]]
+
+提示：
+
+1 <= nums.length <= 6
+-10 <= nums[i] <= 10
+nums 中的所有整数 互不相同
+*/
+func permute(nums []int) [][]int {
+
+}
+
+/**
+
+N皇后
+
+设计一种算法，打印 N 皇后在 N × N 棋盘上的各种摆法，其中每个皇后都不同行、不同列，也不在对角线上。这里的“对角线”指的是所有的对角线，不只是平分整个棋盘的那两条对角线。
+
+注意：本题相对原题做了扩展
+
+示例:
+
+ 输入：4
+ 输出：[[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+ 解释: 4 皇后问题存在如下两个不同的解法。
+[
+ [".Q..",  // 解法 1
+  "...Q",
+  "Q...",
+  "..Q."],
+
+ ["..Q.",  // 解法 2
+  "Q...",
+  "...Q",
+  ".Q.."]
+]
+
+*/
+
+func solveNQueens(n int) [][]string {
+
+}
