@@ -1,5 +1,10 @@
 package nowcoder
 
+import (
+	"container/list"
+	"fmt"
+)
+
 /**
 NC93 设计LRU缓存结构
  算法知识视频讲解
@@ -57,7 +62,61 @@ NC93 设计LRU缓存结构
  * @return int整型一维数组
  */
 func LRU(operators [][]int, k int) []int {
+	ret := []int{}
+	cache := NewLRUCache(k)
+	for _, ele := range operators {
+		switch ele[0] {
+		case 1:
+			cache.putCache(ele[1], ele[2])
+		case 2:
+			ret = append(ret, cache.getCache(ele[1]))
+		}
+	}
+	return ret
+}
 
+type LRUCache struct {
+	cap   int
+	cache map[int]*list.Element
+	ll    *list.List
+}
+type entry struct {
+	key   int
+	value int
+}
+
+func NewLRUCache(capacity int) *LRUCache {
+	return &LRUCache{
+		cap:   capacity,
+		cache: make(map[int]*list.Element),
+		ll:    list.New(),
+	}
+}
+
+func (c *LRUCache) getCache(key int) int {
+	if ee, ok := c.cache[key]; ok {
+		c.ll.MoveToFront(ee)
+		return ee.Value.(*entry).value
+	}
+	return -1
+}
+
+func (c *LRUCache) putCache(key int, value int) {
+	if ee, ok := c.cache[key]; ok { // 已存在的修改
+		c.ll.MoveToFront(ee)
+		ee.Value.(*entry).value = value
+		c.cache[key] = ee
+		return
+	}
+
+	if c.cap == c.ll.Len() { // 超出上限，则从末尾删除
+		ee := c.ll.Back()
+		c.ll.Remove(ee)
+		delete(c.cache, ee.Value.(*entry).key)
+	}
+
+	ee := c.ll.PushFront(&entry{key, value}) // 不存在的新增
+	c.cache[key] = ee
 }
 
 /**
@@ -85,13 +144,11 @@ NC45 实现二叉树先序，中序和后序遍历
 n≤10^6
 */
 
-/*
- * type TreeNode struct {
- *   Val int
- *   Left *TreeNode
- *   Right *TreeNode
- * }
- */
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
 
 /**
  *
@@ -99,7 +156,45 @@ n≤10^6
  * @return int整型二维数组
  */
 func threeOrders(root *TreeNode) [][]int {
-	// write code here
+	ret := [][]int{}
+	ret = append(ret, preOrder(root), order(root), postOrder(root))
+	return ret
+}
+
+func preOrder(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	ret := []int{}
+	ret = append(ret, root.Val)
+	ret = append(ret, preOrder(root.Left)...)
+	ret = append(ret, preOrder(root.Right)...)
+	return ret
+}
+
+func order(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	ret := []int{}
+	ret = append(ret, order(root.Left)...)
+	ret = append(ret, root.Val)
+	ret = append(ret, order(root.Right)...)
+	return ret
+}
+
+func postOrder(root *TreeNode) []int {
+	if root == nil {
+		return []int{}
+	}
+
+	ret := []int{}
+	ret = append(ret, postOrder(root.Left)...)
+	ret = append(ret, postOrder(root.Right)...)
+	ret = append(ret, root.Val)
+	return ret
 }
 
 /**
@@ -149,9 +244,9 @@ NC119 最小的K个数
  * @param k int整型
  * @return int整型一维数组
  */
-func GetLeastNumbers_Solution(input []int, k int) []int {
+/* func GetLeastNumbers_Solution(input []int, k int) []int {
 	// write code here
-}
+} */
 
 /**
 NC15 求二叉树的层序遍历
@@ -204,7 +299,23 @@ bfs
  * @return int整型二维数组
  */
 func levelOrder(root *TreeNode) [][]int {
-	// write code here
+	var q []*TreeNode
+	q = append(q, root)
+	i := 0
+	for len(q) > 0 {
+		i++
+		node := q[0]
+		q = q[1:]
+		fmt.Println(node.Val)
+		if node.Left != nil {
+			q = append(q, node.Left)
+		}
+		if node.Right != nil {
+			q = append(q, node.Right)
+		}
+	}
+
+	return [][]int{}
 }
 
 /**
@@ -247,9 +358,9 @@ NC88 寻找第K大
  * @param K int整型
  * @return int整型
  */
-func findKth(a []int, n int, K int) int {
+/* func findKth(a []int, n int, K int) int {
 	// write code here
-}
+} */
 
 /**
 NC61 两数之和
@@ -287,9 +398,9 @@ NC61 两数之和
  * @param target int整型
  * @return int整型一维数组
  */
-func twoSum(numbers []int, target int) []int {
+/* func twoSum(numbers []int, target int) []int {
 	// write code here
-}
+} */
 
 /**
 NC33 合并两个排序的链表
@@ -327,9 +438,9 @@ NC33 合并两个排序的链表
  * @param pHead2 ListNode类
  * @return ListNode类
  */
-func Merge(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
+/* func Merge(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
 	// write code here
-}
+} */
 
 /**
 NC76 用两个栈实现队列
@@ -361,7 +472,7 @@ NC76 用两个栈实现队列
 返回值：
 1,2
 */
-var stack1 []int
+/* var stack1 []int
 var stack2 []int
 
 func Push(node int) {
@@ -369,7 +480,7 @@ func Push(node int) {
 }
 
 func Pop() int {
-}
+} */
 
 /**
 NC68 跳台阶
@@ -402,9 +513,9 @@ NC68 跳台阶
  * @param number int整型
  * @return int整型
  */
-func jumpFloor(number int) int {
+/* func jumpFloor(number int) int {
 	// write code here
-}
+} */
 
 /**
 NC50 链表中的节点每k个一组翻转
@@ -446,9 +557,9 @@ NC50 链表中的节点每k个一组翻转
  * @param k int整型
  * @return ListNode类
  */
-func reverseKGroup(head *ListNode, k int) *ListNode {
+/* func reverseKGroup(head *ListNode, k int) *ListNode {
 	// write code here
-}
+} */
 
 /**
 NC19 子数组的最大累加和问题
@@ -485,9 +596,9 @@ NC19 子数组的最大累加和问题
  * @param arr int整型一维数组 the array
  * @return int整型
  */
-func maxsumofSubarray(arr []int) int {
+/* func maxsumofSubarray(arr []int) int {
 	// write code here
-}
+} */
 
 /**
 NC41 最长无重复子数组
@@ -554,9 +665,9 @@ NC41 最长无重复子数组
  * @param arr int整型一维数组 the array
  * @return int整型
 */
-func maxLength(arr []int) int {
+/* func maxLength(arr []int) int {
 	// write code here
-}
+} */
 
 /**
 NC4 判断链表中是否有环
@@ -609,9 +720,9 @@ true
  * @param head ListNode类
  * @return bool布尔型
  */
-func hasCycle(head *ListNode) bool {
+/* func hasCycle(head *ListNode) bool {
 	// write code here
-}
+} */
 
 /**
 NC22 合并两个有序的数组
@@ -659,9 +770,9 @@ A数组为[4,5,6]，B数组为[1,2,3]，后台程序会预先将A扩容为[4,5,6
  * @param B int整型一维数组
  * @return void
  */
-func merge(A []int, m int, B []int, n int) {
+/* func merge(A []int, m int, B []int, n int) {
 	// write code here
-}
+} */
 
 /**
 NC3 链表中环的入口结点
@@ -708,8 +819,8 @@ NC3 链表中环的入口结点
 说明：
 只有环形链表节点2，返回节点2，后台打印2
 */
-func EntryNodeOfLoop(pHead *ListNode) *ListNode {
-}
+/* func EntryNodeOfLoop(pHead *ListNode) *ListNode {
+} */
 
 /**
 NC52 括号序列
@@ -744,9 +855,9 @@ true
  * @param s string字符串
  * @return bool布尔型
  */
-func isValid(s string) bool {
+/* func isValid(s string) bool {
 	// write code here
-}
+} */
 
 /**
 NC53 删除链表的倒数第n个节点
@@ -788,9 +899,9 @@ NC53 删除链表的倒数第n个节点
  * @param n int整型
  * @return ListNode类
  */
-func removeNthFromEnd(head *ListNode, n int) *ListNode {
+/* func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	// write code here
-}
+} */
 
 /**
 NC1 大数加法
@@ -823,9 +934,9 @@ NC1 大数加法
  * @param t string字符串 表示第二个整数
  * @return string字符串
  */
-func solve(s string, t string) string {
+/* func solve(s string, t string) string {
 	// write code here
-}
+} */
 
 /**
 NC14 按之字形顺序打印二叉树
@@ -884,9 +995,9 @@ NC14 按之字形顺序打印二叉树
  * @param pRoot TreeNode类
  * @return int整型二维数组
  */
-func Print(pRoot *TreeNode) [][]int {
+/* func Print(pRoot *TreeNode) [][]int {
 	// write code here
-}
+} */
 
 /**
 NC127 最长公共子串
@@ -917,9 +1028,9 @@ NC127 最长公共子串
  * @param str2 string字符串 the string
  * @return string字符串
  */
-func LCS(str1 string, str2 string) string {
+/* func LCS(str1 string, str2 string) string {
 	// write code here
-}
+} */
 
 /**
 NC66 两个链表的第一个公共结点
@@ -967,9 +1078,9 @@ NC66 两个链表的第一个公共结点
  * @param pHead2 ListNode类
  * @return ListNode类
  */
-func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
+/* func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
 	// write code here
-}
+} */
 
 /**
 NC40 两个链表生成相加链表
@@ -1009,9 +1120,9 @@ NC40 两个链表生成相加链表
  * @param head2 ListNode类
  * @return ListNode类
  */
-func addInList(head1 *ListNode, head2 *ListNode) *ListNode {
+/* func addInList(head1 *ListNode, head2 *ListNode) *ListNode {
 	// write code here
-}
+} */
 
 /**
 NC102 在二叉树中找到两个节点的最近公共祖先
@@ -1048,9 +1159,9 @@ NC102 在二叉树中找到两个节点的最近公共祖先
  * @param o2 int整型
  * @return int整型
  */
-func lowestCommonAncestor(root *TreeNode, o1 int, o2 int) int {
+/* func lowestCommonAncestor(root *TreeNode, o1 int, o2 int) int {
 	// write code here
-}
+} */
 
 /**
 NC103 反转字符串
@@ -1077,9 +1188,9 @@ NC103 反转字符串
  * @param str string字符串
  * @return string字符串
  */
-func solve(str string) string {
+/* func solve(str string) string {
 	// write code here
-}
+} */
 
 /**
 NC38 螺旋矩阵
@@ -1105,9 +1216,9 @@ NC38 螺旋矩阵
  * @param matrix int整型二维数组
  * @return int整型一维数组
  */
-func spiralOrder(matrix [][]int) []int {
+/* func spiralOrder(matrix [][]int) []int {
 	// write code here
-}
+} */
 
 /**
 NC65 斐波那契数列
@@ -1135,9 +1246,9 @@ n≤39
  * @param n int整型
  * @return int整型
  */
-func Fibonacci(n int) int {
+/* func Fibonacci(n int) int {
 	// write code here
-}
+} */
 
 /**
 NC17 最长回文子串
@@ -1169,9 +1280,9 @@ NC17 最长回文子串
  * @param n int整型
  * @return int整型
  */
-func getLongestPalindrome(A string, n int) int {
+/* func getLongestPalindrome(A string, n int) int {
 	// write code here
-}
+} */
 
 /**
 NC54 数组中相加和为0的三元组
@@ -1217,9 +1328,9 @@ NC54 数组中相加和为0的三元组
  * @param num int整型一维数组
  * @return int整型二维数组
  */
-func threeSum(num []int) [][]int {
+/* func threeSum(num []int) [][]int {
 	// write code here
-}
+} */
 
 /**
 NC12 重建二叉树
@@ -1283,9 +1394,9 @@ dfs
  * @param vin int整型一维数组
  * @return TreeNode类
  */
-func reConstructBinaryTree(pre []int, vin []int) *TreeNode {
+/* func reConstructBinaryTree(pre []int, vin []int) *TreeNode {
 	// write code here
-}
+} */
 
 /**
 NC91 最长递增子序列
@@ -1325,9 +1436,9 @@ n≤10^5
  * @param arr int整型一维数组 the array
  * @return int整型一维数组
  */
-func LIS(arr []int) []int {
+/* func LIS(arr []int) []int {
 	// write code here
-}
+} */
 
 /**
 NC32 求平方根
@@ -1355,9 +1466,9 @@ NC32 求平方根
  * @param x int整型
  * @return int整型
  */
-func sqrt(x int) int {
+/* func sqrt(x int) int {
 	// write code here
-}
+} */
 
 /**
 NC48 在旋转过的有序数组中寻找目标值
@@ -1406,9 +1517,9 @@ nums数组在传递给search函数之前，会在预先未知的某个下标 t�
  * @param target int整型
  * @return int整型
  */
-func search(nums []int, target int) int {
+/* func search(nums []int, target int) int {
 	// write code here
-}
+} */
 
 /**
 NC90 包含min函数的栈
@@ -1447,7 +1558,7 @@ min():获取栈中最小元素
 返回值：
 -1,2,1,-1
 */
-func Push(node int) {
+/* func Push(node int) {
 	// write code here
 }
 func Pop() {
@@ -1458,7 +1569,7 @@ func Top() int {
 }
 func Min() int {
 	// write code here
-}
+} */
 
 /**
 NC7 买卖股票的最好时机
@@ -1493,9 +1604,9 @@ NC7 买卖股票的最好时机
  * @param prices int整型一维数组
  * @return int整型
  */
-func maxProfit(prices []int) int {
+/* func maxProfit(prices []int) int {
 	// write code here
-}
+} */
 
 /**
 NC51 合并k个已排序的链表
@@ -1530,9 +1641,9 @@ NC51 合并k个已排序的链表
  * @param lists ListNode类一维数组
  * @return ListNode类
  */
-func mergeKLists(lists []*ListNode) *ListNode {
+/* func mergeKLists(lists []*ListNode) *ListNode {
 	// write code here
-}
+} */
 
 /**
 NC121 字符串的排列
@@ -1578,9 +1689,9 @@ NC121 字符串的排列
  * @param str string字符串
  * @return string字符串一维数组
  */
-func Permutation(str string) []string {
+/* func Permutation(str string) []string {
 	// write code here
-}
+} */
 
 /**
 NC128 接雨水问题
@@ -1619,9 +1730,9 @@ NC128 接雨水问题
  * @param arr int整型一维数组 the array
  * @return long长整型
  */
-func maxWater(arr []int) int64 {
+/* func maxWater(arr []int) int64 {
 	// write code here
-}
+} */
 
 /**
 NC136 输出二叉树的右视图
@@ -1653,9 +1764,9 @@ NC136 输出二叉树的右视图
  * @param zhongxu int整型一维数组 中序遍历
  * @return int整型一维数组
  */
-func solve(xianxu []int, zhongxu []int) []int {
+/* func solve(xianxu []int, zhongxu []int) []int {
 	// write code here
-}
+}*/
 
 /**
 NC109 岛屿数量
@@ -1687,9 +1798,9 @@ bfs
  * @param grid char字符型二维数组
  * @return int整型
  */
-func solve(grid [][]byte) int {
+/* func solve(grid [][]byte) int {
 	// write code here
-}
+} */
 
 /**
 NC13 二叉树的最大深度
@@ -1732,10 +1843,10 @@ dfs
  * @param root TreeNode类
  * @return int整型
  */
-func maxDepth(root *TreeNode) int {
+/* func maxDepth(root *TreeNode) int {
 	// write code here
 }
-
+*/
 /**
 NC141 判断回文
  算法知识视频讲解
@@ -1785,9 +1896,9 @@ true
  * @param str string字符串 待判断的字符串
  * @return bool布尔型
  */
-func judge(str string) bool {
+/* func judge(str string) bool {
 	// write code here
-}
+} */
 
 /**
 NC70 单链表的排序
@@ -1821,9 +1932,9 @@ NC70 单链表的排序
  * @param head ListNode类 the head node
  * @return ListNode类
  */
-func sortInList(head *ListNode) *ListNode {
+/* func sortInList(head *ListNode) *ListNode {
 	// write code here
-}
+} */
 
 /**
 NC62 平衡二叉树
@@ -1862,9 +1973,9 @@ true
  * @param pRoot TreeNode类
  * @return bool布尔型
  */
-func IsBalanced_Solution(pRoot *TreeNode) bool {
+/* func IsBalanced_Solution(pRoot *TreeNode) bool {
 	// write code here
-}
+} */
 
 /**
 NC73 数组中出现次数超过一半的数字
@@ -1905,9 +2016,9 @@ NC73 数组中出现次数超过一半的数字
  * @param numbers int整型一维数组
  * @return int整型
  */
-func MoreThanHalfNum_Solution(numbers []int) int {
+/* func MoreThanHalfNum_Solution(numbers []int) int {
 	// write code here
-}
+} */
 
 /**
 NC59 矩阵的最小路径和
@@ -1938,9 +2049,9 @@ NC59 矩阵的最小路径和
  * @param matrix int整型二维数组 the matrix
  * @return int整型
  */
-func minPathSum(matrix [][]int) int {
+/* func minPathSum(matrix [][]int) int {
 	// write code here
-}
+} */
 
 /**
 NC137 表达式求值
@@ -1982,9 +2093,9 @@ NC137 表达式求值
  * @param s string字符串 待计算的表达式
  * @return int整型
  */
-func solve(s string) int {
+/* func solve(s string) int {
 	// write code here
-}
+} */
 
 /**
 NC97 字符串出现次数的TopK问题
@@ -2038,9 +2149,9 @@ NC97 字符串出现次数的TopK问题
  * @param k int整型 the k
  * @return string字符串二维数组
  */
-func topKstrings(strings []string, k int) [][]string {
+/* func topKstrings(strings []string, k int) [][]string {
 	// write code here
-}
+} */
 
 /**
 NC112 进制转换
@@ -2074,6 +2185,6 @@ M是32位整数，2<=N<=16.
  * @param N int整型 转换到的进制
  * @return string字符串
  */
-func solve(M int, N int) string {
+/* func solve(M int, N int) string {
 	// write code here
-}
+} */
