@@ -1,7 +1,5 @@
 package sort
 
-import "fmt"
-
 /**
 1.
 熟练掌握冒泡、
@@ -16,6 +14,11 @@ import "fmt"
 掌握桶排序、
 计数排序、
 基数排序的原理；
+
+线性排序
+桶排序：所有元素尽量均匀分配到各个桶中。可用于限定内存下对大数据排序
+计数排序：桶排序的特例，每个桶内元素值是相同的。可用于年龄排序、考分排序
+基数排序：要求数据可以分割独立的“位”来比较，位之间有递进关系，每一位的数据范围不能太大，要可以使用线性排序（桶排序或计数排序）
 */
 
 /**
@@ -118,7 +121,6 @@ func QuickSortWithIndex(arr []int, low, high int) []int {
 	if low < high {
 		var p int
 		arr, p = partition(arr, low, high) // 找出pivot
-		fmt.Println(arr, p)
 		arr = QuickSortWithIndex(arr, low, p-1)
 		arr = QuickSortWithIndex(arr, p+1, high)
 	}
