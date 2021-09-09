@@ -1,8 +1,9 @@
 package nowcoder
 
 import (
+	"container/heap"
 	"container/list"
-	"fmt"
+	"sort"
 )
 
 /**
@@ -244,9 +245,121 @@ NC119 最小的K个数
  * @param k int整型
  * @return int整型一维数组
  */
-/* func GetLeastNumbers_Solution(input []int, k int) []int {
-	// write code here
-} */
+// 1. 内置排序，复杂度为O(NlogN)
+func GetLeastNumbers_SelfSort(input []int, k int) []int {
+	if k == 0 {
+		return []int{}
+	}
+
+	if k >= len(input) {
+		return input
+	}
+
+	sort.Ints(input)
+	return input[:k]
+}
+
+type heapInt []int
+
+//Less  小于就是小跟堆，大于号就是大根堆
+func (h *heapInt) Less(i, j int) bool { return (*h)[i] > (*h)[j] }
+func (h *heapInt) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
+func (h *heapInt) Len() int           { return len(*h) }
+func (h *heapInt) Push(x interface{}) {
+	*h = append(*h, x.(int))
+}
+func (h *heapInt) Pop() interface{} {
+	t := (*h)[len(*h)-1]
+	*h = (*h)[:len(*h)-1]
+	return t
+}
+func (h *heapInt) Peek() int {
+	return (*h)[0]
+}
+
+// 2. 大根堆（前K小），小根堆（前K大），复杂度O(NlogK)
+func GetLeastNumbers_Heap(input []int, k int) []int {
+	d := &heapInt{}
+	for _, v := range input {
+		if d.Len() < k { // 保证heap长度为k
+			heap.Push(d, v)
+		} else {
+			if d.Peek() > v { // 大顶堆，顶部是最大值
+				heap.Pop(d)     // down重平衡
+				heap.Push(d, v) // up重平衡
+			}
+		}
+	}
+	return *d
+}
+
+// 3. 快排仅排好第K小的数，那么它左边的数就是比它小的另外K-1个数（不对整个数组排序），时间复杂度为N+N/2+N/4+...N/N = 2N,O(N)
+func GetLeastNumbers_QuickSearch(input []int, k int) []int {
+	if k == 0 || len(input) == 0 {
+		return []int{}
+	}
+	return QuickSearch(input, 0, len(input)-1, k-1)
+}
+
+func QuickSearch(input []int, low, high, k int) []int {
+	var j int
+	input, j = partition(input, low, high)
+	if j == k {
+		return input[:k+1]
+	}
+	if j > k {
+		input = QuickSearch(input, low, j-1, k)
+	} else {
+		input = QuickSearch(input, j+1, high, k)
+	}
+	return input
+}
+
+// 4. 自己实现的快速排序，复杂度为O(NlogN)
+func GetLeastNumbers_QuickSort(input []int, k int) []int {
+	if k == 0 {
+		return []int{}
+	}
+
+	if k >= len(input) {
+		return input
+	}
+
+	input = QuickSort(input, 0, len(input)-1)
+	return input[:k]
+}
+
+func QuickSort(input []int, low, high int) []int {
+	if low < high {
+		var j int
+		input, j = partition(input, low, high)
+		input = QuickSort(input, low, j-1)
+		input = QuickSort(input, j+1, high)
+	}
+	return input
+}
+
+func partition(input []int, low, high int) ([]int, int) {
+	pivot := input[high]
+	i := low
+	for j := low; j < high; j++ {
+		if input[j] < pivot {
+			if i != j {
+				input[i], input[j] = input[j], input[i]
+			}
+			i++
+		}
+	}
+	if i != high {
+		input[i], input[high] = input[high], input[i]
+	}
+	return input, i
+}
+
+// 5. 计数排序，复杂度为O(N)
+func GetLeastNumbers_CounterSort(input []int, k int) []int {
+	return []int{}
+}
 
 /**
 NC15 求二叉树的层序遍历
@@ -299,23 +412,29 @@ bfs
  * @return int整型二维数组
  */
 func levelOrder(root *TreeNode) [][]int {
-	var q []*TreeNode
-	q = append(q, root)
-	i := 0
-	for len(q) > 0 {
-		i++
-		node := q[0]
-		q = q[1:]
-		fmt.Println(node.Val)
-		if node.Left != nil {
-			q = append(q, node.Left)
-		}
-		if node.Right != nil {
-			q = append(q, node.Right)
-		}
+	vv := [][]int{}
+	if root == nil {
+		return vv
 	}
-
-	return [][]int{}
+	var q []*TreeNode // 队列，保证按顺序输出
+	q = append(q, root)
+	for len(q) > 0 {
+		tmpv := []int{}
+		len := len(q) // 每次只处理当前队列中的元素（表示当前层的元素），并把下层元素放入队列
+		for i := 0; i < len; i++ {
+			node := q[0]
+			q = q[1:]
+			tmpv = append(tmpv, node.Val)
+			if node.Left != nil { // 保证顺序的话，左结点要比右结点先入队
+				q = append(q, node.Left)
+			}
+			if node.Right != nil {
+				q = append(q, node.Right)
+			}
+		}
+		vv = append(vv, tmpv)
+	}
+	return vv
 }
 
 /**

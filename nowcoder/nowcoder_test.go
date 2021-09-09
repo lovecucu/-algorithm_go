@@ -64,6 +64,66 @@ func TestLevelOrder(t *testing.T) {
 	left.Right = &TreeNode{Val: 5}
 	left.Right.Left = &TreeNode{Val: 7}
 	left.Right.Right = &TreeNode{Val: 8}
+	right.Right = &TreeNode{Val: 6}
 
-	fmt.Println(levelOrder(root))
+	target := "[[1] [2 3] [4 5 6] [7 8]]"
+	if fmt.Sprint(levelOrder(root)) != target {
+		t.Error(`TestLevelOrder failed`)
+	}
+}
+
+func TestGetLeastNumbersQuickSort(t *testing.T) {
+	least4 := GetLeastNumbers_QuickSort([]int{4, 5, 1, 6, 2, 7, 3, 8}, 4)
+	target := "[1 2 3 4]"
+	if fmt.Sprint(least4) != target {
+		t.Error(`TestGetLeastNumbersQuickSort failed`)
+	}
+
+	least3 := GetLeastNumbers_QuickSort([]int{0, 1, 2, 1, 2}, 3)
+	target = "[0 1 1]"
+	if fmt.Sprint(least3) != target {
+		t.Error(`TestGetLeastNumbersQuickSort failed`)
+	}
+}
+
+func TestGetLeastNumbersSelfSort(t *testing.T) {
+	least4 := GetLeastNumbers_SelfSort([]int{4, 5, 1, 6, 2, 7, 3, 8}, 4)
+	target := "[1 2 3 4]"
+	if fmt.Sprint(least4) != target {
+		t.Error(`TestGetLeastNumbersSelfSort failed`)
+	}
+
+	least3 := GetLeastNumbers_SelfSort([]int{0, 1, 2, 1, 2}, 3)
+	target = "[0 1 1]"
+	if fmt.Sprint(least3) != target {
+		t.Error(`TestGetLeastNumbersSelfSort failed`)
+	}
+}
+
+func TestGetLeastNumbersHeap(t *testing.T) {
+	least4 := GetLeastNumbers_Heap([]int{4, 5, 1, 6, 2, 7, 3, 8}, 4)
+	target := "[4 3 1 2]"
+	if fmt.Sprint(least4) != target {
+		t.Error(`TestGetLeastNumbersHeap failed`, fmt.Sprint(least4))
+	}
+
+	least3 := GetLeastNumbers_Heap([]int{0, 1, 2, 1, 2}, 3)
+	target = "[1 0 1]"
+	if fmt.Sprint(least3) != target {
+		t.Error(`TestGetLeastNumbersHeap failed`, fmt.Sprint(least3))
+	}
+}
+
+func TestGetLeastNumbersQuickSearchp(t *testing.T) {
+	least4 := GetLeastNumbers_QuickSearch([]int{4, 5, 1, 6, 2, 7, 3, 8}, 4)
+	target := "[1 2 3 4]"
+	if fmt.Sprint(least4) != target {
+		t.Error(`TestGetLeastNumbersQuickSearchp failed`, fmt.Sprint(least4))
+	}
+
+	least3 := GetLeastNumbers_QuickSearch([]int{0, 1, 2, 1, 2}, 3)
+	target = "[0 1 1]"
+	if fmt.Sprint(least3) != target {
+		t.Error(`TestGetLeastNumbersQuickSearchp failed`, fmt.Sprint(least3))
+	}
 }
