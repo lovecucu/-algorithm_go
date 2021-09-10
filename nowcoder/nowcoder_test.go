@@ -114,16 +114,16 @@ func TestGetLeastNumbersHeap(t *testing.T) {
 	}
 }
 
-func TestGetLeastNumbersQuickSearchp(t *testing.T) {
+func TestGetLeastNumbersQuickSearch(t *testing.T) {
 	least4 := GetLeastNumbers_QuickSearch([]int{4, 5, 1, 6, 2, 7, 3, 8}, 4)
 	target := "[1 2 3 4]"
 	if fmt.Sprint(least4) != target {
-		t.Error(`TestGetLeastNumbersQuickSearchp failed`, fmt.Sprint(least4))
+		t.Error(`TestGetLeastNumbersQuickSearch failed`, fmt.Sprint(least4))
 	}
 
 	least3 := GetLeastNumbers_QuickSearch([]int{0, 1, 2, 1, 2}, 3)
 	target = "[0 1 1]"
 	if fmt.Sprint(least3) != target {
-		t.Error(`TestGetLeastNumbersQuickSearchp failed`, fmt.Sprint(least3))
+		t.Error(`TestGetLeastNumbersQuickSearch failed`, fmt.Sprint(least3))
 	}
 }
