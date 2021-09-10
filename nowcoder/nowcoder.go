@@ -1,7 +1,6 @@
 package nowcoder
 
 import (
-	"container/heap"
 	"container/list"
 	"sort"
 )
@@ -259,38 +258,40 @@ func GetLeastNumbers_SelfSort(input []int, k int) []int {
 	return input[:k]
 }
 
-type heapInt []int
-
-//Less  小于就是小跟堆，大于号就是大根堆
-func (h *heapInt) Less(i, j int) bool { return (*h)[i] > (*h)[j] }
-func (h *heapInt) Swap(i, j int)      { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
-func (h *heapInt) Len() int           { return len(*h) }
-func (h *heapInt) Push(x interface{}) {
-	*h = append(*h, x.(int))
-}
-func (h *heapInt) Pop() interface{} {
-	t := (*h)[len(*h)-1]
-	*h = (*h)[:len(*h)-1]
-	return t
-}
-func (h *heapInt) Peek() int {
-	return (*h)[0]
-}
-
 // 2. 大根堆（前K小），小根堆（前K大），复杂度O(NlogK)
 func GetLeastNumbers_Heap(input []int, k int) []int {
-	d := &heapInt{}
-	for _, v := range input {
-		if d.Len() < k { // 保证heap长度为k
-			heap.Push(d, v)
-		} else {
-			if d.Peek() > v { // 大顶堆，顶部是最大值
-				heap.Pop(d)     // down重平衡
-				heap.Push(d, v) // up重平衡
-			}
+	if k == 0 || len(input) == 0 {
+		return []int{}
+	}
+
+	heapSort(input)
+	return input[:k]
+}
+
+// 堆排序
+func heapSort(input []int) {
+	if len(input) < 2 {
+		return
+	}
+	for i := 0; i < len(input)-1; i++ {
+		minAdjust(input[i:]) // 每次确认第i位置的数
+	}
+}
+
+func minAdjust(input []int) {
+	len := len(input)
+	if len < 2 {
+		return
+	}
+
+	for i := (len - 1) / 2; i >= 0; i-- {
+		if 2*i+1 <= len-1 && input[i] > input[2*i+1] {
+			input[i], input[2*i+1] = input[2*i+1], input[i]
+		}
+		if 2*i+2 <= len-1 && input[i] > input[2*i+2] {
+			input[i], input[2*i+2] = input[2*i+2], input[i]
 		}
 	}
-	return *d
 }
 
 // 3. 快排仅排好第K小的数，那么它左边的数就是比它小的另外K-1个数（不对整个数组排序），时间复杂度为N+N/2+N/4+...N/N = 2N,O(N)
@@ -413,26 +414,29 @@ bfs
  */
 func levelOrder(root *TreeNode) [][]int {
 	vv := [][]int{}
+
 	if root == nil {
 		return vv
 	}
-	var q []*TreeNode // 队列，保证按顺序输出
-	q = append(q, root)
-	for len(q) > 0 {
-		tmpv := []int{}
-		len := len(q) // 每次只处理当前队列中的元素（表示当前层的元素），并把下层元素放入队列
+
+	queue := []*TreeNode{}
+	queue = append(queue, root)
+
+	for len(queue) > 0 {
+		tmpint := []int{}
+		len := len(queue)
 		for i := 0; i < len; i++ {
-			node := q[0]
-			q = q[1:]
-			tmpv = append(tmpv, node.Val)
-			if node.Left != nil { // 保证顺序的话，左结点要比右结点先入队
-				q = append(q, node.Left)
+			node := queue[i]
+			tmpint = append(tmpint, node.Val)
+			if node.Left != nil {
+				queue = append(queue, node.Left)
 			}
 			if node.Right != nil {
-				q = append(q, node.Right)
+				queue = append(queue, node.Right)
 			}
 		}
-		vv = append(vv, tmpv)
+		queue = queue[len:]
+		vv = append(vv, tmpint)
 	}
 	return vv
 }
@@ -477,7 +481,7 @@ NC88 寻找第K大
  * @param K int整型
  * @return int整型
  */
-/* func findKth(a []int, n int, K int) int {
+/* func findKth_QuickSearch(a []int, n int, K int) int {
 	// write code here
 } */
 

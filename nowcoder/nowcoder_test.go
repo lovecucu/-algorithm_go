@@ -68,7 +68,7 @@ func TestLevelOrder(t *testing.T) {
 
 	target := "[[1] [2 3] [4 5 6] [7 8]]"
 	if fmt.Sprint(levelOrder(root)) != target {
-		t.Error(`TestLevelOrder failed`)
+		t.Error(`TestLevelOrder failed`, fmt.Sprint(levelOrder(root)))
 	}
 }
 
@@ -102,13 +102,13 @@ func TestGetLeastNumbersSelfSort(t *testing.T) {
 
 func TestGetLeastNumbersHeap(t *testing.T) {
 	least4 := GetLeastNumbers_Heap([]int{4, 5, 1, 6, 2, 7, 3, 8}, 4)
-	target := "[4 3 1 2]"
+	target := "[1 2 3 4]"
 	if fmt.Sprint(least4) != target {
 		t.Error(`TestGetLeastNumbersHeap failed`, fmt.Sprint(least4))
 	}
 
 	least3 := GetLeastNumbers_Heap([]int{0, 1, 2, 1, 2}, 3)
-	target = "[1 0 1]"
+	target = "[0 1 1]"
 	if fmt.Sprint(least3) != target {
 		t.Error(`TestGetLeastNumbersHeap failed`, fmt.Sprint(least3))
 	}
