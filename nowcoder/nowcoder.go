@@ -359,7 +359,26 @@ func partition(input []int, low, high int) ([]int, int) {
 
 // 5. 计数排序，复杂度为O(N)
 func GetLeastNumbers_CounterSort(input []int, k int) []int {
-	return []int{}
+	counter := [10001][]int{}
+	for i := 0; i < 10001; i++ {
+		counter[i] = []int{}
+	}
+	len1 := len(input)
+	for i := 0; i < len1; i++ {
+		counter[input[i]] = append(counter[input[i]], i)
+	}
+
+	res := []int{}
+	for i := 0; i < 10001; i++ {
+		for j := 0; j < len(counter[i]) && len(res) < k; j++ {
+			res = append(res, input[counter[i][j]])
+		}
+		if len(res) == k {
+			break
+		}
+	}
+
+	return res
 }
 
 /**
@@ -456,7 +475,7 @@ NC88 寻找第K大
 有一个整数数组，请你根据快速排序的思路，找出数组中第 大的数。
 
 给定一个整数数组 ,同时给定它的大小n和要找的 ，请返回第 大的数(包括重复的元素，不用去重)，保证答案存在。
-要求时间复杂度
+要求时间复杂度O(N)
 示例1
 输入：
 [1,3,5,2,2],5,3
@@ -481,9 +500,52 @@ NC88 寻找第K大
  * @param K int整型
  * @return int整型
  */
-/* func findKth_QuickSearch(a []int, n int, K int) int {
+func findKth(a []int, n int, K int) int {
+	// 第K大，就是第n-K+1小（转换下思路）
 	// write code here
-} */
+	a = findKth_QuickSearch(a, 0, n-1, n-K)
+	return a[n-K] // 第n-K+1小
+}
+
+// 快速排序变种，复杂度为O(N)
+func findKth_QuickSearch(a []int, low, high, k int) []int {
+	a, j := partition(a, low, high)
+	if j == k {
+		return a
+	}
+
+	if j > k {
+		return findKth_QuickSearch(a, low, j-1, k)
+	} else {
+		return findKth_QuickSearch(a, j+1, high, k)
+	}
+}
+
+// 堆排序，复杂度为O(N)
+func findKth_HeapSort(a []int, n int, K int) int {
+	// 第K大
+	for i := 0; i < K; i++ { // 每次定第i+1大的值
+		maxAdjust(a[i:])
+	}
+	return a[K-1]
+}
+
+func maxAdjust(a []int) {
+	length := len(a)
+	if length < 2 {
+		return
+	}
+
+	for i := (length - 1) / 2; i >= 0; i-- {
+		if 2*i+1 < length && a[2*i+1] > a[i] {
+			a[2*i+1], a[i] = a[i], a[2*i+1]
+		}
+
+		if 2*i+2 < length && a[2*i+2] > a[i] {
+			a[2*i+2], a[i] = a[i], a[2*i+2]
+		}
+	}
+}
 
 /**
 NC61 两数之和
