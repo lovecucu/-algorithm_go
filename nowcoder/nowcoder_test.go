@@ -234,3 +234,15 @@ func TestTwoStackQueue(t *testing.T) {
 		t.Error(`TestTwoStackQueue failed`, fmt.Sprint(ret))
 	}
 }
+
+func TestJumpFloor(t *testing.T) {
+	jumpCache = nil
+	if jumpFloor(2) != 2 {
+		t.Error(`TestJumpFloor failed`, jumpFloor(2))
+	}
+
+	jumpCache = nil
+	if jumpFloor(7) != 21 {
+		t.Error(`TestJumpFloor failed`, jumpFloor(7))
+	}
+}

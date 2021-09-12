@@ -750,14 +750,32 @@ NC68 跳台阶
 返回值：
 21
 */
+
+var jumpCache map[int]int
+
 /**
  *
  * @param number int整型
  * @return int整型
  */
-/* func jumpFloor(number int) int {
+func jumpFloor(number int) int {
 	// write code here
-} */
+	if number <= 2 {
+		return number
+	}
+
+	if jumpCache == nil { // 初始化
+		jumpCache = make(map[int]int)
+	}
+
+	if v, ok := jumpCache[number]; ok {
+		return v
+	}
+
+	cache := jumpFloor(number-1) + jumpFloor(number-2)
+	jumpCache[number] = cache
+	return cache
+}
 
 /**
 NC50 链表中的节点每k个一组翻转
