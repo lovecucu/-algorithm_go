@@ -201,3 +201,36 @@ func TestTwoSum(t *testing.T) {
 		t.Error(`testTwoSum failed`, fmt.Sprint(twoSum([]int{3, 2, 4}, 6)))
 	}
 }
+
+func TestMergeTwoListNode(t *testing.T) {
+	phead1 := &ListNode{Val: 1}
+	phead1.Next = &ListNode{Val: 3}
+	phead1.Next.Next = &ListNode{Val: 5}
+
+	phead2 := &ListNode{Val: 2}
+	phead2.Next = &ListNode{Val: 4}
+	phead2.Next.Next = &ListNode{Val: 6}
+
+	phead := Merge(phead1, phead2)
+	real := []int{}
+	target := "[1 2 3 4 5 6]"
+	for cur := phead; cur != nil; cur = cur.Next {
+		real = append(real, cur.Val)
+	}
+	if fmt.Sprint(real) != target {
+		t.Error(`TestMergeTwoListNode failed`, real)
+	}
+}
+
+func TestTwoStackQueue(t *testing.T) {
+	Push(1)
+	Push(2)
+	ret := []int{}
+	ret = append(ret, Pop())
+	ret = append(ret, Pop())
+
+	target := "[1 2]"
+	if fmt.Sprint(ret) != target {
+		t.Error(`TestTwoStackQueue failed`, fmt.Sprint(ret))
+	}
+}

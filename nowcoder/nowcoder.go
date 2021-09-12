@@ -619,12 +619,10 @@ NC33 合并两个排序的链表
 {1,2,3,4,5,6}
 */
 
-/*
- * type ListNode struct{
- *   Val int
- *   Next *ListNode
- * }
- */
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
 /**
  *
@@ -632,9 +630,45 @@ NC33 合并两个排序的链表
  * @param pHead2 ListNode类
  * @return ListNode类
  */
-/* func Merge(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
+func Merge(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
 	// write code here
-} */
+	if pHead1 == nil {
+		return pHead2
+	}
+
+	if pHead2 == nil {
+		return pHead1
+	}
+
+	var pHead *ListNode
+	var pre, cur *ListNode
+	for cur1, cur2 := pHead1, pHead2; cur1 != nil && cur2 != nil; {
+		if cur1.Val <= cur2.Val {
+			cur = cur1
+			cur1 = cur1.Next
+		} else {
+			cur = cur2
+			cur2 = cur2.Next
+		}
+		if pHead == nil {
+			pHead = cur
+		} else {
+			pre.Next = cur
+		}
+		pre = cur
+		if cur1 == nil { // cur2还有直接接上
+			pre.Next = cur2
+			break
+		}
+
+		if cur2 == nil {
+			pre.Next = cur1
+			break
+		}
+	}
+
+	return pHead
+}
 
 /**
 NC76 用两个栈实现队列
@@ -666,15 +700,29 @@ NC76 用两个栈实现队列
 返回值：
 1,2
 */
-/* var stack1 []int
+var stack1 []int
 var stack2 []int
 
 func Push(node int) {
-
+	stack1 = append(stack1, node)
 }
 
 func Pop() int {
-} */
+	if len(stack2) == 0 && len(stack1) > 0 {
+		for i := len(stack1) - 1; i >= 0; i-- { // 尾部先出
+			stack2 = append(stack2, stack1[i])
+		}
+		stack1 = stack1[len(stack1):]
+	}
+
+	if len(stack2) == 0 {
+		return -1
+	}
+
+	item := stack2[len(stack2)-1] // 从尾部pop
+	stack2 = stack2[:len(stack2)-1]
+	return item
+}
 
 /**
 NC68 跳台阶
