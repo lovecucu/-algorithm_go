@@ -276,4 +276,51 @@ func TestHasCycle(t *testing.T) {
 	if !hasCycle(head) {
 		t.Error(`TestHasCycle failed`)
 	}
+
+	head = &ListNode{Val: 1}
+	head.Next = &ListNode{Val: 2}
+	third := &ListNode{Val: 3}
+	head.Next.Next = third
+	third.Next = &ListNode{Val: 4}
+	third.Next.Next = &ListNode{Val: 5}
+	third.Next.Next.Next = &ListNode{Val: 6}
+	third.Next.Next.Next.Next = third
+
+	if !hasCycle(head) {
+		t.Error(`TestHasCycle failed`)
+	}
+}
+
+func TestCycleEntryNode(t *testing.T) {
+	head := &ListNode{Val: 1}
+	next := &ListNode{Val: 2}
+	head.Next = next
+	next.Next = &ListNode{Val: 3}
+	next.Next.Next = &ListNode{Val: 4}
+	next.Next.Next.Next = next
+
+	if EntryNodeOfLoop(head) != next {
+		t.Error(`TestCycleEntryNode failed`)
+	}
+
+	head = &ListNode{Val: 1}
+	head.Next = &ListNode{Val: 2}
+	third := &ListNode{Val: 3}
+	head.Next.Next = third
+	third.Next = &ListNode{Val: 4}
+	third.Next.Next = &ListNode{Val: 5}
+	third.Next.Next.Next = &ListNode{Val: 6}
+	third.Next.Next.Next.Next = third
+
+	if EntryNodeOfLoop(head) != third {
+		t.Error(`TestCycleEntryNode failed`)
+	}
+
+	head = &ListNode{Val: 1}
+	head.Next = &ListNode{Val: 2}
+	head.Next.Next = &ListNode{Val: 3}
+
+	if EntryNodeOfLoop(head) != nil {
+		t.Error(`TestCycleEntryNode failed`)
+	}
 }

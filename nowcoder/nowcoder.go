@@ -1161,8 +1161,27 @@ NC3 链表中环的入口结点
 说明：
 只有环形链表节点2，返回节点2，后台打印2
 */
-/* func EntryNodeOfLoop(pHead *ListNode) *ListNode {
-} */
+func EntryNodeOfLoop(pHead *ListNode) *ListNode {
+	slow, fast := pHead, pHead
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if slow == fast {
+			break
+		}
+	}
+
+	if fast == nil || fast.Next == nil {
+		return nil
+	}
+
+	slow = pHead
+	for slow != fast {
+		slow = slow.Next
+		fast = fast.Next
+	}
+	return slow
+}
 
 /**
 NC52 括号序列
