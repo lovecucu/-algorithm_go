@@ -583,9 +583,18 @@ NC61 两数之和
  * @param target int整型
  * @return int整型一维数组
  */
-/* func twoSum(numbers []int, target int) []int {
+func twoSum(numbers []int, target int) []int {
 	// write code here
-} */
+	maps := make(map[int]int)
+	for i := 0; i < len(numbers); i++ {
+		if k, ok := maps[target-numbers[i]]; ok {
+			return []int{k + 1, i + 1}
+		} else {
+			maps[numbers[i]] = i
+		}
+	}
+	return []int{}
+}
 
 /**
 NC33 合并两个排序的链表

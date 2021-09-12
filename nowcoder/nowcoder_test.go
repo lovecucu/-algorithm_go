@@ -189,3 +189,15 @@ func TestFindKthHeapSort(t *testing.T) {
 		t.Error(`TestFindKthHeapSort failed`, res)
 	}
 }
+
+func TestTwoSum(t *testing.T) {
+	target := "[1 2]"
+	if fmt.Sprint(twoSum([]int{20, 70, 110, 150}, 90)) != target {
+		t.Error(`testTwoSum failed`, fmt.Sprint(twoSum([]int{20, 70, 110, 150}, 90)))
+	}
+
+	target = "[2 3]"
+	if fmt.Sprint(twoSum([]int{3, 2, 4}, 6)) != target {
+		t.Error(`testTwoSum failed`, fmt.Sprint(twoSum([]int{3, 2, 4}, 6)))
+	}
+}
