@@ -1053,9 +1053,18 @@ true
  * @param head ListNode类
  * @return bool布尔型
  */
-/* func hasCycle(head *ListNode) bool {
+func hasCycle(head *ListNode) bool {
 	// write code here
-} */
+	slow, fast := head, head              // 同一起跑线，快的走2步，慢的走1步，有环会重叠
+	for fast != nil && fast.Next != nil { // 无环会因为 fast == nil || fast.Next == nil跳出
+		slow = slow.Next
+		fast = fast.Next.Next
+		if fast == slow { // 有环会因为指针指向重叠跳出
+			return true
+		}
+	}
+	return false
+}
 
 /**
 NC22 合并两个有序的数组

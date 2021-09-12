@@ -264,3 +264,16 @@ func TestReverseKGroup(t *testing.T) {
 		t.Error(`TestReverseKGroup failed`, fmt.Sprint(real))
 	}
 }
+
+func TestHasCycle(t *testing.T) {
+	head := &ListNode{Val: 1}
+	next := &ListNode{Val: 2}
+	head.Next = next
+	next.Next = &ListNode{Val: 3}
+	next.Next.Next = &ListNode{Val: 4}
+	next.Next.Next.Next = next
+
+	if !hasCycle(head) {
+		t.Error(`TestHasCycle failed`)
+	}
+}
