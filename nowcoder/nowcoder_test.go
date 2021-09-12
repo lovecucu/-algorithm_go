@@ -246,3 +246,21 @@ func TestJumpFloor(t *testing.T) {
 		t.Error(`TestJumpFloor failed`, jumpFloor(7))
 	}
 }
+
+func TestReverseKGroup(t *testing.T) {
+	head := &ListNode{Val: 1}
+	head.Next = &ListNode{Val: 2}
+	head.Next.Next = &ListNode{Val: 3}
+	head.Next.Next.Next = &ListNode{Val: 4}
+	head.Next.Next.Next.Next = &ListNode{Val: 5}
+
+	revHead := reverseKGroup(head, 2)
+	real := []int{}
+	for cur := revHead; cur != nil; cur = cur.Next {
+		real = append(real, cur.Val)
+	}
+	target := "[2 1 4 3 5]"
+	if fmt.Sprint(real) != target {
+		t.Error(`TestReverseKGroup failed`, fmt.Sprint(real))
+	}
+}

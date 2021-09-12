@@ -6,6 +6,54 @@ import (
 )
 
 /**
+NC78 反转链表
+ 算法知识视频讲解
+简单  通过率：35.41%  时间限制：1秒  空间限制：64M
+知识点
+链表
+iOS工程师
+小米
+2021
+题目
+题解(282)
+讨论(2k)
+排行
+描述
+输入一个链表，反转链表后，输出新链表的表头。
+示例1
+输入：
+{1,2,3}
+复制
+返回值：
+{3,2,1}
+复制
+*/
+
+/*
+ * type ListNode struct{
+ *   Val int
+ *   Next *ListNode
+ * }
+ */
+
+/**
+ *
+ * @param pHead ListNode类
+ * @return ListNode类
+ */
+func ReverseList(pHead *ListNode) *ListNode {
+	// write code here
+	var pre *ListNode
+	for cur := pHead; cur != nil; {
+		next := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
+	}
+	return pre
+}
+
+/**
 NC93 设计LRU缓存结构
  算法知识视频讲解
 中等  通过率：34.28%  时间限制：2秒  空间限制：256M
@@ -817,9 +865,34 @@ NC50 链表中的节点每k个一组翻转
  * @param k int整型
  * @return ListNode类
  */
-/* func reverseKGroup(head *ListNode, k int) *ListNode {
+func reverseKGroup(head *ListNode, k int) *ListNode {
 	// write code here
-} */
+	nextHead := head
+	// 寻找可能存在的下一个head结点
+	for i := 0; i < k; i++ {
+		if nextHead == nil {
+			return head
+		}
+		nextHead = nextHead.Next
+	}
+
+	// 下一个head结点递归获取反转结果
+	res := reverse(head, nextHead)
+	head.Next = reverseKGroup(nextHead, k)
+	return res
+}
+
+// 反转left到right间的结点，左闭右开
+func reverse(left, right *ListNode) *ListNode {
+	pre := right
+	for left != right {
+		tmp := left.Next
+		left.Next = pre
+		pre = left
+		left = tmp
+	}
+	return pre
+}
 
 /**
 NC19 子数组的最大累加和问题
