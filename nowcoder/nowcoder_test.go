@@ -373,3 +373,17 @@ func TestMaxLength(t *testing.T) {
 		t.Error(`TestMaxLength failed`)
 	}
 }
+
+func TestMergeSortedArray(t *testing.T) {
+	real := merge([]int{4, 5, 6, 0, 0, 0}, 3, []int{1, 2, 3}, 3)
+	target := "[1 2 3 4 5 6]"
+	if fmt.Sprint(real) != target {
+		t.Error(`TestMergeSortedArray failed`)
+	}
+
+	real = merge([]int{1}, 1, []int{2}, 1)
+	target = "[1 2]"
+	if fmt.Sprint(real) != target {
+		t.Error(`TestMergeSortedArray failed`)
+	}
+}

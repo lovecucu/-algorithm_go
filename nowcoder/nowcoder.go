@@ -1153,9 +1153,44 @@ A数组为[4,5,6]，B数组为[1,2,3]，后台程序会预先将A扩容为[4,5,6
  * @param B int整型一维数组
  * @return void
  */
-/* func merge(A []int, m int, B []int, n int) {
+func merge(A []int, m int, B []int, n int) []int {
 	// write code here
-} */
+	index := 0
+	A1 := make([]int, n+m)
+	i, j := 0, 0
+	for i < m && j < n {
+		var cur int
+		if A[i] <= B[j] {
+			cur = A[i]
+			i++
+		} else {
+			cur = B[j]
+			j++
+		}
+		A1[index] = cur
+		index++
+	}
+
+	for ; i < m; i++ {
+		A1[index] = A[i]
+		index++
+	}
+
+	for ; j < n; j++ {
+		A1[index] = B[j]
+		index++
+	}
+
+	// A1赋给A
+	for i := 0; i < n+m; i++ {
+		if len(A) <= i {
+			A = append(A, A1[i])
+		} else {
+			A[i] = A1[i]
+		}
+	}
+	return A
+}
 
 /**
 NC3 链表中环的入口结点
