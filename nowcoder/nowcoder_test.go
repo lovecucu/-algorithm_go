@@ -478,3 +478,9 @@ func TestLowestCommonAncestor(t *testing.T) {
 		t.Error(`TestLowestCommonAncestor failed`)
 	}
 }
+
+func TestReverseString(t *testing.T) {
+	if reverseString("abcd") != "dcba" {
+		t.Error(`TestReverseString failed`)
+	}
+}

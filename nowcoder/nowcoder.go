@@ -1885,9 +1885,18 @@ NC103 反转字符串
  * @param str string字符串
  * @return string字符串
  */
-/* func solve(str string) string {
+func reverseString(str string) string {
 	// write code here
-} */
+	if len(str) <= 1 {
+		return str
+	}
+
+	ans := []byte(str)
+	for i := 0; i < len(ans)/2; i++ {
+		ans[i], ans[len(ans)-i-1] = ans[len(ans)-i-1], ans[i]
+	}
+	return string(ans)
+}
 
 /**
 NC38 螺旋矩阵
