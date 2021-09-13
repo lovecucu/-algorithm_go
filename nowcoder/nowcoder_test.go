@@ -349,3 +349,9 @@ func TestRemoveNthFromEnd(t *testing.T) {
 		t.Error(`TestRemoveNthFromEnd failed`)
 	}
 }
+
+func TestMaxSumOfSubArray(t *testing.T) {
+	if maxsumofSubarray([]int{1, -2, 3, 5, -2, 6, -1}) != 12 {
+		t.Error(`TestMaxSumOfSubArray failed`)
+	}
+}

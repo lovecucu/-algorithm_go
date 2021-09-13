@@ -3,6 +3,7 @@ package nowcoder
 import (
 	"container/list"
 	"fmt"
+	"math"
 	"sort"
 )
 
@@ -408,10 +409,7 @@ func partition(input []int, low, high int) ([]int, int) {
 
 // 5. 计数排序，复杂度为O(N)
 func GetLeastNumbers_CounterSort(input []int, k int) []int {
-	counter := [10001][]int{}
-	for i := 0; i < 10001; i++ {
-		counter[i] = []int{}
-	}
+	counter := make([][]int, 10001)
 	len1 := len(input)
 	for i := 0; i < len1; i++ {
 		counter[input[i]] = append(counter[input[i]], i)
@@ -930,9 +928,31 @@ NC19 子数组的最大累加和问题
  * @param arr int整型一维数组 the array
  * @return int整型
  */
-/* func maxsumofSubarray(arr []int) int {
+func maxsumofSubarray(arr []int) int {
 	// write code here
-} */
+	length := len(arr)
+	if length == 0 {
+		return 0
+	}
+	dp := make([]int, length)
+	dp[0] = arr[0]
+	for i := 1; i < length; i++ {
+		if arr[i] < dp[i-1]+arr[i] {
+			dp[i] = dp[i-1] + arr[i]
+		} else {
+			dp[i] = arr[i]
+		}
+	}
+
+	// 遍历获取最大累加和
+	res := math.MinInt64
+	for i := 0; i < length; i++ {
+		if dp[i] > res {
+			res = dp[i]
+		}
+	}
+	return res
+}
 
 /**
 NC41 最长无重复子数组
