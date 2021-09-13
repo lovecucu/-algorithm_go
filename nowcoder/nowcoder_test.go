@@ -334,3 +334,18 @@ func TestIsBracketsValid(t *testing.T) {
 		t.Error(`TestIsBracketsValid failed`)
 	}
 }
+
+func TestRemoveNthFromEnd(t *testing.T) {
+	head := &ListNode{Val: 1}
+	head.Next = &ListNode{Val: 2}
+
+	if SprintNode(removeNthFromEnd(head, 1)) != "[1]" {
+		t.Error(`TestRemoveNthFromEnd failed`)
+	}
+
+	head = &ListNode{Val: 1}
+	head.Next = &ListNode{Val: 2}
+	if SprintNode(removeNthFromEnd(head, 2)) != "[2]" {
+		t.Error(`TestRemoveNthFromEnd failed`)
+	}
+}

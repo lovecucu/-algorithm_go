@@ -2,6 +2,7 @@ package nowcoder
 
 import (
 	"container/list"
+	"fmt"
 	"sort"
 )
 
@@ -1284,9 +1285,52 @@ NC53 删除链表的倒数第n个节点
  * @param n int整型
  * @return ListNode类
  */
-/* func removeNthFromEnd(head *ListNode, n int) *ListNode {
+func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	// write code here
-} */
+	if head == nil {
+		return head
+	}
+
+	// write code here
+	slow, fast := head, head
+	for n > 0 {
+		fast = fast.Next
+		n--
+	}
+
+	if fast == nil {
+		return head.Next
+	}
+
+	// 找到倒数第n个node的前置结点
+	for fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next
+	}
+
+	// 删除slow.Next结点（倒数第n个结点）
+	slow.Next = slow.Next.Next
+
+	return head
+}
+
+func SprintNode(head *ListNode) string {
+	real := []int{}
+	for head != nil {
+		real = append(real, head.Val)
+		head = head.Next
+	}
+	return fmt.Sprint(real)
+}
+
+func PrintNode(head *ListNode) {
+	real := []int{}
+	for head != nil {
+		real = append(real, head.Val)
+		head = head.Next
+	}
+	fmt.Println(real)
+}
 
 /**
 NC1 大数加法
