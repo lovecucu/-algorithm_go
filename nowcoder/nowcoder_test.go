@@ -422,3 +422,34 @@ func TestLCS(t *testing.T) {
 		t.Error(`TestLCS failed`)
 	}
 }
+
+func TestFindFirstCommonNode(t *testing.T) {
+	if FindFirstCommonNode(nil, nil) != nil {
+		t.Error(`TestFindFirstCommonNode failed`)
+	}
+
+	head1 := &ListNode{Val: 1}
+
+	head2 := &ListNode{Val: 2}
+	head2.Next = &ListNode{Val: 3}
+
+	if FindFirstCommonNode(head1, head2) != nil {
+		t.Error(`TestFindFirstCommonNode failed`)
+	}
+
+	headCommon := &ListNode{Val: 6}
+	headCommon.Next = &ListNode{Val: 7}
+
+	head1 = &ListNode{Val: 1}
+	head1.Next = &ListNode{Val: 2}
+	head1.Next.Next = &ListNode{Val: 3}
+	head1.Next.Next.Next = headCommon
+
+	head2 = &ListNode{Val: 4}
+	head2.Next = &ListNode{Val: 5}
+	head2.Next.Next = headCommon
+
+	if SprintNode(FindFirstCommonNode(head1, head2)) != "[6 7]" {
+		t.Error(`TestFindFirstCommonNode failed`)
+	}
+}

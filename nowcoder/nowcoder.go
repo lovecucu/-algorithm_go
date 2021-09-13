@@ -1678,9 +1678,23 @@ NC66 两个链表的第一个公共结点
  * @param pHead2 ListNode类
  * @return ListNode类
  */
-/* func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
+func FindFirstCommonNode(pHead1 *ListNode, pHead2 *ListNode) *ListNode {
 	// write code here
-} */
+	if pHead1 == nil || pHead2 == nil {
+		return nil
+	}
+	map1 := make(map[*ListNode]struct{})
+	for cur1 := pHead1; cur1 != nil; cur1 = cur1.Next {
+		map1[cur1] = struct{}{}
+	}
+
+	for cur2 := pHead2; cur2 != nil; cur2 = cur2.Next {
+		if _, ok := map1[cur2]; ok {
+			return cur2
+		}
+	}
+	return nil
+}
 
 /**
 NC40 两个链表生成相加链表
