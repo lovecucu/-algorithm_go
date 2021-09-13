@@ -387,3 +387,9 @@ func TestMergeSortedArray(t *testing.T) {
 		t.Error(`TestMergeSortedArray failed`)
 	}
 }
+
+func TestBigAdd(t *testing.T) {
+	if solve("1", "99") != "100" {
+		t.Error(`TestBigAdd failed`)
+	}
+}

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"sort"
+	"strconv"
 )
 
 /**
@@ -1438,9 +1439,47 @@ NC1 大数加法
  * @param t string字符串 表示第二个整数
  * @return string字符串
  */
-/* func solve(s string, t string) string {
+func solve(s string, t string) string {
 	// write code here
-} */
+	lens := len(s)
+	lent := len(t)
+
+	for lens < lent {
+		s = "0" + s
+		lens++
+	}
+
+	for lent < lens {
+		t = "0" + t
+		lent++
+	}
+
+	str := ""
+	incr := false
+	for i := 0; i < lent; i++ {
+		bitValue := 0
+		intNumber, _ := strconv.Atoi(string(s[lens-i-1]))
+		bitValue += intNumber
+
+		intNumber, _ = strconv.Atoi(string(t[lent-i-1]))
+		bitValue += intNumber
+
+		if incr {
+			bitValue += 1
+			incr = false
+		}
+		if bitValue > 9 {
+			incr = true
+		}
+		str = fmt.Sprint(bitValue%10) + str
+	}
+
+	if incr {
+		str = "1" + str
+	}
+
+	return str
+}
 
 /**
 NC14 按之字形顺序打印二叉树
