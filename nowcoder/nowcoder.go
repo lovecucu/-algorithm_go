@@ -1734,9 +1734,69 @@ NC40 两个链表生成相加链表
  * @param head2 ListNode类
  * @return ListNode类
  */
-/* func addInList(head1 *ListNode, head2 *ListNode) *ListNode {
+func addInList(head1 *ListNode, head2 *ListNode) *ListNode {
 	// write code here
-} */
+	if head1 == nil {
+		return head2
+	}
+
+	if head2 == nil {
+		return head1
+	}
+
+	stack1 := []int{}
+	for head1 != nil {
+		stack1 = append(stack1, head1.Val)
+		head1 = head1.Next
+	}
+
+	stack2 := []int{}
+	for head2 != nil {
+		stack2 = append(stack2, head2.Val)
+		head2 = head2.Next
+	}
+
+	incr := false
+	tmpInt := []int{}
+	for len(stack1) > 0 || len(stack2) > 0 {
+		tmp := 0
+		if len(stack1) > 0 {
+			tmp += stack1[len(stack1)-1]
+			stack1 = stack1[:len(stack1)-1]
+		}
+
+		if len(stack2) > 0 {
+			tmp += stack2[len(stack2)-1]
+			stack2 = stack2[:len(stack2)-1]
+		}
+
+		if incr {
+			tmp += 1
+			incr = false
+		}
+		if tmp > 9 {
+			incr = true
+		}
+
+		tmpInt = append(tmpInt, tmp%10)
+	}
+
+	if incr {
+		tmpInt = append(tmpInt, 1)
+	}
+
+	var head, pre *ListNode
+	for i := len(tmpInt) - 1; i >= 0; i-- {
+		cur := &ListNode{Val: tmpInt[i]}
+		if head == nil {
+			head = cur
+		} else {
+			pre.Next = cur
+		}
+		pre = cur
+	}
+	return head
+}
 
 /**
 NC102 在二叉树中找到两个节点的最近公共祖先

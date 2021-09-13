@@ -453,3 +453,16 @@ func TestFindFirstCommonNode(t *testing.T) {
 		t.Error(`TestFindFirstCommonNode failed`)
 	}
 }
+
+func TestAddInList(t *testing.T) {
+	head1 := &ListNode{Val: 9}
+	head1.Next = &ListNode{Val: 3}
+	head1.Next.Next = &ListNode{Val: 7}
+
+	head2 := &ListNode{Val: 6}
+	head2.Next = &ListNode{Val: 3}
+
+	if SprintNode(addInList(head1, head2)) != "[1 0 0 0]" {
+		t.Error(`TestAddInList failed`)
+	}
+}
