@@ -324,3 +324,13 @@ func TestCycleEntryNode(t *testing.T) {
 		t.Error(`TestCycleEntryNode failed`)
 	}
 }
+
+func TestIsBracketsValid(t *testing.T) {
+	if isBracketsValid("((") || isBracketsValid("[") || isBracketsValid("{][}") {
+		t.Error(`TestIsBracketsValid failed`)
+	}
+
+	if !isBracketsValid("[]{}") || !isBracketsValid("{[]}") {
+		t.Error(`TestIsBracketsValid failed`)
+	}
+}

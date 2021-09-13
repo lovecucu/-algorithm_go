@@ -1216,9 +1216,33 @@ true
  * @param s string字符串
  * @return bool布尔型
  */
-/* func isValid(s string) bool {
+func isBracketsValid(s string) bool {
+
+	if len(s)%2 != 0 {
+		return false
+	}
+
 	// write code here
-} */
+	maps := map[rune]rune{
+		'}': '{',
+		']': '[',
+		')': '(',
+	}
+
+	stack := []rune{}
+
+	for _, char := range s {
+		if v, ok := maps[char]; ok {
+			if len(stack) == 0 || stack[len(stack)-1] != v {
+				return false
+			}
+			stack = stack[:len(stack)-1]
+		} else {
+			stack = append(stack, char)
+		}
+	}
+	return len(stack) == 0
+}
 
 /**
 NC53 删除链表的倒数第n个节点
