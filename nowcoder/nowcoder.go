@@ -1605,9 +1605,32 @@ NC127 最长公共子串
  * @param str2 string字符串 the string
  * @return string字符串
  */
-/* func LCS(str1 string, str2 string) string {
+func LCS(str1 string, str2 string) string {
 	// write code here
-} */
+	m, n := len(str1), len(str2)
+	maxLength, maxLastIndex := 0, 0
+	var dp [][]int
+	for i := 0; i <= m; i++ {
+		dp = append(dp, make([]int, n+1))
+	}
+
+	// dp[i][j]表示str1[0...i-1]和str2[0...j-1]的最长公共子串
+	for i := 1; i <= m; i++ {
+		for j := 1; j <= n; j++ {
+			if str1[i-1] == str2[j-1] {
+				dp[i][j] = dp[i-1][j-1] + 1
+				if dp[i][j] > maxLength {
+					maxLength = dp[i][j]
+					maxLastIndex = i
+				}
+			} else {
+				dp[i][j] = 0
+			}
+		}
+	}
+	// fmt.Println(dp)
+	return str1[maxLastIndex-maxLength : maxLastIndex]
+}
 
 /**
 NC66 两个链表的第一个公共结点

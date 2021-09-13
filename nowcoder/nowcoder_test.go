@@ -416,3 +416,9 @@ func TestZPrint(t *testing.T) {
 		t.Error(`TestZPrint failed`)
 	}
 }
+
+func TestLCS(t *testing.T) {
+	if LCS("1AB2345CD", "12345EF") != "2345" {
+		t.Error(`TestLCS failed`)
+	}
+}
