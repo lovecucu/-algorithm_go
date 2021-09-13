@@ -1538,9 +1538,43 @@ NC14 按之字形顺序打印二叉树
  * @param pRoot TreeNode类
  * @return int整型二维数组
  */
-/* func Print(pRoot *TreeNode) [][]int {
+func Print(pRoot *TreeNode) [][]int {
 	// write code here
-} */
+	ret := [][]int{}
+	if pRoot == nil {
+		return ret
+	}
+
+	queue := []*TreeNode{}
+	queue = append(queue, pRoot)
+	i := 1
+	for len(queue) > 0 {
+		length := len(queue)
+		tmpInt := []int{}
+		for j := 0; j < length; j++ {
+			tmpNode := queue[0]
+			queue = queue[1:]
+			tmpInt = append(tmpInt, tmpNode.Val)
+			if tmpNode.Left != nil {
+				queue = append(queue, tmpNode.Left)
+			}
+			if tmpNode.Right != nil {
+				queue = append(queue, tmpNode.Right)
+			}
+		}
+
+		if i%2 == 0 { // 偶数层时反转tmpInt
+			for i, j := 0, len(tmpInt)-1; i < j; i, j = i+1, j-1 {
+				tmpInt[i], tmpInt[j] = tmpInt[j], tmpInt[i]
+			}
+			ret = append(ret, tmpInt)
+		} else {
+			ret = append(ret, tmpInt)
+		}
+		i++
+	}
+	return ret
+}
 
 /**
 NC127 最长公共子串

@@ -393,3 +393,26 @@ func TestBigAdd(t *testing.T) {
 		t.Error(`TestBigAdd failed`)
 	}
 }
+
+func TestZPrint(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	root.Right.Left = &TreeNode{Val: 4}
+	root.Right.Right = &TreeNode{Val: 5}
+
+	if fmt.Sprint(Print(root)) != "[[1] [3 2] [4 5]]" {
+		t.Error(`TestZPrint failed`)
+	}
+
+	root = &TreeNode{Val: 8}
+	root.Left = &TreeNode{Val: 6}
+	root.Right = &TreeNode{Val: 10}
+	root.Left.Left = &TreeNode{Val: 5}
+	root.Left.Right = &TreeNode{Val: 7}
+	root.Right.Left = &TreeNode{Val: 9}
+	root.Right.Right = &TreeNode{Val: 11}
+	if fmt.Sprint(Print(root)) != "[[8] [10 6] [5 7 9 11]]" {
+		t.Error(`TestZPrint failed`)
+	}
+}
