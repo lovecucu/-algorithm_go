@@ -1833,9 +1833,32 @@ NC102 在二叉树中找到两个节点的最近公共祖先
  * @param o2 int整型
  * @return int整型
  */
-/* func lowestCommonAncestor(root *TreeNode, o1 int, o2 int) int {
+func lowestCommonAncestor(root *TreeNode, o1 int, o2 int) int {
 	// write code here
-} */
+	if root == nil {
+		return -1
+	}
+
+	if root.Val == o1 || root.Val == o2 {
+		return root.Val
+	}
+
+	left, right := lowestCommonAncestor(root.Left, o1, o2), lowestCommonAncestor(root.Right, o1, o2)
+
+	if left != -1 && right != -1 {
+		return root.Val
+	}
+
+	if left == -1 && right == -1 {
+		return -1
+	}
+
+	if left != -1 {
+		return left
+	} else {
+		return right
+	}
+}
 
 /**
 NC103 反转字符串

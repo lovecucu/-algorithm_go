@@ -466,3 +466,15 @@ func TestAddInList(t *testing.T) {
 		t.Error(`TestAddInList failed`)
 	}
 }
+
+func TestLowestCommonAncestor(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Left.Left = &TreeNode{Val: 4}
+	root.Left.Right = &TreeNode{Val: 5}
+	root.Right = &TreeNode{Val: 3}
+
+	if lowestCommonAncestor(root, 4, 5) != 2 {
+		t.Error(`TestLowestCommonAncestor failed`)
+	}
+}
