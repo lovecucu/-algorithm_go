@@ -355,3 +355,21 @@ func TestMaxSumOfSubArray(t *testing.T) {
 		t.Error(`TestMaxSumOfSubArray failed`)
 	}
 }
+
+func TestMaxLength(t *testing.T) {
+	if maxLength([]int{2, 3, 4, 5}) != 4 {
+		t.Error(`TestMaxLength failed`)
+	}
+
+	if maxLength([]int{2, 2, 3, 4, 3}) != 3 {
+		t.Error(`TestMaxLength failed`)
+	}
+
+	if maxLength([]int{1, 2, 3, 1, 2, 3, 2, 2}) != 3 {
+		t.Error(`TestMaxLength failed`)
+	}
+
+	if maxLength([]int{2, 2, 3, 4, 8, 99, 3}) != 5 {
+		t.Error(`TestMaxLength failed`)
+	}
+}

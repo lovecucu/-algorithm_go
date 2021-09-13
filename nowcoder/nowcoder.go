@@ -1019,9 +1019,29 @@ NC41 最长无重复子数组
  * @param arr int整型一维数组 the array
  * @return int整型
 */
-/* func maxLength(arr []int) int {
+func maxLength(arr []int) int {
 	// write code here
-} */
+	window := make(map[int]int)
+	left, right, maxLen := 0, 0, 0
+	for right < len(arr) {
+		c := arr[right]
+		right++
+
+		window[c]++
+		if window[c] == 1 { // 增长
+			if maxLen < right-left {
+				maxLen = right - left
+			}
+		} else { // 收缩
+			for window[c] != 1 { // 收缩到window[c] == 1的时候
+				d := arr[left]
+				left++
+				window[d]--
+			}
+		}
+	}
+	return maxLen
+}
 
 /**
 NC4 判断链表中是否有环
