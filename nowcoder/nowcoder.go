@@ -2020,7 +2020,7 @@ NC17 最长回文子串
 func getLongestPalindrome(A string, n int) int {
 	// write code here
 	maxLen := 0
-	for i := 0; i < len(A)-1; i++ {
+	for i := 0; i < len(A); i++ {
 		len1 := Palindrome(A, i, i)
 		len2 := Palindrome(A, i, i+1)
 		if len1 > maxLen {

@@ -517,6 +517,10 @@ func TestFibonacci(t *testing.T) {
 }
 
 func TestGetLongestPalindrome(t *testing.T) {
+	if getLongestPalindrome("a", 1) != 1 {
+		t.Error(`TestGetLongestPalindrome failed`)
+	}
+
 	if getLongestPalindrome("aba", 3) != 3 {
 		t.Error(`TestGetLongestPalindrome failed`)
 	}
