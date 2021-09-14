@@ -1922,9 +1922,33 @@ NC38 螺旋矩阵
  * @param matrix int整型二维数组
  * @return int整型一维数组
  */
-/* func spiralOrder(matrix [][]int) []int {
+func spiralOrder(matrix [][]int) []int {
 	// write code here
-} */
+	ret := []int{}
+	for i := 0; i < len(matrix); i++ {
+		len1 := len(matrix[i])
+		// 打印顶部行
+		for j := i; j < len1-i; j++ {
+			ret = append(ret, matrix[i][j])
+		}
+
+		// 打印右侧行
+		for j := i + 1; j < len(matrix)-i; j++ {
+			ret = append(ret, matrix[j][len1-i-1])
+		}
+
+		// 打印底部行
+		for j := len1 - i - 2; j >= i; j-- {
+			ret = append(ret, matrix[len(matrix)-i-1][j])
+		}
+
+		// 打印左侧行
+		for j := len(matrix) - 2 - i; j > i; j-- {
+			ret = append(ret, matrix[j][i])
+		}
+	}
+	return ret
+}
 
 /**
 NC65 斐波那契数列
