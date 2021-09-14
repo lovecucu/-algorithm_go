@@ -2008,6 +2008,7 @@ NC17 最长回文子串
 返回值：
 7
 */
+
 /**
  * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
  *
@@ -2015,9 +2016,32 @@ NC17 最长回文子串
  * @param n int整型
  * @return int整型
  */
-/* func getLongestPalindrome(A string, n int) int {
+// 寻找回文串的问题核心思想是：从中间开始向两边扩散来判断回文串
+func getLongestPalindrome(A string, n int) int {
 	// write code here
-} */
+	maxLen := 0
+	for i := 0; i < len(A)-1; i++ {
+		len1 := Palindrome(A, i, i)
+		len2 := Palindrome(A, i, i+1)
+		if len1 > maxLen {
+			maxLen = len1
+		}
+		if len2 > maxLen {
+			maxLen = len2
+		}
+	}
+	return maxLen
+}
+
+// 校验是否为回文串
+func Palindrome(s string, l, r int) int {
+	bytes := []byte(s)
+	for l >= 0 && r < len(s) && bytes[l] == bytes[r] { // 分别向扩散
+		l--
+		r++
+	}
+	return r - l - 1
+}
 
 /**
 NC54 数组中相加和为0的三元组
