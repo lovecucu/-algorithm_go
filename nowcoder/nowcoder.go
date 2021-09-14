@@ -1976,9 +1976,14 @@ n≤39
  * @param n int整型
  * @return int整型
  */
-/* func Fibonacci(n int) int {
+func Fibonacci(n int) int {
 	// write code here
-} */
+	a, b := 0, 1
+	for i := 0; i < n; i++ {
+		a, b = b, a+b
+	}
+	return a
+}
 
 /**
 NC17 最长回文子串

@@ -505,3 +505,13 @@ func TestSpiralOrder(t *testing.T) {
 		t.Error(`TestSpiralOrder failed`)
 	}
 }
+
+func TestFibonacci(t *testing.T) {
+	if Fibonacci(3) != 2 {
+		t.Error(`TestFibonacci failed`)
+	}
+
+	if Fibonacci(6) != 8 {
+		t.Error(`TestFibonacci failed`)
+	}
+}
