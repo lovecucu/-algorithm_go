@@ -2038,8 +2038,7 @@ func getLongestPalindrome(A string, n int) int {
 
 // 校验是否为回文串
 func Palindrome(s string, l, r int) int {
-	bytes := []byte(s)
-	for l >= 0 && r < len(s) && bytes[l] == bytes[r] { // 分别向扩散
+	for l >= 0 && r < len(s) && s[l] == s[r] { // 分别向两边扩散
 		l--
 		r++
 	}
