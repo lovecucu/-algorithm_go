@@ -1925,27 +1925,30 @@ NC38 螺旋矩阵
 func spiralOrder(matrix [][]int) []int {
 	// write code here
 	ret := []int{}
-	for i := 0; i < len(matrix); i++ {
-		len1 := len(matrix[i])
-		// 打印顶部行
-		for j := i; j < len1-i; j++ {
-			ret = append(ret, matrix[i][j])
+	if len(matrix) == 0 { // 空数组，直接返回
+		return ret
+	}
+	top, bottom, left, right := 0, len(matrix)-1, 0, len(matrix[0])-1
+	for top <= bottom && left <= right {
+		for i := left; i <= right; i++ {
+			ret = append(ret, matrix[top][i])
 		}
-
-		// 打印右侧行
-		for j := i + 1; j < len(matrix)-i; j++ {
-			ret = append(ret, matrix[j][len1-i-1])
+		top++
+		for i := top; i <= bottom; i++ {
+			ret = append(ret, matrix[i][right])
 		}
-
-		// 打印底部行
-		for j := len1 - i - 2; j >= i; j-- {
-			ret = append(ret, matrix[len(matrix)-i-1][j])
+		right--
+		if top > bottom || left > right { // 提前退出，防止重复输出
+			break
 		}
-
-		// 打印左侧行
-		for j := len(matrix) - 2 - i; j > i; j-- {
-			ret = append(ret, matrix[j][i])
+		for i := right; i >= left; i-- {
+			ret = append(ret, matrix[bottom][i])
 		}
+		bottom--
+		for i := bottom; i >= top; i-- {
+			ret = append(ret, matrix[i][left])
+		}
+		left++
 	}
 	return ret
 }

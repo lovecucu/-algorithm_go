@@ -486,7 +486,21 @@ func TestReverseString(t *testing.T) {
 }
 
 func TestSpiralOrder(t *testing.T) {
-	matrix := [][]int{
+	matrix := [][]int{}
+	if fmt.Sprint(spiralOrder(matrix)) != "[]" {
+		t.Error(`TestSpiralOrder failed`)
+	}
+
+	matrix = [][]int{
+		{7},
+		{9},
+		{6},
+	}
+	if fmt.Sprint(spiralOrder(matrix)) != "[7 9 6]" {
+		t.Error(`TestSpiralOrder failed`)
+	}
+
+	matrix = [][]int{
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 9},
