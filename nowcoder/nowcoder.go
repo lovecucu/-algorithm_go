@@ -2202,9 +2202,29 @@ dfs
  * @param vin int整型一维数组
  * @return TreeNode类
  */
-/* func reConstructBinaryTree(pre []int, vin []int) *TreeNode {
+func reConstructBinaryTree(pre []int, vin []int) *TreeNode {
 	// write code here
-} */
+	if len(pre) == 0 || len(vin) == 0 {
+		return nil
+	}
+	root := &TreeNode{Val: pre[0]}
+	for i := 0; i < len(vin); i++ {
+		if vin[i] == pre[0] {
+			root.Left = reConstructBinaryTree(pre[1:i+1], vin[:i])
+			root.Right = reConstructBinaryTree(pre[i+1:], vin[i+1:])
+			break
+		}
+	}
+	return root
+}
+
+func PrintTreeNode(root *TreeNode) {
+	fmt.Println(preOrder(root))
+}
+
+func SprintTreeNode(root *TreeNode) string {
+	return fmt.Sprint(preOrder(root))
+}
 
 /**
 NC91 最长递增子序列

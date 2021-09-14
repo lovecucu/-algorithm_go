@@ -552,3 +552,13 @@ func TestThreeSum(t *testing.T) {
 		t.Error(`TestThreeSum failed`)
 	}
 }
+
+func TestReConstructBinaryTree(t *testing.T) {
+	if SprintTreeNode(reConstructBinaryTree([]int{1, 2, 3, 4, 5, 6, 7}, []int{3, 2, 4, 1, 6, 5, 7})) != "[1 2 3 4 5 6 7]" {
+		t.Error(`TestReConstructBinaryTree failed`)
+	}
+
+	if SprintTreeNode(reConstructBinaryTree([]int{1, 2, 4, 7, 3, 5, 6, 8}, []int{4, 7, 2, 1, 5, 3, 8, 6})) != "[1 2 4 7 3 5 6 8]" {
+		t.Error(`TestReConstructBinaryTree failed`)
+	}
+}
