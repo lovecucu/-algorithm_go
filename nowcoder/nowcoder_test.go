@@ -543,3 +543,12 @@ func TestGetLongestPalindrome(t *testing.T) {
 		t.Error(`TestGetLongestPalindrome failed`)
 	}
 }
+
+func TestThreeSum(t *testing.T) {
+	if fmt.Sprint(threeSum([]int{-2, 0, 1, 1, 2})) != "[[-2 0 2] [-2 1 1]]" {
+		t.Error(`TestThreeSum failed`)
+	}
+	if fmt.Sprint(threeSum([]int{-10, 0, 10, 20, -10, -40})) != "[[-10 -10 20] [-10 0 10]]" {
+		t.Error(`TestThreeSum failed`)
+	}
+}

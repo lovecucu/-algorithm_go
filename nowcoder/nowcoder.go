@@ -2089,9 +2089,56 @@ NC54 数组中相加和为0的三元组
  * @param num int整型一维数组
  * @return int整型二维数组
  */
-/* func threeSum(num []int) [][]int {
+func threeSum(num []int) [][]int {
 	// write code here
-} */
+	return threeSumTarget(num, 0)
+}
+
+func threeSumTarget(num []int, target int) [][]int {
+	sort.Ints(num)
+	ret := [][]int{}
+	n := len(num)
+	for i := 0; i < n; i++ {
+		tuples := twoSumTarget(num, i+1, target-num[i])
+		for _, tuple := range tuples {
+			tuple = append([]int{num[i]}, tuple...)
+			ret = append(ret, tuple)
+		}
+
+		for i < n-1 && num[i] == num[i+1] { // 跳过重复的
+			i++
+		}
+	}
+
+	return ret
+}
+
+func twoSumTarget(num []int, start, target int) [][]int {
+	lo, hi := start, len(num)-1
+	ret := [][]int{}
+	for lo < hi {
+		sum := num[lo] + num[hi]
+		left, right := num[lo], num[hi]
+		if sum < target {
+			for lo < hi && num[lo] == left {
+				lo++
+			}
+		} else if sum > target {
+			for lo < hi && num[hi] == right {
+				hi--
+			}
+		} else {
+			ret = append(ret, []int{num[lo], num[hi]})
+			for lo < hi && num[lo] == left {
+				lo++
+			}
+			for lo < hi && num[hi] == right {
+				hi--
+			}
+		}
+	}
+	return ret
+}
 
 /**
 NC12 重建二叉树
