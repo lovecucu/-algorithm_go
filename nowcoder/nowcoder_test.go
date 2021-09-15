@@ -581,3 +581,9 @@ func TestLIS(t *testing.T) {
 		t.Error(`TestLIS failed`)
 	}
 }
+
+func TestSqrt(t *testing.T) {
+	if sqrt(0) != 0 || sqrt(2) != 1 || sqrt(1) != 1 || sqrt(10) != 3 || sqrt(9) != 3 {
+		t.Error(`TestSqrt failed`)
+	}
+}

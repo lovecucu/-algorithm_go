@@ -2326,9 +2326,14 @@ NC32 求平方根
  * @param x int整型
  * @return int整型
  */
-/* func sqrt(x int) int {
+func sqrt(x int) int {
 	// write code here
-} */
+	ret := 0
+	for ret*ret <= x {
+		ret++
+	}
+	return ret - 1
+}
 
 /**
 NC48 在旋转过的有序数组中寻找目标值
