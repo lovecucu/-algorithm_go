@@ -587,3 +587,12 @@ func TestSqrt(t *testing.T) {
 		t.Error(`TestSqrt failed`)
 	}
 }
+
+func TestSearch(t *testing.T) {
+	if search([]int{6, 8, 10, 0, 2, 4}, 0) != 3 || search([]int{6, 8, 10, 0, 2, 4}, 2) != 4 || search([]int{6, 8, 10, 0, 2, 4}, 8) != 1 {
+		t.Error(`TestSearch failed`)
+	}
+	if search([]int{6, 8, 10, 0, 2, 4}, 10) != 2 || search([]int{6, 8, 10, 0, 2, 4}, 3) != -1 || search([]int{2}, 1) != -1 {
+		t.Error(`TestSearch failed`)
+	}
+}

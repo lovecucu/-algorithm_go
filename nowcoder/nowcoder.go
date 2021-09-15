@@ -2385,9 +2385,35 @@ nums数组在传递给search函数之前，会在预先未知的某个下标 t�
  * @param target int整型
  * @return int整型
  */
-/* func search(nums []int, target int) int {
+func search(nums []int, target int) int {
 	// write code here
-} */
+	return searchRecursion(nums, 0, len(nums)-1, target)
+}
+
+func searchRecursion(nums []int, start, end, target int) int {
+	for start <= end {
+		// fmt.Println(start, end)
+		mid := start + (end-start)>>1
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[mid] >= nums[start] { // 左边有序列
+			if target < nums[mid] && nums[start] <= target {
+				end = mid - 1
+			} else {
+				start = mid + 1
+			}
+		} else { // 右边有序列
+			if target > nums[mid] && nums[end] >= target {
+				start = mid + 1
+			} else {
+				end = mid - 1
+			}
+		}
+	}
+
+	return -1
+}
 
 /**
 NC90 包含min函数的栈
