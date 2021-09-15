@@ -2269,7 +2269,7 @@ func LIS(arr []int) []int {
 		return arr
 	}
 
-	dp := make([][]int, len(arr)) // dp[i]表示[0:i]的最长递增子序列
+	dp := make([][]int, len(arr)) // dp[i]表示以arr[i]结尾的[0:i]中最长递增子序列
 	for i := 0; i < len(arr); i++ {
 		dp[i] = []int{arr[i]}
 	}
@@ -2287,7 +2287,10 @@ func LIS(arr []int) []int {
 			}
 		}
 		if maxIndex != i {
-			dp[i] = append(dp[maxIndex], arr[i])
+			// dp[i] = append(dp[maxIndex], arr[i]) // append会改变dp[]maxIndex的值
+			dp[i] = make([]int, len(dp[maxIndex]))
+			copy(dp[i], dp[maxIndex])
+			dp[i] = append(dp[i], arr[i])
 		}
 	}
 
