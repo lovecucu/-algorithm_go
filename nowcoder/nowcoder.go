@@ -2452,18 +2452,37 @@ min():获取栈中最小元素
 返回值：
 -1,2,1,-1
 */
-/* func Push(node int) {
+
+// 借助栈stackMin2来保存最小值（仅小于等于最小值时，值才会入stackMin2，加上先进后出，可保证stackMin2的栈顶一直是最小值）
+var stackMin1, stackMin2 []int
+
+func StackPush(node int) {
 	// write code here
+	stackMin1 = append(stackMin1, node)
+	if node <= StackMin() {
+		stackMin2 = append(stackMin2, node)
+	}
 }
-func Pop() {
+func StackPop() {
 	// write code here
+	pop := stackMin1[len(stackMin1)-1]
+	stackMin1 = stackMin1[:len(stackMin1)-1]
+	if pop == StackMin() {
+		stackMin2 = stackMin2[:len(stackMin2)-1]
+	}
 }
-func Top() int {
+func StackTop() int {
 	// write code here
+	return stackMin1[len(stackMin1)-1]
 }
-func Min() int {
+func StackMin() int {
+	min := math.MaxInt64
+	if len(stackMin2) > 0 {
+		min = stackMin2[len(stackMin2)-1]
+	}
 	// write code here
-} */
+	return min
+}
 
 /**
 NC7 买卖股票的最好时机

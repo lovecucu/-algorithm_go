@@ -596,3 +596,19 @@ func TestSearch(t *testing.T) {
 		t.Error(`TestSearch failed`)
 	}
 }
+
+func TestStackMin(t *testing.T) {
+	// ["PSH-1","PSH2","MIN","TOP","POP","PSH1","TOP","MIN"]
+	output := []int{}
+	StackPush(-1)
+	StackPush(2)
+	output = append(output, StackMin())
+	output = append(output, StackTop())
+	StackPop()
+	StackPush(1)
+	output = append(output, StackTop())
+	output = append(output, StackMin())
+	if fmt.Sprint(output) != "[-1 2 1 -1]" {
+		t.Error(`TestStackMin failed`)
+	}
+}
