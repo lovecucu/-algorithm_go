@@ -551,6 +551,10 @@ func TestThreeSum(t *testing.T) {
 	if fmt.Sprint(threeSum([]int{-10, 0, 10, 20, -10, -40})) != "[[-10 -10 20] [-10 0 10]]" {
 		t.Error(`TestThreeSum failed`)
 	}
+
+	if fmt.Sprint(threeSum([]int{-2, 0, 0, 0, 2, 1})) != "[[-2 0 2] [0 0 0]]" {
+		t.Error(`TestThreeSum failed`)
+	}
 }
 
 func TestReConstructBinaryTree(t *testing.T) {
@@ -560,5 +564,20 @@ func TestReConstructBinaryTree(t *testing.T) {
 
 	if SprintTreeNode(reConstructBinaryTree([]int{1, 2, 4, 7, 3, 5, 6, 8}, []int{4, 7, 2, 1, 5, 3, 8, 6})) != "[1 2 4 7 3 5 6 8]" {
 		t.Error(`TestReConstructBinaryTree failed`)
+	}
+}
+
+func TestLIS(t *testing.T) {
+	real := LIS([]int{2, 1, 5, 3, 6, 4, 8, 9, 7})
+	if fmt.Sprint(real) != "[1 3 4 8 9]" {
+		t.Error(`TestLIS failed`)
+	}
+
+	if fmt.Sprint(LIS([]int{1, 2, 8, 6, 4})) != "[1 2 4]" {
+		t.Error(`TestLIS failed`)
+	}
+
+	if fmt.Sprint(LIS([]int{6, 7, 8, 5, 6, 8, 12})) != "[5 6 8 12]" {
+		t.Error(`TestLIS failed`)
 	}
 }

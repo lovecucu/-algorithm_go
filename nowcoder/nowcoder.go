@@ -2156,7 +2156,6 @@ dfs
 给定某二叉树的前序遍历和中序遍历，请重建出该二叉树并返回它的头结点。
 例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建出如下图所示。
 
-
 提示:
 1.0 <= pre.length <= 2000
 2.vin.length == pre.length
@@ -2264,9 +2263,42 @@ n≤10^5
  * @param arr int整型一维数组 the array
  * @return int整型一维数组
  */
-/* func LIS(arr []int) []int {
+func LIS(arr []int) []int {
 	// write code here
-} */
+	if len(arr) < 2 {
+		return arr
+	}
+
+	dp := make([][]int, len(arr)) // dp[i]表示[0:i]的最长递增子序列
+	for i := 0; i < len(arr); i++ {
+		dp[i] = []int{arr[i]}
+	}
+	for i := 0; i < len(arr); i++ {
+		maxIndex := i
+		for j := 0; j < i; j++ {
+			if arr[i] > arr[j] {
+				if len(dp[j]) == len(dp[maxIndex]) { // 相同，取较小的
+					if fmt.Sprint(dp[j]) < fmt.Sprint(dp[maxIndex]) {
+						maxIndex = j
+					}
+				} else if len(dp[j]) > len(dp[maxIndex]) {
+					maxIndex = j
+				}
+			}
+		}
+		if maxIndex != i {
+			dp[i] = append(dp[maxIndex], arr[i])
+		}
+	}
+
+	var LIS []int
+	for i := len(dp) - 1; i >= 0; i-- {
+		if len(dp[i]) > len(LIS) { // 大于则替换
+			LIS = dp[i]
+		}
+	}
+	return LIS
+}
 
 /**
 NC32 求平方根
