@@ -2303,6 +2303,50 @@ func LIS(arr []int) []int {
 	return LIS
 }
 
+// 二分实现
+func LISBinary(arr []int) []int {
+	len1, n := 1, len(arr)
+	if n <= 1 {
+		return arr
+	}
+	d := make([]int, n+1) // 存放最长递增子序列
+	w := make([]int, n)   // 存放i位置最长递增子序列的长度
+	d[len1] = arr[0]
+	w[0] = len1
+	for i := 1; i < n; i++ {
+		if arr[i] > d[len1] { // 值比递增子序列最后一个值大，则直接把加到递增子序列中
+			len1++
+			d[len1] = arr[i]
+			w[i] = len1
+		} else { // 值小于等于, 则找到最后一个小于arr[i]，并将对应位置的子序列值替换成arr[i]
+			l, r, pos := 1, len1, 0
+			for l <= r {
+				mid := (r + l) >> 1
+				if d[mid] < arr[i] {
+					pos = mid
+					l = mid + 1
+				} else {
+					r = mid - 1
+				}
+			}
+			d[pos+1] = arr[i]
+			w[i] = pos + 1
+		}
+		// fmt.Println(d, w)
+	}
+
+	// fmt.Println(d, w, len1)
+
+	res := make([]int, len1)
+	for i, j := n-1, len1; j > 0; i-- {
+		if w[i] == j {
+			j--
+			res[j] = arr[i]
+		}
+	}
+	return res
+}
+
 /**
 NC32 求平方根
  算法知识视频讲解

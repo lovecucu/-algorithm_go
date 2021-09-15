@@ -582,6 +582,21 @@ func TestLIS(t *testing.T) {
 	}
 }
 
+func TestLISBinary(t *testing.T) {
+	real := LISBinary([]int{2, 1, 5, 3, 6, 4, 8, 9, 7})
+	if fmt.Sprint(real) != "[1 3 4 8 9]" {
+		t.Error(`TestLISBinary failed`)
+	}
+
+	if fmt.Sprint(LISBinary([]int{1, 2, 8, 6, 4})) != "[1 2 4]" {
+		t.Error(`TestLISBinary failed`)
+	}
+
+	if fmt.Sprint(LISBinary([]int{6, 7, 8, 5, 6, 8, 12})) != "[5 6 8 12]" {
+		t.Error(`TestLISBinary failed`)
+	}
+}
+
 func TestSqrt(t *testing.T) {
 	if sqrt(0) != 0 || sqrt(2) != 1 || sqrt(1) != 1 || sqrt(10) != 3 || sqrt(9) != 3 {
 		t.Error(`TestSqrt failed`)
