@@ -3053,9 +3053,19 @@ true
  * @param pRoot TreeNode类
  * @return bool布尔型
  */
-/* func IsBalanced_Solution(pRoot *TreeNode) bool {
+func IsBalanced_Solution(pRoot *TreeNode) bool {
 	// write code here
-} */
+	if pRoot == nil {
+		return true
+	}
+
+	leftLen, rightLen := maxDepth(pRoot.Left), maxDepth(pRoot.Right)
+	if math.Abs(float64(leftLen)-float64(rightLen)) <= 1 && IsBalanced_Solution(pRoot.Left) && IsBalanced_Solution(pRoot.Right) {
+		return true
+	}
+
+	return false
+}
 
 /**
 NC73 数组中出现次数超过一半的数字

@@ -707,3 +707,23 @@ func TestJudge(t *testing.T) {
 		t.Error(`TestJudge failed`)
 	}
 }
+
+func TestIsBalanced(t *testing.T) {
+	var root *TreeNode
+	if !IsBalanced_Solution(root) {
+		t.Error(`TestIsBalanced failed`)
+	}
+
+	root = &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	if !IsBalanced_Solution(root) {
+		t.Error(`TestIsBalanced failed`)
+	}
+
+	root.Left.Left = &TreeNode{Val: 4}
+	root.Left.Left.Right = &TreeNode{Val: 5}
+	if IsBalanced_Solution(root) {
+		t.Error(`TestIsBalanced failed`)
+	}
+}
