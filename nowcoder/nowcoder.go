@@ -3055,16 +3055,15 @@ true
  */
 func IsBalanced_Solution(pRoot *TreeNode) bool {
 	// write code here
-	if pRoot == nil {
-		return true
-	}
+	return pRoot == nil || math.Abs(height(pRoot.Left)-height(pRoot.Right)) <= 1 && IsBalanced_Solution(pRoot.Left) && IsBalanced_Solution(pRoot.Right)
+}
 
-	leftLen, rightLen := maxDepth(pRoot.Left), maxDepth(pRoot.Right)
-	if math.Abs(float64(leftLen)-float64(rightLen)) <= 1 && IsBalanced_Solution(pRoot.Left) && IsBalanced_Solution(pRoot.Right) {
-		return true
+func height(root *TreeNode) float64 {
+	// write code here
+	if root == nil {
+		return 0
 	}
-
-	return false
+	return math.Max(height(root.Left), height(root.Right)) + 1
 }
 
 /**
