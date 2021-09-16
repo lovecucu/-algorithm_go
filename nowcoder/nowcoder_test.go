@@ -2,6 +2,7 @@ package nowcoder
 
 import (
 	"fmt"
+	"sort"
 	"testing"
 )
 
@@ -656,5 +657,20 @@ func TestMergeKListNode(t *testing.T) {
 	phead = mergeKLists([]*ListNode{phead1, phead2, phead3})
 	if fmt.Sprint(SprintNode(phead)) != "[1 2 3 4 5 6 7 8]" {
 		t.Error(`TestMergeTwoListNode failed`, SprintNode(phead))
+	}
+}
+
+func TestPermutation(t *testing.T) {
+
+	real := Permutation("ab")
+	sort.Strings(real)
+	if fmt.Sprint(real) != "[ab ba]" {
+		t.Error(`TestPermutation failed`)
+	}
+
+	real = Permutation("abc")
+	sort.Strings(real)
+	if fmt.Sprint(real) != "[abc acb bac bca cab cba]" {
+		t.Error(`TestPermutation failed`)
 	}
 }

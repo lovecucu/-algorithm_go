@@ -2703,9 +2703,45 @@ NC121 字符串的排列
  * @param str string字符串
  * @return string字符串一维数组
  */
-/* func Permutation(str string) []string {
+func Permutation(str string) []string {
 	// write code here
-} */
+	if len(str) <= 1 {
+		return []string{str}
+	}
+
+	res := []string{}
+	son := Permutation(str[1:])
+	maps := make(map[string]struct{})
+	for i := 0; i < len(son); i++ { // 遍历每个子串
+		for j := 0; j < len(son[i])+1; j++ {
+			tmp := insert(son[i], j, str[0])
+			if _, ok := maps[tmp]; ok {
+				continue
+			}
+			maps[tmp] = struct{}{}
+			res = append(res, tmp)
+		}
+	}
+	return res
+}
+
+func insert(str string, index int, val byte) string {
+	if index > len(str) {
+		return str
+	}
+
+	tmp := []byte(str)
+	if index == len(str) {
+		tmp = append(tmp, val)
+		return string(tmp)
+	}
+
+	arr := make([]byte, len(str)+1)
+	copy(arr, tmp[0:index])
+	arr[index] = val
+	copy(arr[index+1:], tmp[index:])
+	return string(arr)
+}
 
 /**
 NC128 接雨水问题
