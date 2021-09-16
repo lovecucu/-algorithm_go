@@ -697,3 +697,13 @@ func TestMaxDepth(t *testing.T) {
 		t.Error(`TestMaxDepth failed`)
 	}
 }
+
+func TestJudge(t *testing.T) {
+	if judge("") || judge("ab") || judge("abc") {
+		t.Error(`TestJudge failed`)
+	}
+
+	if !judge("a") || !judge("aba") || !judge("abba") {
+		t.Error(`TestJudge failed`)
+	}
+}

@@ -2964,9 +2964,21 @@ true
  * @param str string字符串 待判断的字符串
  * @return bool布尔型
  */
-/* func judge(str string) bool {
+func judge(str string) bool {
 	// write code here
-} */
+	length := len(str)
+	if length == 0 {
+		return false
+	}
+
+	for i := 0; i < length/2; i++ {
+		if str[i] != str[length-i-1] {
+			return false
+		}
+	}
+
+	return true
+}
 
 /**
 NC70 单链表的排序
