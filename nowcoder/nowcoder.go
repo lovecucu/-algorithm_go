@@ -2287,7 +2287,7 @@ func LIS(arr []int) []int {
 			}
 		}
 		if maxIndex != i {
-			// dp[i] = append(dp[maxIndex], arr[i]) // append会改变dp[]maxIndex的值
+			// dp[i] = append(dp[maxIndex], arr[i]) // append会改变dp[maxIndex]的值
 			dp[i] = make([]int, len(dp[maxIndex]))
 			copy(dp[i], dp[maxIndex])
 			dp[i] = append(dp[i], arr[i])
