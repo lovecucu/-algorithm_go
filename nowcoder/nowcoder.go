@@ -2605,6 +2605,11 @@ NC51 合并k个已排序的链表
 func mergeKLists(lists []*ListNode) *ListNode {
 	// write code here
 	length := len(lists)
+
+	if length == 0 {
+		return nil
+	}
+
 	if length == 1 {
 		return lists[0]
 	}
