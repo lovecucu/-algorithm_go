@@ -2309,42 +2309,46 @@ func LISBinary(arr []int) []int {
 	if n <= 1 {
 		return arr
 	}
-	d := make([]int, n+1) // 存放最长递增子序列
-	w := make([]int, n)   // 存放i位置最长递增子序列的长度
-	d[len1] = arr[0]
-	w[0] = len1
-	for i := 1; i < n; i++ {
-		if arr[i] > d[len1] { // 值比递增子序列最后一个值大，则直接把加到递增子序列中
-			len1++
-			d[len1] = arr[i]
-			w[i] = len1
-		} else { // 值小于等于, 则找到最后一个小于arr[i]，并将对应位置的子序列值替换成arr[i]
-			l, r, pos := 1, len1, 0
-			for l <= r {
-				mid := (r + l) >> 1
-				if d[mid] < arr[i] {
-					pos = mid
-					l = mid + 1
-				} else {
-					r = mid - 1
-				}
-			}
-			d[pos+1] = arr[i]
-			w[i] = pos + 1
-		}
-		// fmt.Println(d, w)
-	}
 
-	// fmt.Println(d, w, len1)
+	lis := make([]int, n+1) // i+1位存储arr[i]的最长递增子序列
+	dpLen := make([]int, n) // i位存储arr[i]最长递增子序列的长度
+	lis[len1] = arr[0]
+	dpLen[0] = len1
+	for i := 1; i < n; i++ {
+		if arr[i] > lis[len1] {
+			len1++
+			lis[len1] = arr[i]
+			dpLen[i] = len1
+		} else {
+			pos := lowerBound(lis, 1, len1, arr[i])
+			lis[pos+1] = arr[i]
+			dpLen[i] = pos + 1
+		}
+	}
 
 	res := make([]int, len1)
 	for i, j := n-1, len1; j > 0; i-- {
-		if w[i] == j {
+		if dpLen[i] == j {
 			j--
 			res[j] = arr[i]
 		}
 	}
 	return res
+}
+
+// 二分查找获取最后一个小于target元素的下标，没有的话返回下标-1
+func lowerBound(arr []int, begin, end, target int) int {
+	pos := 0
+	for begin <= end {
+		mid := (begin + end) >> 1
+		if arr[mid] < target {
+			pos = mid
+			begin = mid + 1
+		} else {
+			end = mid - 1
+		}
+	}
+	return pos
 }
 
 /**
