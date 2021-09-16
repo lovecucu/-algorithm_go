@@ -2602,9 +2602,62 @@ NC51 合并k个已排序的链表
  * @param lists ListNode类一维数组
  * @return ListNode类
  */
-/* func mergeKLists(lists []*ListNode) *ListNode {
+func mergeKLists(lists []*ListNode) *ListNode {
 	// write code here
-} */
+	length := len(lists)
+	if length == 1 {
+		return lists[0]
+	}
+
+	merge := lists[0]
+	for i := 1; i < length; i++ {
+		merge = MergeTwoLists(merge, lists[i])
+	}
+
+	return merge
+}
+
+func MergeTwoLists(head1, head2 *ListNode) *ListNode {
+	if head1 == nil {
+		return head2
+	}
+	if head2 == nil {
+		return head1
+	}
+
+	var head, cur, pre, next *ListNode
+
+	for head1 != nil && head2 != nil {
+		if head1.Val < head2.Val {
+			next = head1.Next
+			cur = head1
+			head1 = next
+		} else {
+			next = head2.Next
+			cur = head2
+			head2 = next
+		}
+
+		if head == nil {
+			head = cur
+		} else {
+			pre.Next = cur
+		}
+		pre = cur
+
+		if head1 == nil {
+			pre.Next = head2
+			break
+		}
+
+		if head2 == nil {
+			pre.Next = head1
+			break
+		}
+	}
+
+	return head
+}
 
 /**
 NC121 字符串的排列

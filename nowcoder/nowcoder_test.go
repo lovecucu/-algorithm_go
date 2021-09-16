@@ -627,3 +627,34 @@ func TestStackMin(t *testing.T) {
 		t.Error(`TestStackMin failed`)
 	}
 }
+
+func TestMergeKListNode(t *testing.T) {
+	phead1 := &ListNode{Val: 1}
+	phead1.Next = &ListNode{Val: 3}
+	phead1.Next.Next = &ListNode{Val: 5}
+
+	phead2 := &ListNode{Val: 2}
+	phead2.Next = &ListNode{Val: 4}
+	phead2.Next.Next = &ListNode{Val: 6}
+
+	phead := mergeKLists([]*ListNode{phead1, phead2})
+	if fmt.Sprint(SprintNode(phead)) != "[1 2 3 4 5 6]" {
+		t.Error(`TestMergeTwoListNode failed`, SprintNode(phead))
+	}
+
+	phead1 = &ListNode{Val: 1}
+	phead1.Next = &ListNode{Val: 3}
+	phead1.Next.Next = &ListNode{Val: 5}
+
+	phead2 = &ListNode{Val: 2}
+	phead2.Next = &ListNode{Val: 4}
+	phead2.Next.Next = &ListNode{Val: 6}
+
+	phead3 := &ListNode{Val: 7}
+	phead3.Next = &ListNode{Val: 8}
+
+	phead = mergeKLists([]*ListNode{phead1, phead2, phead3})
+	if fmt.Sprint(SprintNode(phead)) != "[1 2 3 4 5 6 7 8]" {
+		t.Error(`TestMergeTwoListNode failed`, SprintNode(phead))
+	}
+}
