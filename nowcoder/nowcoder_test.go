@@ -674,3 +674,26 @@ func TestPermutation(t *testing.T) {
 		t.Error(`TestPermutation failed`)
 	}
 }
+
+func TestMaxDepth(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	left := &TreeNode{Val: 2}
+	right := &TreeNode{Val: 3}
+	root.Left = left
+	root.Right = right
+
+	if maxDepth(root) != 2 {
+		t.Error(`TestMaxDepth failed`)
+	}
+
+	left.Left = &TreeNode{Val: 4}
+	left.Right = &TreeNode{Val: 5}
+	left.Right.Left = &TreeNode{Val: 7}
+	left.Right.Right = &TreeNode{Val: 8}
+
+	left.Right.Left.Left = &TreeNode{Val: 9}
+
+	if maxDepth(root) != 5 {
+		t.Error(`TestMaxDepth failed`)
+	}
+}

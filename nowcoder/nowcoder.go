@@ -2893,10 +2893,23 @@ dfs
  * @param root TreeNode类
  * @return int整型
  */
-/* func maxDepth(root *TreeNode) int {
+func maxDepth(root *TreeNode) int {
 	// write code here
+	if root == nil {
+		return 0
+	}
+
+	var max int
+	left, right := maxDepth(root.Left), maxDepth(root.Right)
+
+	if left > right {
+		max = left
+	} else {
+		max = right
+	}
+	return max + 1
 }
-*/
+
 /**
 NC141 判断回文
  算法知识视频讲解
