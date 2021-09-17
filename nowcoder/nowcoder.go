@@ -3253,9 +3253,87 @@ NC137 表达式求值
  * @param s string字符串 待计算的表达式
  * @return int整型
  */
-/* func solve(s string) int {
+func solveExpression(s string) int {
 	// write code here
-} */
+	stackVal := []int{}
+	stackStr := []byte{}
+	maps := map[byte]struct{}{
+		'+': {},
+		'-': {},
+		'*': {},
+		'(': {},
+	}
+	for i := 0; i < len(s); i++ {
+		if _, ok := maps[s[i]]; ok {
+
+			if s[i+1] == '-' {
+				tmp, _ := strconv.Atoi(string([]byte{s[i+2]}))
+				stackVal = append(stackVal, -1*tmp)
+				i += 2
+			}
+
+			stackStr = append(stackStr, s[i])
+		} else if s[i] == ')' { // 解决括号的问题
+			// 从stackStr中pop出来
+			str := ""
+			for len(stackStr) > 0 && stackStr[len(stackStr)-1] != '(' {
+				int1, int2 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
+				str = strconv.Itoa(int2) + string(stackStr[len(stackStr)-1]) + strconv.Itoa(int1) + str
+				stackVal = stackVal[:len(stackVal)-2]
+				stackStr = stackStr[:len(stackStr)-1]
+			}
+
+			stackStr = stackStr[:len(stackStr)-1]
+			stackVal = append(stackVal, solveExpression(str))
+		} else {
+			val, _ := strconv.Atoi(string([]byte{s[i]}))
+			stackVal = append(stackVal, val)
+		}
+	}
+
+	for len(stackStr) > 0 {
+		if stackStr[len(stackStr)-1] == '*' {
+			int1, int2 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
+			stackVal = stackVal[:len(stackVal)-2]
+			stackStr = stackStr[:len(stackStr)-1]
+			stackVal = append(stackVal, int2*int1)
+		} else if len(stackStr) > 1 && stackStr[len(stackStr)-2] == '*' {
+			// 针对倒数第2个符号是*的
+			lastVal, lastStr := stackVal[len(stackVal)-1], stackStr[len(stackStr)-1]
+			stackStr = stackStr[:len(stackStr)-1]
+			stackVal = stackVal[:len(stackVal)-1]
+			for len(stackStr) > 0 && stackStr[len(stackStr)-1] == '*' {
+				int2, int3 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
+				stackVal = stackVal[:len(stackVal)-2]
+				stackStr = stackStr[:len(stackStr)-1]
+				stackVal = append(stackVal, int2*int3)
+			}
+
+			lastVal = Do(stackVal[len(stackVal)-1], lastVal, lastStr)
+			stackVal = stackVal[:len(stackVal)-1]
+			stackVal = append(stackVal, lastVal)
+		} else {
+			head, tail := stackVal[len(stackVal)-2], stackVal[len(stackVal)-1]
+			stackVal = stackVal[:len(stackVal)-2]
+			stackVal = append(stackVal, Do(head, tail, stackStr[len(stackStr)-1]))
+			stackStr = stackStr[:len(stackStr)-1]
+		}
+	}
+	return stackVal[0]
+}
+
+func Do(head, tail int, operator byte) int {
+	var res int
+	if operator == '+' {
+		res = head + tail
+	} else if operator == '-' {
+		res = head - tail
+	} else {
+		res = head * tail
+	}
+
+	return res
+}
 
 /**
 NC97 字符串出现次数的TopK问题

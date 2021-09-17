@@ -766,3 +766,13 @@ func TestMoreThanHalfNum_Solution(t *testing.T) {
 		t.Error(`TestMoreThanHalfNum_Solution failed`)
 	}
 }
+
+func TestSolveExpression(t *testing.T) {
+	if solveExpression("(2*(3-4))*5") != -10 {
+		t.Error(`TestSolveExpression failed`)
+	}
+
+	if solveExpression("3+2*3*4-1") != 26 {
+		t.Error(`TestSolveExpression failed`)
+	}
+}
