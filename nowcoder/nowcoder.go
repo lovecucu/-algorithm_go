@@ -2833,9 +2833,49 @@ NC136 输出二叉树的右视图
  * @param zhongxu int整型一维数组 中序遍历
  * @return int整型一维数组
  */
-/* func solve(xianxu []int, zhongxu []int) []int {
+func solveRightView(xianxu []int, zhongxu []int) []int {
 	// write code here
-}*/
+	// 先恢复
+	root := reConstructBinary(xianxu, zhongxu)
+	if root == nil {
+		return []int{}
+	}
+	// 再层序遍历
+	queue := []*TreeNode{}
+	res := []int{}
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		length := len(queue)
+
+		tmpNode := queue[0]
+		res = append(res, tmpNode.Val)
+		for i := 0; i < length; i++ {
+			tmpNode = queue[i]
+			if tmpNode.Right != nil {
+				queue = append(queue, tmpNode.Right)
+			}
+			if tmpNode.Left != nil {
+				queue = append(queue, tmpNode.Left)
+			}
+		}
+		queue = queue[length:]
+	}
+	return res
+}
+
+func reConstructBinary(pre []int, vin []int) *TreeNode {
+	if len(pre) == 0 || len(vin) == 0 {
+		return nil
+	}
+	root := &TreeNode{Val: pre[0]}
+	for i := 0; i < len(vin); i++ {
+		if vin[i] == pre[0] {
+			root.Left = reConstructBinary(pre[1:i+1], vin[:i])
+			root.Right = reConstructBinary(pre[i+1:], vin[i+1:])
+		}
+	}
+	return root
+}
 
 /**
 NC109 岛屿数量

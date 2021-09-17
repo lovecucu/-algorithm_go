@@ -780,3 +780,9 @@ func TestSolveExpression(t *testing.T) {
 		t.Error(`TestSolveExpression failed`)
 	}
 }
+
+func TestSolveRightView(t *testing.T) {
+	if fmt.Sprint(solveRightView([]int{1, 2, 4, 5, 3}, []int{4, 2, 5, 1, 3})) != "[1 3 5]" {
+		t.Error(`TestSolveRightView failed`, solveRightView([]int{1, 2, 4, 5, 3}, []int{4, 2, 5, 1, 3}))
+	}
+}
