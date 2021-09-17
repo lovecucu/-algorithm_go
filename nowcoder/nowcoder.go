@@ -3164,9 +3164,21 @@ NC73 数组中出现次数超过一半的数字
  * @param numbers int整型一维数组
  * @return int整型
  */
-/* func MoreThanHalfNum_Solution(numbers []int) int {
+func MoreThanHalfNum_Solution(numbers []int) int {
 	// write code here
-} */
+	arr := make([]int, 10001)
+	for _, v := range numbers { // 计算每个值的次数
+		arr[v]++
+	}
+
+	max := 0
+	for i := 1; i < len(arr); i++ {
+		if arr[i] > arr[max] { // 值最大的，记录下标（即数组中次数出现最多的数）
+			max = i
+		}
+	}
+	return max
+}
 
 /**
 NC59 矩阵的最小路径和

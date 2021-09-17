@@ -752,3 +752,17 @@ func TestNcListSortInList(t *testing.T) {
 		t.Error(`TestNcListMerge failed`, real)
 	}
 }
+
+func TestMoreThanHalfNum_Solution(t *testing.T) {
+	if MoreThanHalfNum_Solution([]int{1, 2, 3, 2, 2, 2, 5, 4, 2}) != 2 {
+		t.Error(`TestMoreThanHalfNum_Solution failed`)
+	}
+
+	if MoreThanHalfNum_Solution([]int{3, 3, 3, 3, 2, 2, 2}) != 3 {
+		t.Error(`TestMoreThanHalfNum_Solution failed`)
+	}
+
+	if MoreThanHalfNum_Solution([]int{1}) != 1 {
+		t.Error(`TestMoreThanHalfNum_Solution failed`)
+	}
+}
