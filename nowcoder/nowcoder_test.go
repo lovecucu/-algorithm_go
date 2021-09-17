@@ -727,3 +727,28 @@ func TestIsBalanced(t *testing.T) {
 		t.Error(`TestIsBalanced failed`)
 	}
 }
+
+/* func TestMaxProfit(t *testing.T) {
+	if maxProfit([]int{1, 4, 2}) != 3 || maxProfit([]int{2, 4, 1}) != 2 {
+		t.Error(`TestMaxProfit failed`)
+	}
+} */
+
+func TestNcListSortInList(t *testing.T) {
+	node1 := &ListNode{Val: 3}
+	node1.Next = &ListNode{Val: 2}
+	node1.Next.Next = &ListNode{Val: 4}
+	node1.Next.Next.Next = &ListNode{Val: 1}
+
+	sort := sortInList(node1)
+	target := "1234"
+	real := ""
+	for sort != nil {
+		real += fmt.Sprint(sort.Val)
+		sort = sort.Next
+	}
+
+	if real != target {
+		t.Error(`TestNcListMerge failed`, real)
+	}
+}

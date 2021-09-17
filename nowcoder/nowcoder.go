@@ -2566,7 +2566,21 @@ NC7 买卖股票的最好时机
  * @return int整型
  */
 /* func maxProfit(prices []int) int {
-	// write code here
+	n := len(prices)
+	if n <= 1 {
+		return 0
+	}
+
+	dp := make([][2]int, n)
+
+	// base case
+	dp[0][0] = 0
+	dp[0][1] = -prices[0]
+	for i := 1; i < n; i++ {
+		dp[i][0] = int(math.Max(float64(dp[i-1][0]), float64(dp[i-1][1]+prices[i])))
+		dp[i][1] = int(math.Max(float64(dp[i-1][1]), float64(dp[i-1][0]-prices[i])))
+	}
+	return dp[n-1][0]
 } */
 
 /**
@@ -3012,9 +3026,54 @@ NC70 单链表的排序
  * @param head ListNode类 the head node
  * @return ListNode类
  */
-/* func sortInList(head *ListNode) *ListNode {
+func sortInList(head *ListNode) *ListNode {
 	// write code here
-} */
+	if head == nil || head.Next == nil {
+		return nil
+	}
+
+	var new, next *ListNode
+	for head != nil {
+		next = head.Next
+		head.Next = nil
+		if new == nil {
+			new = head
+			head = next
+			continue
+		}
+		new = IntervalInsert(new, head)
+		head = next
+	}
+	return new
+}
+
+func IntervalInsert(head, node *ListNode) *ListNode {
+	var new, pre *ListNode
+	for head != nil {
+		if head.Val <= node.Val {
+			if new == nil {
+				new = head
+			} else {
+				pre.Next = head
+			}
+			pre = head
+		} else {
+			if new == nil {
+				new = node
+			} else {
+				pre.Next = node
+			}
+			node.Next = head
+			break
+		}
+		head = head.Next
+	}
+
+	if head == nil {
+		pre.Next = node
+	}
+	return new
+}
 
 /**
 NC62 平衡二叉树
