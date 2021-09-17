@@ -779,6 +779,22 @@ func TestSolveExpression(t *testing.T) {
 	if solveExpression("3+-2*3*4-1") != -22 {
 		t.Error(`TestSolveExpression failed`)
 	}
+
+	if solveExpression("100-1") != 99 {
+		t.Error(`TestSolveExpression failed`)
+	}
+
+	if solveExpression("((10+2)*10-(100-(10+20*10-(2*3)))*10*1*2)-2") != 2198 {
+		t.Error(`TestSolveExpression failed`)
+	}
+
+	if solveExpression("1-2-3") != -4 {
+		t.Error(`TestSolveExpression failed`)
+	}
+
+	if solveExpression("100+100") != 200 {
+		t.Error(`TestSolveExpression failed`)
+	}
 }
 
 func TestSolveRightView(t *testing.T) {

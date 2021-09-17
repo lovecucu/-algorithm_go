@@ -3288,6 +3288,7 @@ NC137 表达式求值
 26
 */
 /**
+ * important!!!
  * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
  * 返回表达式的值
  * @param s string字符串 待计算的表达式
@@ -3304,32 +3305,72 @@ func solveExpression(s string) int {
 		'(': {},
 	}
 
+	mapsInt := map[byte]struct{}{
+		'0': {},
+		'1': {},
+		'2': {},
+		'3': {},
+		'4': {},
+		'5': {},
+		'6': {},
+		'7': {},
+		'8': {},
+		'9': {},
+	}
+
 	// 递归去除括号
+	negative := false
 	for i := 0; i < len(s); i++ {
 		if _, ok := maps[s[i]]; ok {
 			stackStr = append(stackStr, s[i])
 			if s[i+1] == '-' { // 注意-号的两义性
-				tmp, _ := strconv.Atoi(string([]byte{s[i+2]}))
-				stackVal = append(stackVal, -1*tmp)
-				i += 2
+				negative = true
+				i += 1
 			}
 		} else if s[i] == ')' { // 解决括号的问题
 			// 从stackStr中pop出来
 			str := ""
 			for len(stackStr) > 0 && stackStr[len(stackStr)-1] != '(' {
-				int1, int2 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
-				str = strconv.Itoa(int2) + string(stackStr[len(stackStr)-1]) + strconv.Itoa(int1) + str
-				stackVal = stackVal[:len(stackVal)-2]
-				stackStr = stackStr[:len(stackStr)-1]
+				if str == "" {
+					int1, int2 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
+					str = strconv.Itoa(int2) + string(stackStr[len(stackStr)-1]) + strconv.Itoa(int1) + str
+					stackVal = stackVal[:len(stackVal)-2]
+					stackStr = stackStr[:len(stackStr)-1]
+				} else {
+					str = strconv.Itoa(stackVal[len(stackVal)-1]) + string(stackStr[len(stackStr)-1]) + str
+					stackVal = stackVal[:len(stackVal)-1]
+					stackStr = stackStr[:len(stackStr)-1]
+				}
 			}
-
 			stackStr = stackStr[:len(stackStr)-1]
+
 			stackVal = append(stackVal, solveExpression(str))
 		} else {
-			val, _ := strconv.Atoi(string([]byte{s[i]}))
+			tmpBytes := []byte{}
+			for {
+				if i >= len(s) {
+					break
+				}
+				if _, ok := mapsInt[s[i]]; ok {
+					tmpBytes = append(tmpBytes, s[i])
+					i++
+				} else {
+					i--
+					break
+				}
+			}
+
+			val, _ := strconv.Atoi(string(tmpBytes))
+			if negative {
+				val = val * -1
+				negative = false
+			}
+
 			stackVal = append(stackVal, val)
 		}
 	}
+
+	// fmt.Println(stackVal, string(stackStr))
 
 	// 计算无括号的表达式
 	for len(stackStr) > 0 {
@@ -3356,7 +3397,11 @@ func solveExpression(s string) int {
 		} else {
 			head, tail := stackVal[len(stackVal)-2], stackVal[len(stackVal)-1]
 			stackVal = stackVal[:len(stackVal)-2]
-			stackVal = append(stackVal, Do(head, tail, stackStr[len(stackStr)-1]))
+			tmp := stackStr[len(stackStr)-1]
+			if tmp == '-' && len(stackStr)-2 >= 0 && stackStr[len(stackStr)-2] == '-' {
+				tmp = '+'
+			}
+			stackVal = append(stackVal, Do(head, tail, tmp))
 			stackStr = stackStr[:len(stackStr)-1]
 		}
 	}
