@@ -3267,14 +3267,12 @@ func solveExpression(s string) int {
 	// 递归去除括号
 	for i := 0; i < len(s); i++ {
 		if _, ok := maps[s[i]]; ok {
-
-			if s[i+1] == '-' {
+			stackStr = append(stackStr, s[i])
+			if s[i+1] == '-' { // 注意-号的两义性
 				tmp, _ := strconv.Atoi(string([]byte{s[i+2]}))
 				stackVal = append(stackVal, -1*tmp)
 				i += 2
 			}
-
-			stackStr = append(stackStr, s[i])
 		} else if s[i] == ')' { // 解决括号的问题
 			// 从stackStr中pop出来
 			str := ""

@@ -775,4 +775,8 @@ func TestSolveExpression(t *testing.T) {
 	if solveExpression("3+2*3*4-1") != 26 {
 		t.Error(`TestSolveExpression failed`)
 	}
+
+	if solveExpression("3+-2*3*4-1") != -22 {
+		t.Error(`TestSolveExpression failed`)
+	}
 }
