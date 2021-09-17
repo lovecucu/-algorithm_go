@@ -3263,6 +3263,8 @@ func solveExpression(s string) int {
 		'*': {},
 		'(': {},
 	}
+
+	// 递归去除括号
 	for i := 0; i < len(s); i++ {
 		if _, ok := maps[s[i]]; ok {
 
@@ -3291,6 +3293,7 @@ func solveExpression(s string) int {
 		}
 	}
 
+	// 计算无括号的表达式
 	for len(stackStr) > 0 {
 		if stackStr[len(stackStr)-1] == '*' {
 			int1, int2 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
