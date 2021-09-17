@@ -3296,17 +3296,17 @@ func solveExpression(s string) int {
 			int1, int2 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
 			stackVal = stackVal[:len(stackVal)-2]
 			stackStr = stackStr[:len(stackStr)-1]
-			stackVal = append(stackVal, int2*int1)
+			stackVal = append(stackVal, Do(int2, int1, '*'))
 		} else if len(stackStr) > 1 && stackStr[len(stackStr)-2] == '*' {
 			// 针对倒数第2个符号是*的
 			lastVal, lastStr := stackVal[len(stackVal)-1], stackStr[len(stackStr)-1]
 			stackStr = stackStr[:len(stackStr)-1]
 			stackVal = stackVal[:len(stackVal)-1]
 			for len(stackStr) > 0 && stackStr[len(stackStr)-1] == '*' {
-				int2, int3 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
+				int1, int2 := stackVal[len(stackVal)-1], stackVal[len(stackVal)-2]
 				stackVal = stackVal[:len(stackVal)-2]
 				stackStr = stackStr[:len(stackStr)-1]
-				stackVal = append(stackVal, int2*int3)
+				stackVal = append(stackVal, Do(int2, int1, '*'))
 			}
 
 			lastVal = Do(stackVal[len(stackVal)-1], lastVal, lastStr)
