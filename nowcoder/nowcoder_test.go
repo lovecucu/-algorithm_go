@@ -728,11 +728,11 @@ func TestIsBalanced(t *testing.T) {
 	}
 }
 
-/* func TestMaxProfit(t *testing.T) {
-	if maxProfit([]int{1, 4, 2}) != 3 || maxProfit([]int{2, 4, 1}) != 2 {
+func TestMaxProfit(t *testing.T) {
+	if maxProfit([]int{1, 4, 2}) != 3 || maxProfit([]int{2, 4, 1}) != 2 || maxProfit([]int{3, 1, 5, 2}) != 4 {
 		t.Error(`TestMaxProfit failed`)
 	}
-} */
+}
 
 func TestNcListSortInList(t *testing.T) {
 	node1 := &ListNode{Val: 3}
