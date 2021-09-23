@@ -3594,9 +3594,35 @@ M是32位整数，2<=N<=16.
  * @param N int整型 转换到的进制
  * @return string字符串
  */
-/* func solve(M int, N int) string {
+func hexConvert(M int, N int) string {
 	// write code here
-} */
+	// isNegative := M < 0
+	queue := []int{}
+
+	for M > 0 {
+		queue = append(queue, M%N)
+		M = M / N
+	}
+
+	maps := map[int]string{
+		10: "A",
+		11: "B",
+		12: "C",
+		13: "D",
+		14: "E",
+		15: "F",
+	}
+	str := ""
+	for i := len(queue) - 1; i >= 0; i-- {
+		tmp := fmt.Sprint(queue[i])
+		if v, ok := maps[queue[i]]; ok {
+			tmp = v
+		}
+		str += tmp
+	}
+
+	return str
+}
 
 /**
 NC135 股票交易的最大收益（二）

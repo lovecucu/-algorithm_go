@@ -816,15 +816,31 @@ func TestMaxProfitInfinite(t *testing.T) {
 }
 
 func TestTopKStrings(t *testing.T) {
-	fmt.Println(topKstrings([]string{"123", "123", "231", "32"}, 2))
-	fmt.Println(topKstrings([]string{"a", "b", "c", "b"}, 2))
-	fmt.Println(topKstrings([]string{"abcd", "abcd", "abcd", "pwb2", "abcd", "pwb2", "p12"}, 3))
+	if fmt.Sprint(topKstrings([]string{"123", "123", "231", "32"}, 2)) != "[[123 2] [231 1]]" {
+		t.Error(`TestTopKStrings failed`)
+	}
+	if fmt.Sprint(topKstrings([]string{"a", "b", "c", "b"}, 2)) != "[[b 2] [a 1]]" {
+		t.Error(`TestTopKStrings failed`)
+	}
+	if fmt.Sprint(topKstrings([]string{"abcd", "abcd", "abcd", "pwb2", "abcd", "pwb2", "p12"}, 3)) != "[[abcd 4] [pwb2 2] [p12 1]]" {
+		t.Error(`TestTopKStrings failed`)
+	}
 }
 
-func TestFindInsertPos(t *testing.T) {
-	// var ret [][]string
-	// ret = append(ret, []string{"bc", "1"})
-	// fmt.Println(findInsertPos(ret, []string{"abc", "1"}))
+func TestHexConvert(t *testing.T) {
+	if hexConvert(2500, 16) != "9C4" {
+		t.Error(`TestHexConvert failed`)
+	}
 
-	// fmt.Println(findInsertPos(ret, []string{"cd", "1"}))
+	if hexConvert(10, 2) != "1010" {
+		t.Error(`TestHexConvert failed`)
+	}
+
+	if hexConvert(5, 2) != "101" {
+		t.Error(`TestHexConvert failed`)
+	}
+
+	if hexConvert(7, 2) != "111" {
+		t.Error(`TestHexConvert failed`)
+	}
 }
