@@ -814,3 +814,17 @@ func TestMaxProfitInfinite(t *testing.T) {
 		t.Error(`TestMaxProfitInfinite failed`)
 	}
 }
+
+func TestTopKStrings(t *testing.T) {
+	fmt.Println(topKstrings([]string{"123", "123", "231", "32"}, 2))
+	fmt.Println(topKstrings([]string{"a", "b", "c", "b"}, 2))
+	fmt.Println(topKstrings([]string{"abcd", "abcd", "abcd", "pwb2", "abcd", "pwb2", "p12"}, 3))
+}
+
+func TestFindInsertPos(t *testing.T) {
+	// var ret [][]string
+	// ret = append(ret, []string{"bc", "1"})
+	// fmt.Println(findInsertPos(ret, []string{"abc", "1"}))
+
+	// fmt.Println(findInsertPos(ret, []string{"cd", "1"}))
+}

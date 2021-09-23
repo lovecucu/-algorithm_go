@@ -3470,7 +3470,7 @@ NC97 字符串出现次数的TopK问题
 字符仅包含数字和字母
 
 [要求]
-如果字符串数组长度为N，时间复杂度请达到O(N \log K)O(NlogK)
+如果字符串数组长度为N，时间复杂度请达到O(NlogK)
 
 示例1
 输入：
@@ -3504,9 +3504,63 @@ NC97 字符串出现次数的TopK问题
  * @param k int整型 the k
  * @return string字符串二维数组
  */
-/* func topKstrings(strings []string, k int) [][]string {
+func topKstrings(strings []string, k int) [][]string {
 	// write code here
-} */
+	var ret [][]string
+	if len(strings) < 1 || k < 1 {
+		return ret
+	}
+
+	maps := make(map[string]int)
+	for _, str := range strings {
+		if v, ok := maps[str]; ok {
+			maps[str] = v + 1
+		} else {
+			maps[str] = 1
+		}
+	}
+
+	for str, num := range maps {
+		ret = insertInto(ret, []string{str, fmt.Sprint(num)}, k)
+	}
+
+	return ret
+}
+
+func insertInto(data [][]string, value []string, k int) [][]string {
+	pos := findInsertPos(data, value)
+	if pos == len(data) {
+		data = append(data, value)
+	} else {
+		tmp := make([][]string, len(data)-pos)
+		copy(tmp, data[pos:])
+		data = data[:pos]
+		data = append(data, value)
+		data = append(data, tmp...)
+	}
+
+	if len(data) > k {
+		data = data[:k]
+	}
+
+	return data
+}
+
+// 查找最后一个比value大的位置(data是倒序的)
+func findInsertPos(data [][]string, value []string) int {
+	pos := -1
+	left, right := 0, len(data)-1
+	for left <= right {
+		mid := left + (right-left)>>1
+		if data[mid][1] > value[1] || data[mid][1] == value[1] && data[mid][0] < value[0] { // mid次数比value大
+			left = mid + 1
+			pos = mid
+		} else {
+			right = mid - 1
+		}
+	}
+	return pos + 1
+}
 
 /**
 NC112 进制转换
