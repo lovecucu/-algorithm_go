@@ -2580,7 +2580,6 @@ func maxProfit(prices []int) int {
 		dp[i][0] = int(math.Max(float64(dp[i-1][0]), float64(dp[i-1][1]+prices[i])))
 		dp[i][1] = int(math.Max(float64(dp[i-1][1]), float64(dp[i-1][0]-prices[i])))
 	}
-	fmt.Println(dp)
 	return dp[n-1][0]
 }
 
@@ -3549,9 +3548,10 @@ NC135 股票交易的最大收益（二）
  * @param prices int整型一维数组 股票每一天的价格
  * @return int整型
  */
-/* func maxProfit(prices []int) int {
+func maxProfitTwice(prices []int) int {
 	// write code here
-} */
+
+}
 
 /**
 NC134 股票(无限次交易)
@@ -3607,7 +3607,6 @@ i
  * @param prices int整型一维数组 股票每一天的价格
  * @return int整型
  */
-/* func maxProfit( prices []int ) int {
-    // write code here
+func maxProfitInfinite(prices []int) int {
+	// write code here
 }
-*/
