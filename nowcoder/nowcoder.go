@@ -2566,21 +2566,52 @@ NC7 买卖股票的最好时机
  * @return int整型
  */
 func maxProfit(prices []int) int {
+	/*
+		base case：
+		dp[-1][k][0] = dp[i][0][0] = 0
+		dp[-1][k][1] = dp[i][0][1] = -infinity
+
+		状态转移方程：
+		dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i]) // 一次买进和一次卖出记为一次交易
+		dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i]) // 买入时加交易次数
+	*/
+
 	n := len(prices)
-	if n <= 1 {
+	if n < 1 {
 		return 0
 	}
 
-	dp := make([][2]int, n)
+	/*
+		dp[i][1][0] = max(dp[i-1][1][0], dp[i-1][1][1]+price)
+		dp[i][1][1] = max(dp[i-1][1][1], dp[i-1][0][0]-price) = max(dp[i-1][1][1], -price)
 
-	// base case（0代表不持有，1代表持有）
-	dp[0][0] = 0
-	dp[0][1] = -prices[0] // 第1天持有，收益是0-当天价格
-	for i := 1; i < n; i++ {
-		dp[i][0] = int(math.Max(float64(dp[i-1][0]), float64(dp[i-1][1]+prices[i])))
-		dp[i][1] = int(math.Max(float64(dp[i-1][1]), float64(dp[i-1][0]-prices[i])))
+		从上面公式可看出，和天数无关，故可简化成如下公式
+		dp[i][0] = max(dp[i-1][0], dp[i-1][1]+price)
+		dp[i][1] = max(dp[i-1][1], dp[i-1][0]-price)
+	*/
+
+	/*
+		// 方法一：
+		dp := make([][2]int, n)
+		for i := 0; i < n; i++ {
+			if i == 0 {
+				dp[i][0] = 0
+				dp[i][1] = -prices[i]
+				continue
+			}
+			dp[i][0] = int(math.Max(float64(dp[i-1][0]), float64(dp[i-1][1]+prices[i])))
+			dp[i][1] = int(math.Max(float64(dp[i-1][1]), float64(dp[i-1][0]-prices[i])))
+		}
+		return dp[n-1][0]
+	*/
+
+	// 方法二：空间复杂度为O(1)
+	dp_i_0, dp_i_1 := 0, math.MinInt64
+	for i := 0; i < n; i++ {
+		dp_i_0 = int(math.Max(float64(dp_i_0), float64(dp_i_1+prices[i])))
+		dp_i_1 = int(math.Max(float64(dp_i_1), float64(dp_i_0-prices[i])))
 	}
-	return dp[n-1][0]
+	return dp_i_0
 }
 
 /**
@@ -3551,6 +3582,54 @@ NC135 股票交易的最大收益（二）
 func maxProfitTwice(prices []int) int {
 	// write code here
 
+	/*
+		base case：
+		dp[-1][k][0] = dp[i][0][0] = 0
+		dp[-1][k][1] = dp[i][0][1] = -infinity
+
+		状态转移方程：
+		dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i]) // 一次买进和一次卖出记为一次交易
+		dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i]) // 买入时加交易次数
+	*/
+
+	n := len(prices)
+	if n < 1 {
+		return 0
+	}
+
+	/*
+		// 方法一：
+		max_k := 2
+		dp := make([][3][2]int, n)
+		for i := 0; i < n; i++ {
+			for k := max_k; k >= 1; k-- { // 需要穷举所有情况
+				if i == 0 {
+					dp[i][k][0] = 0
+					dp[i][k][1] = -prices[i]
+					continue
+				}
+				dp[i][k][0] = int(math.Max(float64(dp[i-1][k][0]), float64(dp[i-1][k][1]+prices[i])))
+				dp[i][k][1] = int(math.Max(float64(dp[i-1][k][1]), float64(dp[i-1][k-1][0]-prices[i])))
+			}
+		}
+		return dp[n-1][max_k][0]
+	*/
+
+	// 方法二：
+	/*
+		dp[i][2][0] = max(dp[i-1][2][0], dp[i-1][2][1] + prices[i])
+		dp[i][2][1] = max(dp[i-1][2][1], dp[i-1][1][0] - prices[i])
+		dp[i][1][0] = max(dp[i-1][1][0], dp[i-1][1][1] + prices[i])
+		dp[i][1][1] = max(dp[i-1][1][1], -prices[i])
+	*/
+	dp_i10, dp_i11, dp_i20, dp_i21 := 0, math.MinInt64, 0, math.MinInt64
+	for _, price := range prices {
+		dp_i20 = int(math.Max(float64(dp_i20), float64(dp_i21+price)))
+		dp_i21 = int(math.Max(float64(dp_i21), float64(dp_i10-price)))
+		dp_i10 = int(math.Max(float64(dp_i10), float64(dp_i11+price)))
+		dp_i11 = int(math.Max(float64(dp_i11), float64(-price)))
+	}
+	return dp_i20
 }
 
 /**
@@ -3609,4 +3688,29 @@ i
  */
 func maxProfitInfinite(prices []int) int {
 	// write code here
+	/*
+		base case：
+		dp[-1][k][0] = dp[i][0][0] = 0
+		dp[-1][k][1] = dp[i][0][1] = -infinity
+
+		状态转移方程：
+		dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i]) // 一次买进和一次卖出记为一次交易
+		dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i]) // 买入时加交易次数
+
+		因为交易无次数限制，可认为k和k-1是一样的，上面公式可简化成
+		dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+		dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i])
+	*/
+
+	n := len(prices)
+	if n < 1 {
+		return 0
+	}
+	dp_i_0, dp_i_1 := 0, math.MinInt64
+	for _, price := range prices {
+		tmp := dp_i_0
+		dp_i_0 = int(math.Max(float64(dp_i_0), float64(dp_i_1+price)))
+		dp_i_1 = int(math.Max(float64(dp_i_1), float64(tmp-price)))
+	}
+	return dp_i_0
 }

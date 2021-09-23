@@ -802,3 +802,15 @@ func TestSolveRightView(t *testing.T) {
 		t.Error(`TestSolveRightView failed`, solveRightView([]int{1, 2, 4, 5, 3}, []int{4, 2, 5, 1, 3}))
 	}
 }
+
+func TestMaxProfitTwice(t *testing.T) {
+	if maxProfitTwice([]int{8, 9, 3, 5, 1, 3}) != 4 || maxProfitTwice([]int{}) != 0 {
+		t.Error(`TestMaxProfitTwice failed`)
+	}
+}
+
+func TestMaxProfitInfinite(t *testing.T) {
+	if maxProfitInfinite([]int{5, 4, 3, 2, 1}) != 0 || maxProfitInfinite([]int{1, 2, 3, 4, 5}) != 4 {
+		t.Error(`TestMaxProfitInfinite failed`)
+	}
+}
