@@ -2938,9 +2938,34 @@ bfs
  * @param grid char字符型二维数组
  * @return int整型
  */
-/* func solve(grid [][]byte) int {
+func solveIsland(grid [][]byte) int {
 	// write code here
-} */
+	height := len(grid)
+	if height < 1 {
+		return 0
+	}
+	width := len(grid[0])
+	if width < 0 {
+		return 0
+	}
+
+	// 初始化一个等大的二维数组
+	mark := make([][]int, height)
+	for i := 0; i < height; i++ {
+		mark[i] = make([]int, width)
+	}
+
+	num := 0
+	for i := 0; i < height; i++ {
+		for j := 0; j < width; j++ {
+			if grid[i][j] == 0 || mark[i][j] == 1 {
+				continue
+			}
+
+		}
+	}
+	return num
+}
 
 /**
 NC13 二叉树的最大深度
