@@ -732,6 +732,10 @@ func TestMaxProfit(t *testing.T) {
 	if maxProfit([]int{1, 4, 2}) != 3 || maxProfit([]int{2, 4, 1}) != 2 || maxProfit([]int{3, 1, 5, 2}) != 4 {
 		t.Error(`TestMaxProfit failed`)
 	}
+
+	if maxProfit([]int{1, 9, 6, 9, 1, 7, 1, 1, 5, 9, 9, 9}) != 8 {
+		t.Error(`TestMaxProfit failed`)
+	}
 }
 
 func TestNcListSortInList(t *testing.T) {
@@ -841,6 +845,10 @@ func TestHexConvert(t *testing.T) {
 	}
 
 	if hexConvert(7, 2) != "111" {
+		t.Error(`TestHexConvert failed`)
+	}
+
+	if hexConvert(-4, 3) != "-11" {
 		t.Error(`TestHexConvert failed`)
 	}
 }

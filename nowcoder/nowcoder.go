@@ -2600,7 +2600,7 @@ func maxProfit(prices []int) int {
 				continue
 			}
 			dp[i][0] = int(math.Max(float64(dp[i-1][0]), float64(dp[i-1][1]+prices[i])))
-			dp[i][1] = int(math.Max(float64(dp[i-1][1]), float64(dp[i-1][0]-prices[i])))
+			dp[i][1] = int(math.Max(float64(dp[i-1][1]), float64(-prices[i])))
 		}
 		return dp[n-1][0]
 	*/
@@ -2609,7 +2609,7 @@ func maxProfit(prices []int) int {
 	dp_i_0, dp_i_1 := 0, math.MinInt64
 	for i := 0; i < n; i++ {
 		dp_i_0 = int(math.Max(float64(dp_i_0), float64(dp_i_1+prices[i])))
-		dp_i_1 = int(math.Max(float64(dp_i_1), float64(dp_i_0-prices[i])))
+		dp_i_1 = int(math.Max(float64(dp_i_1), float64(-prices[i])))
 	}
 	return dp_i_0
 }
@@ -3498,6 +3498,12 @@ NC97 字符串出现次数的TopK问题
 返回值：
 [["abcd","4"],["pwb2","2"],["p12","1"]]
 */
+
+type item struct {
+	s string
+	n int
+}
+
 /**
  * return topK string
  * @param strings string字符串一维数组 strings
@@ -3506,60 +3512,42 @@ NC97 字符串出现次数的TopK问题
  */
 func topKstrings(strings []string, k int) [][]string {
 	// write code here
-	var ret [][]string
-	if len(strings) < 1 || k < 1 {
-		return ret
+	n := len(strings)
+	if n < 1 || k > n {
+		return nil
 	}
 
-	maps := make(map[string]int)
+	maps := make(map[string]item, 0)
 	for _, str := range strings {
 		if v, ok := maps[str]; ok {
-			maps[str] = v + 1
+			v.n++
+			maps[str] = v
 		} else {
-			maps[str] = 1
+			maps[str] = item{s: str, n: 1}
 		}
 	}
 
-	for str, num := range maps {
-		ret = insertInto(ret, []string{str, fmt.Sprint(num)}, k)
+	tmp := make([]item, len(maps))
+	inx := 0
+	for _, x := range maps {
+		tmp[inx] = x
+		inx++
+	}
+
+	sort.Slice(tmp, func(i, j int) bool {
+		if tmp[i].n == tmp[j].n {
+			return tmp[i].s < tmp[j].s
+		} else {
+			return tmp[i].n > tmp[j].n
+		}
+	})
+
+	var ret [][]string
+	for _, x := range tmp[:k] {
+		ret = append(ret, []string{x.s, strconv.Itoa(x.n)})
 	}
 
 	return ret
-}
-
-func insertInto(data [][]string, value []string, k int) [][]string {
-	pos := findInsertPos(data, value)
-	if pos == len(data) {
-		data = append(data, value)
-	} else {
-		tmp := make([][]string, len(data)-pos)
-		copy(tmp, data[pos:])
-		data = data[:pos]
-		data = append(data, value)
-		data = append(data, tmp...)
-	}
-
-	if len(data) > k {
-		data = data[:k]
-	}
-
-	return data
-}
-
-// 查找最后一个比value大的位置(data是倒序的)
-func findInsertPos(data [][]string, value []string) int {
-	pos := -1
-	left, right := 0, len(data)-1
-	for left <= right {
-		mid := left + (right-left)>>1
-		if data[mid][1] > value[1] || data[mid][1] == value[1] && data[mid][0] < value[0] { // mid次数比value大
-			left = mid + 1
-			pos = mid
-		} else {
-			right = mid - 1
-		}
-	}
-	return pos + 1
 }
 
 /**
@@ -3596,7 +3584,10 @@ M是32位整数，2<=N<=16.
  */
 func hexConvert(M int, N int) string {
 	// write code here
-	// isNegative := M < 0
+	isNegative := M < 0
+	if isNegative {
+		M = int(math.Abs(float64(M)))
+	}
 	queue := []int{}
 
 	for M > 0 {
@@ -3619,6 +3610,10 @@ func hexConvert(M int, N int) string {
 			tmp = v
 		}
 		str += tmp
+	}
+
+	if isNegative {
+		str = "-" + str
 	}
 
 	return str
