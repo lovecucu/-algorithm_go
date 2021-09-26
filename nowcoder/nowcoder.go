@@ -2840,7 +2840,7 @@ func maxWater(arr []int) int64 {
 	var ans int64
 
 	// 方法一：暴力解法
-	for i := 0; i < n; i++ {
+	/* for i := 0; i < n; i++ {
 		var lmax, rmax float64
 		for j := i; j < n; j++ {
 			rmax = math.Max(float64(arr[j]), rmax)
@@ -2851,7 +2851,39 @@ func maxWater(arr []int) int64 {
 		}
 
 		ans += int64(math.Min(lmax, rmax)) - int64(arr[i])
+	}*/
+
+	// 方法二：备忘录
+	// lmax表示0..i最高柱子，rmax表示i...n-1最高柱子
+	/* lmax, rmax := make([]float64, n), make([]float64, n)
+	lmax[0] = float64(arr[0])
+	rmax[n-1] = float64(arr[n-1])
+	for i := 1; i < n; i++ {
+		lmax[i] = math.Max(float64(arr[i]), lmax[i-1])
 	}
+	for i := n - 2; i >= 0; i-- {
+		rmax[i] = math.Max(float64(arr[i]), rmax[i+1])
+	}
+
+	for i := 0; i < n; i++ {
+		ans += int64(math.Min(lmax[i], rmax[i])) - int64(arr[i])
+	}*/
+
+	// 方法三：双指针
+	left, right := 0, n-1
+	lmax, rmax := arr[0], arr[n-1]
+	for left <= right {
+		lmax = int(math.Max(float64(arr[left]), float64(lmax)))
+		rmax = int(math.Max(float64(arr[right]), float64(rmax)))
+		if lmax < rmax {
+			ans += int64(lmax - arr[left])
+			left++
+		} else {
+			ans += int64(rmax - arr[right])
+			right--
+		}
+	}
+
 	return ans
 }
 
