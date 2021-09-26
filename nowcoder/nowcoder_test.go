@@ -852,3 +852,23 @@ func TestHexConvert(t *testing.T) {
 		t.Error(`TestHexConvert failed`)
 	}
 }
+
+func TestSolveIsland(t *testing.T) {
+	origin := [][]byte{
+		{'1', '1', '0', '0', '0'},
+		{'0', '1', '0', '1', '1'},
+		{'0', '0', '0', '1', '1'},
+		{'0', '0', '0', '0', '0'},
+		{'0', '0', '1', '1', '1'},
+	}
+
+	if solveIsland(origin) != 3 {
+		t.Error(`TestSolveIsland failed`)
+	}
+}
+
+func TestMaxWater(t *testing.T) {
+	if maxWater([]int{3, 1, 2, 5, 2, 4}) != 5 || maxWater([]int{4, 5, 1, 3, 2}) != 2 {
+		t.Error(`TestMaxWater failed`)
+	}
+}

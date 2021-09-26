@@ -2830,9 +2830,30 @@ NC128 接雨水问题
  * @param arr int整型一维数组 the array
  * @return long长整型
  */
-/* func maxWater(arr []int) int64 {
+func maxWater(arr []int) int64 {
 	// write code here
-} */
+	if len(arr) == 0 {
+		return 0
+	}
+
+	n := len(arr)
+	var ans int64
+
+	// 方法一：暴力解法
+	for i := 0; i < n; i++ {
+		var lmax, rmax float64
+		for j := i; j < n; j++ {
+			rmax = math.Max(float64(arr[j]), rmax)
+		}
+
+		for j := i; j >= 0; j-- {
+			lmax = math.Max(float64(arr[j]), lmax)
+		}
+
+		ans += int64(math.Min(lmax, rmax)) - int64(arr[i])
+	}
+	return ans
+}
 
 /**
 NC136 输出二叉树的右视图
@@ -2940,31 +2961,34 @@ bfs
  */
 func solveIsland(grid [][]byte) int {
 	// write code here
-	height := len(grid)
-	if height < 1 {
-		return 0
-	}
-	width := len(grid[0])
-	if width < 0 {
+	if len(grid) == 0 {
 		return 0
 	}
 
-	// 初始化一个等大的二维数组
-	mark := make([][]int, height)
-	for i := 0; i < height; i++ {
-		mark[i] = make([]int, width)
-	}
-
+	nr, nc := len(grid), len(grid[0])
 	num := 0
-	for i := 0; i < height; i++ {
-		for j := 0; j < width; j++ {
-			if grid[i][j] == 0 || mark[i][j] == 1 {
-				continue
+	for i := 0; i < nr; i++ {
+		for j := 0; j < nc; j++ {
+			if grid[i][j] == '1' {
+				num++
+				dfs(grid, i, j)
 			}
-
 		}
 	}
 	return num
+}
+
+func dfs(grid [][]byte, r, c int) {
+	nr, nc := len(grid), len(grid[0])
+	if r < 0 || c < 0 || r >= nr || c >= nc || grid[r][c] == '0' {
+		return
+	}
+
+	grid[r][c] = '0'
+	dfs(grid, r-1, c)
+	dfs(grid, r+1, c)
+	dfs(grid, r, c-1)
+	dfs(grid, r, c+1)
 }
 
 /**
