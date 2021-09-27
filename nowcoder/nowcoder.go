@@ -3361,9 +3361,33 @@ NC59 矩阵的最小路径和
  * @param matrix int整型二维数组 the matrix
  * @return int整型
  */
-/* func minPathSum(matrix [][]int) int {
+func minPathSum(matrix [][]int) int {
 	// write code here
-} */
+	if len(matrix) == 0 {
+		return 0
+	}
+
+	dp := make([][]int, len(matrix))
+	for i := 0; i < len(matrix); i++ {
+		dp[i] = make([]int, len(matrix[0]))
+	}
+	dp[0][0] = matrix[0][0]
+	for i := 1; i < len(matrix); i++ { // 第一列每个位置的最小路径和，等于前一列最小路径和+当前值
+		dp[i][0] = matrix[i][0] + dp[i-1][0]
+	}
+
+	for i := 1; i < len(matrix[0]); i++ { // 第一行每个位置的最小路径和，等于前一行最小路径和+当前值
+		dp[0][i] = matrix[0][i] + dp[0][i-1]
+	}
+
+	for i := 1; i < len(dp); i++ {
+		for j := 1; j < len(dp[0]); j++ {
+			dp[i][j] = matrix[i][j] + int(math.Min(float64(dp[i-1][j]), float64(dp[i][j-1]))) // 其它位置最小路径和，等于上、左两个位置最小路径和较小的那个+当前值
+		}
+	}
+
+	return dp[len(dp)-1][len(dp[0])-1]
+}
 
 /**
 NC137 表达式求值
