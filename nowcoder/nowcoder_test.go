@@ -884,3 +884,9 @@ func TestMinPathSum(t *testing.T) {
 		t.Error(`TestMinPathSum failed`)
 	}
 }
+
+func TestFindGreatestSumOfSubArray(t *testing.T) {
+	if FindGreatestSumOfSubArray([]int{1, -2, 3, 10, -4, 7, 2, -5}) != 18 {
+		t.Error(`TestFindGreatestSumOfSubArray failed`)
+	}
+}

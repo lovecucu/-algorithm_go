@@ -3894,3 +3894,58 @@ func maxProfitInfinite(prices []int) int {
 	}
 	return dp_i_0
 }
+
+/**
+NC19 连续子数组的最大和
+ 算法知识视频讲解
+简单  通过率：38.36%  时间限制：1秒  空间限制：64M
+知识点
+分治
+动态规划
+题目
+题解(99)
+讨论(1k)
+排行
+描述
+输入一个长度为n的整型数组a，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。要求时间复杂度为 O(n).
+
+提示:
+1 <= n <= 500
+-100 <= a[i] <= 100
+
+示例1
+输入：
+[1,-2,3,10,-4,7,2,-5]
+复制
+返回值：
+18
+复制
+说明：
+输入的数组为{1,-2,3,10,-4,7,2,-5}，和最大的子数组为{3,10,-4,7,2}，因此输出为该子数组的和 18。
+*/
+/**
+ *
+ * @param array int整型一维数组
+ * @return int整型
+ */
+func FindGreatestSumOfSubArray(array []int) int {
+	// write code here
+	if len(array) == 0 {
+		return 0
+	}
+
+	n := len(array)
+	dp_0 := array[0]
+	max := math.MinInt64
+	for i := 1; i < n; i++ {
+		if dp_0 > 0 {
+			dp_0 = dp_0 + array[i]
+		} else {
+			dp_0 = array[i]
+		}
+		if dp_0 > max {
+			max = dp_0
+		}
+	}
+	return max
+}
