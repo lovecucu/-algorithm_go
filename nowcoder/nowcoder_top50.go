@@ -3936,7 +3936,7 @@ func FindGreatestSumOfSubArray(array []int) int {
 
 	n := len(array)
 	dp_0 := array[0]
-	max := math.MinInt64
+	max := dp_0
 	for i := 1; i < n; i++ {
 		if dp_0 > 0 {
 			dp_0 = dp_0 + array[i]
