@@ -54,9 +54,70 @@ true
  * @param head ListNode类 the head
  * @return bool布尔型
  */
-// func isPail(head *ListNode) bool {
-// 	// write code here
-// }
+func isPail(head *ListNode) bool {
+	// write code here
+	if head == nil || head.Next == nil {
+		return true
+	}
+	/*
+		  // 方法一：遍历存储
+			maps := make([]int, 0)
+			for head != nil {
+				maps = append(maps, head.Val)
+				head = head.Next
+			}
+
+			size := len(maps)
+			for i := 0; i < size/2; i++ {
+				if maps[i] != maps[size-1-i] {
+					return false
+				}
+			} */
+
+	// 方法二：反转后半部分链表
+	slow, fast := head, head
+	// 找中间结点
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	// 奇数个节点
+	if fast != nil {
+		slow = slow.Next
+	}
+
+	// 链表反转
+	slow = reverseList(slow)
+
+	// 反转后slow从头和head比值
+	fast = head
+	for slow != nil {
+		if slow.Val != fast.Val {
+			return false
+		}
+		slow = slow.Next
+		fast = fast.Next
+	}
+
+	return true
+}
+
+func reverseList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var pre, next *ListNode
+	for head != nil {
+		next = head.Next
+		head.Next = pre
+		pre = head
+		head = next
+	}
+
+	return pre
+}
 
 /**
 NC35 最小编辑代价
