@@ -1,10 +1,5 @@
 package nowcoder
 
-import (
-	"fmt"
-	"strconv"
-)
-
 /**
 NC96 判断一个链表是否为回文结构
  算法知识视频讲解
@@ -224,47 +219,23 @@ dfs
  * @return int整型
  */
 func sumNumbers(root *TreeNode) int {
+	// write code here
 	if root == nil {
 		return 0
 	}
-	// write code here
-	numbers := sumNumbersSub(root)
-	num := 0
-	for i := 0; i < len(numbers); i++ {
-		num += numbers[i]
-	}
-	return num
+	var sum = 0
+	return preOrderSum(root, sum)
 }
 
-func sumNumbersSub(root *TreeNode) []int {
+func preOrderSum(root *TreeNode, sum int) int {
 	if root == nil {
-		return []int{}
+		return 0
 	}
-
-	left := sumNumbersSub(root.Left)
-	right := sumNumbersSub(root.Right)
-
-	ret := prepend(root.Val, left)
-	ret = append(ret, prepend(root.Val, right)...)
-
-	if len(ret) == 0 {
-		ret = []int{root.Val}
+	sum = 10*sum + root.Val
+	if root.Left == nil && root.Right == nil {
+		return sum
 	}
-
-	return ret
-}
-
-func prepend(val int, data []int) []int {
-	if len(data) == 0 {
-		return []int{}
-	}
-	ret := []int{}
-	for i := 0; i < len(data); i++ {
-		if tmp, err := strconv.Atoi(fmt.Sprintf("%d%d", val, data[i])); err == nil {
-			ret = append(ret, tmp)
-		}
-	}
-	return ret
+	return preOrderSum(root.Left, sum) + preOrderSum(root.Right, sum)
 }
 
 /**
