@@ -70,3 +70,9 @@ func TestReverseBetween(t *testing.T) {
 		t.Error(`TestReverseBetween failed`)
 	}
 }
+
+func TestReverseInt(t *testing.T) {
+	if reverseInt(12) != 21 || reverseInt(-123) != -321 || reverseInt(10) != 1 || reverseInt(1147483649) != 0 {
+		t.Error(`TestReverseInt failed`, reverseInt(-123))
+	}
+}

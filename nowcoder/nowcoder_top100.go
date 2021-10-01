@@ -1,5 +1,7 @@
 package nowcoder
 
+import "math"
+
 /**
 NC96 判断一个链表是否为回文结构
  算法知识视频讲解
@@ -818,9 +820,25 @@ NC57 反转数字
  * @param x int整型
  * @return int整型
  */
-// func reverse(x int) int {
-// 	// write code here
-// }
+func reverseInt(x int) int {
+	// write code here
+	ret := 0
+	for x/10 != 0 {
+		if 10*ret+x%10 > math.MaxInt32 || 10*ret+x%10 < math.MinInt32 {
+			return 0
+		}
+		ret = 10*ret + x%10
+		x = x / 10
+	}
+
+	if 10*ret+x%10 > math.MaxInt32 || 10*ret+x%10 < math.MinInt32 {
+		return 0
+	}
+
+	ret = 10*ret + x%10
+
+	return ret
+}
 
 /**
 NC86 矩阵元素查找
