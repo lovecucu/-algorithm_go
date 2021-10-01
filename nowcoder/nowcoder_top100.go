@@ -1,6 +1,10 @@
 package nowcoder
 
-import "math"
+import (
+	"fmt"
+	"math"
+	"sort"
+)
 
 /**
 NC96 判断一个链表是否为回文结构
@@ -395,7 +399,6 @@ func reverseBetween(head *ListNode, m int, n int) *ListNode {
 		// 将temp插入pre和pre.Next之前
 		temp.Next = pre.Next
 		pre.Next = temp
-		PrintNode(dummy)
 	}
 
 	return dummy.Next
@@ -498,21 +501,54 @@ NC37 合并区间
 返回值：
 [[0,20]]
 */
-/*
- * type Interval struct {
- *   Start int
- *   End int
- * }
- */
+
+type Interval struct {
+	Start int
+	End   int
+}
 
 /**
  *
  * @param intervals Interval类一维数组
  * @return Interval类一维数组
  */
-// func merge(intervals []*Interval) []*Interval {
-// 	// write code here
-// }
+func mergeInterval(intervals []*Interval) []*Interval {
+	// write code here
+	size := len(intervals)
+	var ret []*Interval
+
+	// 先排序
+	sort.SliceStable(intervals, func(i, j int) bool {
+		return intervals[i].Start < intervals[j].Start
+	})
+
+	// 再通过二分
+	i := 0
+	for i < size {
+		left := intervals[i].Start
+		right := intervals[i].End
+		for i < size-1 && intervals[i+1].Start <= right { // 判断下一个区间是否重合，重合取较大的做right
+			right = int(math.Max(float64(right), float64(intervals[i+1].End)))
+			i++
+		}
+		ret = append(ret, &Interval{left, right})
+		i++
+	}
+
+	return ret
+}
+
+func SPrintInterval(intervals []*Interval) string {
+	size := len(intervals)
+	dp := make([][]int, size)
+	for i := 0; i < size; i++ {
+		tmp := make([]int, 2)
+		tmp[0] = intervals[i].Start
+		tmp[1] = intervals[i].End
+		dp[i] = tmp
+	}
+	return fmt.Sprint(dp)
+}
 
 /**
 NC92 最长公共子序列-II

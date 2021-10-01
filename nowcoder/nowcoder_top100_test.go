@@ -82,3 +82,28 @@ func TestUniquePaths(t *testing.T) {
 		t.Error(`TestUniquePaths failed`)
 	}
 }
+
+func TestMergeInterval(t *testing.T) {
+	// [[10,30],[20,60],[80,100],[150,180]]
+	intervals := []*Interval{
+		{20, 60},
+		{10, 30},
+		{80, 100},
+		{150, 180},
+	}
+
+	merged := mergeInterval(intervals)
+	if SPrintInterval(merged) != "[[10 60] [80 100] [150 180]]" {
+		t.Error(`TestMergeInterval failed`)
+	}
+
+	// [[0,10],[10,20]]
+	intervals = []*Interval{
+		{0, 10},
+		{10, 20},
+	}
+	merged = mergeInterval(intervals)
+	if SPrintInterval(merged) != "[[0 20]]" {
+		t.Error(`TestMergeInterval failed`)
+	}
+}
