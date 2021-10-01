@@ -824,20 +824,24 @@ func reverseInt(x int) int {
 	// write code here
 	ret := 0
 	for x/10 != 0 {
-		if 10*ret+x%10 > math.MaxInt32 || 10*ret+x%10 < math.MinInt32 {
+		if checkOverflow(10*ret + x%10) {
 			return 0
 		}
 		ret = 10*ret + x%10
 		x = x / 10
 	}
 
-	if 10*ret+x%10 > math.MaxInt32 || 10*ret+x%10 < math.MinInt32 {
+	if checkOverflow(10*ret + x%10) {
 		return 0
 	}
 
 	ret = 10*ret + x%10
 
 	return ret
+}
+
+func checkOverflow(v int) bool {
+	return v > math.MaxInt32 || v < math.MinInt32
 }
 
 /**
