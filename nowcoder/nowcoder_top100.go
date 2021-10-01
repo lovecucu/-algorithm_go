@@ -107,16 +107,16 @@ func reverseList(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
+	dummy := &ListNode{Next: head}
+	pre := dummy
+	for head.Next != nil {
+		temp := head.Next
+		head.Next = temp.Next
 
-	var pre, next *ListNode
-	for head != nil {
-		next = head.Next
-		head.Next = pre
-		pre = head
-		head = next
+		temp.Next = pre.Next
+		pre.Next = temp
 	}
-
-	return pre
+	return dummy.Next
 }
 
 /**
@@ -334,8 +334,8 @@ NC21 链表内指定区间反转
 描述
 将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)O(n)，空间复杂度 O(1)O(1)。
 例如：
-给出的链表为 1\to 2 \to 3 \to 4 \to 5 \to NULL1→2→3→4→5→NULL, m=2,n=4m=2,n=4,
-返回 1\to 4\to 3\to 2\to 5\to NULL1→4→3→2→5→NULL.
+给出的链表为 1→2→3→4→5→NULL,m=2,n=4,
+返回 1→4→3→2→5→NULL.
 
 数据范围： 链表长度 ，，链表中每个节点的值满足
 要求：时间复杂度  ，空间复杂度
@@ -368,9 +368,36 @@ NC21 链表内指定区间反转
  * @param n int整型
  * @return ListNode类
  */
-// func reverseBetween(head *ListNode, m int, n int) *ListNode {
-// 	// write code here
-// }
+func reverseBetween(head *ListNode, m int, n int) *ListNode {
+	// write code here
+	if head == nil || head.Next == nil || m == n {
+		return head
+	}
+
+	// 增加头结点，防止m=1时pre为nil的情况
+	dummy := &ListNode{Next: head}
+
+	// 找出m前一个的结点
+	pre := dummy
+	for i := 1; i < m; i++ {
+		pre = pre.Next
+	}
+
+	// 头插法反转m-n之间的结点
+	cur := pre.Next // cur为m结点
+	for i := m; i < n; i++ {
+		// 把[m+1，n]之间结点一一摘除，头插到m-1和m之间
+		temp := cur.Next
+		cur.Next = temp.Next
+
+		// 将temp插入pre和pre.Next之前
+		temp.Next = pre.Next
+		pre.Next = temp
+		PrintNode(dummy)
+	}
+
+	return dummy.Next
+}
 
 /**
 NC34 求路径
