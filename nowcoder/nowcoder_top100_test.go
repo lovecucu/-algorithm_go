@@ -76,3 +76,9 @@ func TestReverseInt(t *testing.T) {
 		t.Error(`TestReverseInt failed`, reverseInt(-123))
 	}
 }
+
+func TestUniquePaths(t *testing.T) {
+	if uniquePaths(1, 1) != 1 || uniquePaths(2, 1) != 1 || uniquePaths(2, 2) != 2 || uniquePaths(4, 4) != 20 {
+		t.Error(`TestUniquePaths failed`)
+	}
+}
