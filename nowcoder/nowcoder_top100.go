@@ -292,9 +292,34 @@ dfs
  * @param sum int整型
  * @return int整型二维数组
  */
-// func pathSum(root *TreeNode, sum int) [][]int {
-// 	// write code here
-// }
+
+var res [][]int
+
+func pathSum(root *TreeNode, sum int) [][]int {
+	res = [][]int{}
+	path := []int{}
+
+	dfsPathSum(root, sum, path)
+
+	return res
+}
+
+func dfsPathSum(root *TreeNode, sum int, path []int) {
+	if root == nil {
+		return
+	}
+
+	path = append(path, root.Val)
+	if root.Left == nil && root.Right == nil && root.Val == sum {
+		tmp := make([]int, len(path))
+		copy(tmp, path)
+		res = append(res, tmp)
+		return
+	}
+
+	dfsPathSum(root.Left, sum-root.Val, path)
+	dfsPathSum(root.Right, sum-root.Val, path)
+}
 
 /**
 NC21 链表内指定区间反转
