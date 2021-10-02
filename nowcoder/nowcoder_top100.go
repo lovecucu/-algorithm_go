@@ -1,6 +1,7 @@
 package nowcoder
 
 import (
+	"container/heap"
 	"fmt"
 	"math"
 	"sort"
@@ -2753,3 +2754,202 @@ false
 // func Find( target int ,  array [][]int ) bool {
 //     // write code here
 // }
+
+/**
+NC36 在两个长度相等的排序数组中找到上中位数
+ 算法知识视频讲解
+较难  通过率：42.40%  时间限制：2秒  空间限制：256M
+知识点
+数组
+二分
+分治
+题目
+题解(23)
+讨论(55)
+排行
+描述
+给定两个递增数组arr1和arr2，已知两个数组的长度都为N，求两个数组中所有数的上中位数。
+上中位数：假设递增序列长度为n，若n为奇数，则上中位数为第n/2+1个数；否则为第n/2个数
+
+数据范围：，
+
+要求：时间复杂度O(N) ，空间复杂度O(1)
+进阶：时间复杂度为O(logN)，空间复杂度为O(1)
+
+示例1
+输入：
+[1,2,3,4],[3,4,5,6]
+复制
+返回值：
+3
+复制
+说明：
+总共有8个数，上中位数是第4小的数，所以返回3。
+示例2
+输入：
+[0,1,2],[3,4,5]
+复制
+返回值：
+2
+复制
+说明：
+总共有6个数，那么上中位数是第3小的数，所以返回2
+示例3
+输入：
+[1],[2]
+复制
+返回值：
+1
+复制
+备注：
+1≤N≤10^5
+0≤arr_1i,arr_2i≤10^9
+*/
+/**
+ * find median in two sorted array
+ * @param arr1 int整型一维数组 the array1
+ * @param arr2 int整型一维数组 the array2
+ * @return int整型
+ */
+func findMedianinTwoSortedAray(arr1 []int, arr2 []int) int {
+	// write code here
+	n := len(arr1)
+	i, j := 0, 0
+	var lastItem int
+	for i < n {
+		if i+j == n {
+			break
+		}
+		if arr1[i] < arr2[j] {
+			lastItem = arr1[i]
+			i++
+		} else {
+			lastItem = arr2[j]
+			j++
+		}
+	}
+	return lastItem
+}
+
+/**
+NC131 数据流中的中位数
+ 算法知识视频讲解
+中等  通过率：27.23%  时间限制：1秒  空间限制：64M
+知识点
+排序
+堆
+题目
+题解(59)
+讨论(663)
+排行
+描述
+如何得到一个数据流中的中位数？如果从数据流中读出奇数个数值，那么中位数就是所有数值排序之后位于中间的数值。如果从数据流中读出偶数个数值，那么中位数就是所有数值排序之后中间两个数的平均值。我们使用Insert()方法读取数据流，使用GetMedian()方法获取当前读取数据的中位数。
+示例1
+输入：
+[5,2,3,4,1,6,7,0,8]
+复制
+返回值：
+"5.00 3.50 3.00 3.50 3.00 3.50 4.00 3.50 4.00 "
+复制
+说明：
+数据流里面不断吐出的是5,2,3...,则得到的平均数分别为5,(5+2)/2,3...
+*/
+
+type MinHeapInt []int
+
+func (h MinHeapInt) Len() int {
+	return len(h)
+}
+
+func (h MinHeapInt) Less(i, j int) bool {
+	// 由于是最大堆，所以使用大于号
+	return h[i] < h[j]
+}
+
+func (h *MinHeapInt) Swap(i, j int) {
+	(*h)[i], (*h)[j] = (*h)[j], (*h)[i]
+}
+
+func (h *MinHeapInt) Push(x interface{}) {
+	*h = append(*h, x.(int))
+}
+
+// Pop 弹出最后一个元素
+func (h *MinHeapInt) Pop() interface{} {
+	res := (*h)[len(*h)-1]
+	*h = (*h)[:len(*h)-1]
+	return res
+}
+
+func (h *MinHeapInt) Top() interface{} {
+	return (*h)[0]
+}
+
+type MaxHeapInt []int
+
+func (h MaxHeapInt) Len() int {
+	return len(h)
+}
+
+func (h MaxHeapInt) Less(i, j int) bool {
+	// 由于是最大堆，所以使用大于号
+	return h[i] > h[j]
+}
+
+func (h *MaxHeapInt) Swap(i, j int) {
+	(*h)[i], (*h)[j] = (*h)[j], (*h)[i]
+}
+
+func (h *MaxHeapInt) Push(x interface{}) {
+	*h = append(*h, x.(int))
+}
+
+// Pop 弹出最后一个元素
+func (h *MaxHeapInt) Pop() interface{} {
+	res := (*h)[len(*h)-1]
+	*h = (*h)[:len(*h)-1]
+	return res
+}
+
+func (h *MaxHeapInt) Top() interface{} {
+	return (*h)[0]
+}
+
+var minHeap = make(MinHeapInt, 0)
+var maxHeap = make(MaxHeapInt, 0)
+
+func Insert(num int) {
+	if maxHeap.Len() == 0 {
+		heap.Init(&maxHeap)
+		heap.Init(&minHeap)
+		heap.Push(&maxHeap, num)
+		return
+	}
+
+	left := maxHeap.Top().(int)
+	if num < left { // 小进大堆
+		heap.Push(&maxHeap, num)
+	} else { // 大进小堆
+		heap.Push(&minHeap, num)
+	}
+
+	for maxHeap.Len()-minHeap.Len() > 1 {
+		heap.Push(&minHeap, heap.Pop(&maxHeap))
+	}
+
+	for minHeap.Len() > maxHeap.Len() {
+		heap.Push(&maxHeap, heap.Pop(&minHeap))
+	}
+}
+
+func GetMedian() float64 {
+	if maxHeap.Len() == 0 {
+		return 0
+	}
+
+	if maxHeap.Len() == minHeap.Len() {
+		return (float64(maxHeap.Top().(int)) + float64(minHeap.Top().(int))) / 2
+	} else {
+		return float64(maxHeap.Top().(int))
+	}
+}

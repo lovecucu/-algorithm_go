@@ -107,3 +107,35 @@ func TestMergeInterval(t *testing.T) {
 		t.Error(`TestMergeInterval failed`)
 	}
 }
+
+func TestFindMedianinTwoSortedAray(t *testing.T) {
+	if findMedianinTwoSortedAray([]int{1, 2, 3, 4}, []int{3, 4, 5, 6}) != 3 {
+		t.Error(`TestFindMedianinTwoSortedAray failed`)
+	}
+
+	if findMedianinTwoSortedAray([]int{0, 1, 2}, []int{3, 4, 5}) != 2 {
+		t.Error(`TestFindMedianinTwoSortedAray failed`)
+	}
+}
+
+func TestGetMedian(t *testing.T) {
+	// [5,2,3,4,1,6,7,0,8]
+	Insert(5)
+	fmt.Println(GetMedian())
+	Insert(2)
+	fmt.Println(GetMedian())
+	Insert(3)
+	fmt.Println(GetMedian())
+	Insert(4)
+	fmt.Println(GetMedian())
+	Insert(1)
+	fmt.Println(GetMedian())
+	Insert(6)
+	fmt.Println(GetMedian())
+	Insert(7)
+	fmt.Println(GetMedian())
+	Insert(0)
+	fmt.Println(GetMedian())
+	Insert(8)
+	fmt.Println(GetMedian())
+}
