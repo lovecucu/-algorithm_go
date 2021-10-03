@@ -762,9 +762,67 @@ dfs
  * @param root TreeNode类 the root
  * @return bool布尔型一维数组
  */
-// func judgeIt( root *TreeNode ) []bool {
-//     // write code here
-// }
+func judgeIt(root *TreeNode) []bool {
+	// write code here
+	return []bool{isSearchTree(root, math.MinInt64, math.MaxInt64), isCompletedTree(root)}
+}
+
+// 是否为二叉搜索树
+func isSearchTree(root *TreeNode, left, right int) bool {
+	if root == nil {
+		return true
+	}
+	if root.Val < left || root.Val > right {
+		return false
+	}
+
+	return isSearchTree(root.Left, left, root.Val) && isSearchTree(root.Right, root.Val, right)
+}
+
+// 是否为完全二叉树
+func isCompletedTree(root *TreeNode) bool {
+	if root == nil {
+		return true
+	}
+
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		size := len(queue)
+		for i := 0; i < size; i++ {
+			tmp := queue[i]
+			if tmp.Left == nil && tmp.Right != nil {
+				return false
+			}
+			left, right := subTreeNum(tmp.Left), subTreeNum(tmp.Right)
+			if left < right {
+				return false
+			}
+			if tmp.Left != nil {
+				queue = append(queue, tmp.Left)
+			}
+			if tmp.Right != nil {
+				queue = append(queue, tmp.Right)
+			}
+		}
+		queue = queue[size:]
+	}
+	return true
+}
+
+func subTreeNum(root *TreeNode) int {
+	num := 0
+	if root == nil {
+		return num
+	}
+	if root.Left != nil {
+		num++
+	}
+	if root.Right != nil {
+		num++
+	}
+	return num
+}
 
 /**
 NC24 删除有序链表中重复的元素-II

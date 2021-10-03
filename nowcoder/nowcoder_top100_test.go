@@ -168,3 +168,51 @@ func TestLCSPlus1(t *testing.T) {
 		t.Error(`TestLCSPlus1 failed`)
 	}
 }
+
+func TestJudgeIt(t *testing.T) {
+	if fmt.Sprint(judgeIt(nil)) != "[true true]" {
+		t.Error("TestJudgeIt failed")
+	}
+
+	root := &TreeNode{Val: 2}
+	root.Left = &TreeNode{Val: 1}
+	root.Right = &TreeNode{Val: 3}
+
+	if fmt.Sprint(judgeIt(root)) != "[true true]" {
+		t.Error("TestJudgeIt failed")
+	}
+
+	root = &TreeNode{Val: 1}
+	root.Right = &TreeNode{Val: 2}
+	if fmt.Sprint(judgeIt(root)) != "[true false]" {
+		t.Error("TestJudgeIt failed")
+	}
+
+	root = &TreeNode{Val: 3}
+	root.Left = &TreeNode{Val: 2}
+	root.Left.Left = &TreeNode{Val: 1}
+	root.Left.Right = &TreeNode{Val: 4}
+	root.Right = &TreeNode{Val: 5}
+	if fmt.Sprint(judgeIt(root)) != "[false true]" {
+		t.Error("TestJudgeIt failed")
+	}
+
+	root = &TreeNode{Val: 3}
+	root.Left = &TreeNode{Val: 1}
+	root.Right = &TreeNode{Val: 7}
+	root.Right.Left = &TreeNode{Val: 6}
+	root.Right.Right = &TreeNode{Val: 8}
+	if fmt.Sprint(judgeIt(root)) != "[true false]" {
+		t.Error("TestJudgeIt failed", fmt.Sprint(judgeIt(root)))
+	}
+
+	root = &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	root.Left.Left = &TreeNode{Val: 5}
+	root.Right.Left = &TreeNode{Val: 7}
+	root.Right.Right = &TreeNode{Val: 8}
+	if fmt.Sprint(judgeIt(root)) != "[false false]" {
+		t.Error("TestJudgeIt failed", fmt.Sprint(judgeIt(root)))
+	}
+}
