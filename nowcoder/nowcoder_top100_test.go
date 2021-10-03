@@ -216,3 +216,47 @@ func TestJudgeIt(t *testing.T) {
 		t.Error("TestJudgeIt failed", fmt.Sprint(judgeIt(root)))
 	}
 }
+
+func TestDeleteDuplicates(t *testing.T) {
+	root := &ListNode{Val: 1}
+	if SprintNode(deleteDuplicates(root)) != "[1]" {
+		t.Error(`TestDeleteDuplicates failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 1}
+	root.Next.Next = &ListNode{Val: 2}
+	if SprintNode(deleteDuplicates(root)) != "[2]" {
+		t.Error(`TestDeleteDuplicates failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 1}
+	root.Next.Next = &ListNode{Val: 2}
+	root.Next.Next.Next = &ListNode{Val: 2}
+	if SprintNode(deleteDuplicates(root)) != "[]" {
+		t.Error(`TestDeleteDuplicates failed`)
+	}
+}
+
+func TestDeleteDuplicatesEasy(t *testing.T) {
+	root := &ListNode{Val: 1}
+	if SprintNode(deleteDuplicatesEasy(root)) != "[1]" {
+		t.Error(`deleteDuplicatesEasy failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 1}
+	root.Next.Next = &ListNode{Val: 2}
+	if SprintNode(deleteDuplicatesEasy(root)) != "[1 2]" {
+		t.Error(`deleteDuplicatesEasy failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 1}
+	root.Next.Next = &ListNode{Val: 2}
+	root.Next.Next.Next = &ListNode{Val: 2}
+	if SprintNode(deleteDuplicatesEasy(root)) != "[1 2]" {
+		t.Error(`deleteDuplicatesEasy failed`)
+	}
+}

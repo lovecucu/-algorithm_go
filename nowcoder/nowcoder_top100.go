@@ -872,9 +872,27 @@ NC24 删除有序链表中重复的元素-II
  * @param head ListNode类
  * @return ListNode类
  */
-// func deleteDuplicates( head *ListNode ) *ListNode {
-//     // write code here
-// }
+func deleteDuplicates(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+	// write code here
+	dummy := &ListNode{Next: head}
+	pre := dummy
+
+	for pre.Next != nil && pre.Next.Next != nil {
+		if pre.Next.Val == pre.Next.Next.Val {
+			x := pre.Next.Val                          // 至关重要
+			for pre.Next != nil && pre.Next.Val == x { // 跳过后续所有值等于x的结点
+				pre.Next = pre.Next.Next
+			}
+		} else {
+			pre = pre.Next // 保留了结点pre.Next
+		}
+	}
+
+	return dummy.Next
+}
 
 /**
 NC100 将字符串转化为整数
@@ -1648,9 +1666,28 @@ NC25 删除有序链表中重复的元素-I
  * @param head ListNode类
  * @return ListNode类
  */
-// func deleteDuplicates( head *ListNode ) *ListNode {
-//     // write code here
-// }
+func deleteDuplicatesEasy(head *ListNode) *ListNode {
+	// write code here
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	dummy := &ListNode{Next: head}
+	pre := dummy
+
+	for pre.Next != nil && pre.Next.Next != nil {
+		if pre.Next.Val == pre.Next.Next.Val {
+			x := pre.Next.Val
+			pre = pre.Next
+			for pre.Next != nil && pre.Next.Val == x {
+				pre.Next = pre.Next.Next
+			}
+		} else {
+			pre = pre.Next
+		}
+	}
+	return dummy.Next
+}
 
 /**
 NC42 有重复项数字的所有排列
