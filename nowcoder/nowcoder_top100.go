@@ -939,9 +939,64 @@ atoi函数位于cpp <stdlib.h>库。该函数舍弃字符串前全部空白符�
  * @param str string字符串
  * @return int整型
  */
-// func atoi(str string) int {
-// 	// write code here
-// }
+func atoi(str string) int {
+	// write code here
+	for len(str) > 0 && str[0] == ' ' {
+		str = str[1:]
+	}
+
+	size := len(str)
+	if size == 0 {
+		return 0
+	}
+
+	if str[0] != '-' && str[0] != '+' && isDigit(str[0]) < 0 {
+		return 0
+	}
+
+	if (str[0] == '-' || str[0] == '+') && (size == 1 || isDigit(str[1]) < 0) {
+		return 0
+	}
+
+	flag := 1
+	if str[0] == '+' {
+		str = str[1:]
+	}
+	if str[0] == '-' {
+		flag = -1
+		str = str[1:]
+	}
+
+	num := 0
+	for i := 0; i < len(str); i++ {
+		if isDigit(str[i]) < 0 {
+			break
+		}
+		num = 10*num + isDigit(str[i])
+	}
+	return flag * num
+}
+
+func isDigit(c byte) int {
+	maps := map[byte]int{
+		'0': 0,
+		'1': 1,
+		'2': 2,
+		'3': 3,
+		'4': 4,
+		'5': 5,
+		'6': 6,
+		'7': 7,
+		'8': 8,
+		'9': 9,
+	}
+
+	if v, ok := maps[c]; ok {
+		return v
+	}
+
+	return -1
+}
 
 /**
 NC57 反转数字

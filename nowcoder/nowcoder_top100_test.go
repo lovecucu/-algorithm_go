@@ -274,3 +274,9 @@ func TestMinNumberDisappeared(t *testing.T) {
 		t.Error(`TestMinNumberDisappeared failed`)
 	}
 }
+
+func TestAtoi(t *testing.T) {
+	if atoi("  010") != 10 || atoi("+12") != 12 || atoi("-12ab") != -12 || atoi("123") != 123 || atoi("123e123") != 123 || atoi("e123") != 0 {
+		t.Error(`TestAtoi failed`)
+	}
+}
