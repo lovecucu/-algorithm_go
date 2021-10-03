@@ -292,3 +292,24 @@ func TestSolveLostNumber(t *testing.T) {
 		t.Error(`TestSolveLostNumber failed`)
 	}
 }
+
+func TestOddEvenList(t *testing.T) {
+	root := &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 2}
+	root.Next.Next = &ListNode{Val: 3}
+	root.Next.Next.Next = &ListNode{Val: 4}
+	root.Next.Next.Next.Next = &ListNode{Val: 5}
+	root.Next.Next.Next.Next.Next = &ListNode{Val: 6}
+	if SprintNode(oddEvenList(root)) != "[1 3 5 2 4 6]" {
+		t.Error(`deleteDuplicatesEasy failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 4}
+	root.Next.Next = &ListNode{Val: 6}
+	root.Next.Next.Next = &ListNode{Val: 3}
+	root.Next.Next.Next.Next = &ListNode{Val: 7}
+	if SprintNode(oddEvenList(root)) != "[1 6 7 4 3]" {
+		t.Error(`deleteDuplicatesEasy failed`)
+	}
+}

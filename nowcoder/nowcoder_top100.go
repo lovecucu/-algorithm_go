@@ -1347,9 +1347,35 @@ NC133 链表的奇偶重排
  * @param head ListNode类
  * @return ListNode类
  */
-// func oddEvenList( head *ListNode ) *ListNode {
-//     // write code here
-// }
+func oddEvenList(head *ListNode) *ListNode {
+	// write code here
+	n := 1
+	left, right := make([]*ListNode, 0), make([]*ListNode, 0)
+	for head != nil {
+		next := head.Next
+		head.Next = nil
+		if n%2 > 0 {
+			left = append(left, head)
+		} else {
+			right = append(right, head)
+		}
+		head = next
+		n++
+	}
+
+	dummy := &ListNode{}
+	pre := dummy
+	for i := 0; i < len(left); i++ {
+		pre.Next = left[i]
+		pre = pre.Next
+	}
+
+	for i := 0; i < len(right); i++ {
+		pre.Next = right[i]
+		pre = pre.Next
+	}
+	return dummy.Next
+}
 
 /**
 NC6 二叉树的最大路径和
