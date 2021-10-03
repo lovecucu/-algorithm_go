@@ -942,9 +942,41 @@ NC86 矩阵元素查找
  * @param x int整型
  * @return int整型一维数组
  */
-// func findElement( mat [][]int ,  n int ,  m int ,  x int ) []int {
-//     // write code here
-// }
+func findElement(mat [][]int, n int, m int, x int) []int {
+	// write code here
+	// 横向二分
+	pos, left, right := 0, 0, m-1
+	for left <= right {
+		mid := (right + left) >> 1
+		if mat[0][mid] == x {
+			return []int{0, mid}
+		}
+
+		if mat[0][mid] < x {
+			pos = mid
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+
+	// 纵向二分
+	top, bottom := 0, n-1
+	for top <= bottom {
+		mid := (top + bottom) >> 1
+		if mat[mid][pos] == x {
+			return []int{mid, pos}
+		}
+
+		if mat[mid][pos] < x {
+			top = mid + 1
+		} else {
+			bottom = mid - 1
+		}
+	}
+
+	return []int{0, 0}
+}
 
 /**
 NC30 缺失的第一个正整数
@@ -2952,4 +2984,60 @@ func GetMedian() float64 {
 	} else {
 		return float64(maxHeap.Top().(int))
 	}
+}
+
+/**
+NC145 01背包
+ 算法知识视频讲解
+简单  通过率：46.82%  时间限制：1秒  空间限制：256M
+知识点
+动态规划
+题目
+题解(15)
+讨论(31)
+排行
+描述
+已知一个背包最多能容纳物体的体积为
+
+现有 n 个物品，第 i 个物品的体积为 v_i, 重量为 w_i
+​
+求当前背包最多能装多大重量的物品?
+
+数据范围：
+1≤V≤5000
+1≤n≤5000
+1≤v_i≤5000
+1≤w_i≤5000
+
+复杂度要求：
+O(n⋅V)
+示例1
+输入：
+10,2,[[1,3],[10,4]]
+复制
+返回值：
+4
+复制
+说明：
+第一个物品的体积为1，重量为3，第二个物品的体积为10，重量为4。只取第二个物品可以达到最优方案，取物重量为4
+备注：
+1≤V≤5000
+1≤n≤5000
+1≤v_i≤5000
+1≤w_i≤5000
+
+O(n⋅V)
+*/
+
+/**
+ * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+ * 计算01背包问题的结果
+ * @param V int整型 背包的体积
+ * @param n int整型 物品的个数
+ * @param vw int整型二维数组 第一维度为n,第二维度为2的二维数组,vw[i][0],vw[i][1]分别描述i+1个物品的vi,wi
+ * @return int整型
+ */
+func knapsack(V int, n int, vw [][]int) int {
+	// write code here
+	return 0
 }

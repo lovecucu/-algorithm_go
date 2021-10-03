@@ -139,3 +139,21 @@ func TestGetMedian(t *testing.T) {
 	Insert(8)
 	fmt.Println(GetMedian())
 }
+
+func TestFindElement(t *testing.T) {
+	mat := [][]int{
+		{1, 2, 3},
+		{4, 5, 6},
+	}
+	fmt.Println(findElement(mat, 2, 3, 6))
+	mat = [][]int{
+		{1, 2, 3},
+	}
+	// fmt.Println(findElement(mat, 1, 3, 2))
+
+	mat = [][]int{
+		{1, 4, 8},
+		{2, 5, 9},
+	}
+	// fmt.Println(findElement(mat, 2, 3, 5))
+}
