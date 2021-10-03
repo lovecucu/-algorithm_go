@@ -1436,9 +1436,9 @@ func maxPathSum(root *TreeNode) int {
 		left := dfs(root.Left)
 		right := dfs(root.Right)
 
-		input_maxSum := left + root.Val + right
+		input_maxSum := left + root.Val + right // 这是root为起点的最大路径和
 		maxSum = maxInt(maxSum, input_maxSum)
-		output_maxSum := maxInt(left, right) + root.Val
+		output_maxSum := maxInt(left, right) + root.Val // 这是root不作为起点时，子结点最大路径
 		// fmt.Println(left, right, root.Val, output_maxSum, maxSum)
 		return maxInt(output_maxSum, 0)
 	}
