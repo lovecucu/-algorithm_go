@@ -145,15 +145,26 @@ func TestFindElement(t *testing.T) {
 		{1, 2, 3},
 		{4, 5, 6},
 	}
-	fmt.Println(findElement(mat, 2, 3, 6))
+	if fmt.Sprint(findElement(mat, 2, 3, 6)) != "[1 2]" {
+		t.Error(`TestFindElement failed`)
+	}
 	mat = [][]int{
 		{1, 2, 3},
 	}
-	// fmt.Println(findElement(mat, 1, 3, 2))
-
+	if fmt.Sprint(findElement(mat, 1, 3, 2)) != "[0 1]" {
+		t.Error(`TestFindElement failed`)
+	}
 	mat = [][]int{
 		{1, 4, 8},
 		{2, 5, 9},
 	}
-	// fmt.Println(findElement(mat, 2, 3, 5))
+	if fmt.Sprint(findElement(mat, 2, 3, 5)) != "[1 1]" {
+		t.Error(`TestFindElement failed`)
+	}
+}
+
+func TestLCSPlus1(t *testing.T) {
+	if LCSPlus1("1A2C3D4B56", "B1D23A456A") != "123456" || LCSPlus1("abc", "def") != "-1" || LCSPlus1("abc", "abc") != "abc" || LCSPlus1("abc", "") != "-1" {
+		t.Error(`TestLCSPlus1 failed`)
+	}
 }

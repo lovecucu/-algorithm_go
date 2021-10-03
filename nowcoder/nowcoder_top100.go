@@ -600,14 +600,40 @@ NC92 最长公共子序列-II
  * @param s2 string字符串 the string
  * @return string字符串
  */
-// func LCS( s1 string ,  s2 string ) string {
-//     // write code here
-// }
+func LCSPlus1(s1 string, s2 string) string {
+	// write code here
+	m, n := len(s1), len(s2)
+	dp := make([][]string, m+1)
+	for i := range dp {
+		dp[i] = make([]string, n+1)
+	}
+	for i, c1 := range s1 {
+		for j, c2 := range s2 {
+			if c1 == c2 {
+				dp[i+1][j+1] = dp[i][j] + string(c1)
+			} else {
+				dp[i+1][j+1] = max(dp[i][j+1], dp[i+1][j])
+			}
+		}
+	}
+
+	if len(dp[m][n]) == 0 {
+		return "-1"
+	}
+	return dp[m][n]
+}
+
+func max(a, b string) string {
+	if len(a) > len(b) {
+		return a
+	}
+	return b
+}
 
 /**
 NC36 在两个长度相等的排序数组中找到上中位数
  算法知识视频讲解
-较难  通过率：42.42%  时间限制：2秒  空间限制：256M
+较难  通过率：42.40%  时间限制：2秒  空间限制：256M
 知识点
 数组
 二分
@@ -622,8 +648,8 @@ NC36 在两个长度相等的排序数组中找到上中位数
 
 数据范围：，
 
-要求：时间复杂度 ，空间复杂度
-进阶：时间复杂度为，空间复杂度为
+要求：时间复杂度O(N) ，空间复杂度O(1)
+进阶：时间复杂度为O(logN)，空间复杂度为O(1)
 
 示例1
 输入：
@@ -660,9 +686,25 @@ NC36 在两个长度相等的排序数组中找到上中位数
  * @param arr2 int整型一维数组 the array2
  * @return int整型
  */
-// func findMedianinTwoSortedAray( arr1 []int ,  arr2 []int ) int {
-//     // write code here
-// }
+func findMedianinTwoSortedAray(arr1 []int, arr2 []int) int {
+	// write code here
+	n := len(arr1)
+	i, j := 0, 0
+	var lastItem int
+	for i < n {
+		if i+j == n {
+			break
+		}
+		if arr1[i] < arr2[j] {
+			lastItem = arr1[i]
+			i++
+		} else {
+			lastItem = arr2[j]
+			j++
+		}
+	}
+	return lastItem
+}
 
 /**
 NC60 判断一棵二叉树是否为搜索二叉树和完全二叉树
@@ -2786,82 +2828,6 @@ false
 // func Find( target int ,  array [][]int ) bool {
 //     // write code here
 // }
-
-/**
-NC36 在两个长度相等的排序数组中找到上中位数
- 算法知识视频讲解
-较难  通过率：42.40%  时间限制：2秒  空间限制：256M
-知识点
-数组
-二分
-分治
-题目
-题解(23)
-讨论(55)
-排行
-描述
-给定两个递增数组arr1和arr2，已知两个数组的长度都为N，求两个数组中所有数的上中位数。
-上中位数：假设递增序列长度为n，若n为奇数，则上中位数为第n/2+1个数；否则为第n/2个数
-
-数据范围：，
-
-要求：时间复杂度O(N) ，空间复杂度O(1)
-进阶：时间复杂度为O(logN)，空间复杂度为O(1)
-
-示例1
-输入：
-[1,2,3,4],[3,4,5,6]
-复制
-返回值：
-3
-复制
-说明：
-总共有8个数，上中位数是第4小的数，所以返回3。
-示例2
-输入：
-[0,1,2],[3,4,5]
-复制
-返回值：
-2
-复制
-说明：
-总共有6个数，那么上中位数是第3小的数，所以返回2
-示例3
-输入：
-[1],[2]
-复制
-返回值：
-1
-复制
-备注：
-1≤N≤10^5
-0≤arr_1i,arr_2i≤10^9
-*/
-/**
- * find median in two sorted array
- * @param arr1 int整型一维数组 the array1
- * @param arr2 int整型一维数组 the array2
- * @return int整型
- */
-func findMedianinTwoSortedAray(arr1 []int, arr2 []int) int {
-	// write code here
-	n := len(arr1)
-	i, j := 0, 0
-	var lastItem int
-	for i < n {
-		if i+j == n {
-			break
-		}
-		if arr1[i] < arr2[j] {
-			lastItem = arr1[i]
-			i++
-		} else {
-			lastItem = arr2[j]
-			j++
-		}
-	}
-	return lastItem
-}
 
 /**
 NC131 数据流中的中位数
