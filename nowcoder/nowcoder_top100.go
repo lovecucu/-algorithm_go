@@ -1425,9 +1425,32 @@ dfs
  * @param root TreeNode类
  * @return int整型
  */
-// func maxPathSum( root *TreeNode ) int {
-//     // write code here
-// }
+func maxPathSum(root *TreeNode) int {
+	// write code here
+	maxSum := math.MinInt32
+	var dfs func(root *TreeNode) int
+	dfs = func(root *TreeNode) int { // 获取根左/根右/根左右，三者最大合
+		if root == nil {
+			return 0
+		}
+		left := dfs(root.Left)
+		right := dfs(root.Right)
+
+		input_maxSum := left + root.Val + right
+		maxSum = maxInt(maxSum, input_maxSum)
+		output_maxSum := maxInt(left, right) + root.Val
+		return maxInt(output_maxSum, 0)
+	}
+	dfs(root)
+	return maxSum
+}
+
+func maxInt(a, b int) int {
+	if a < b {
+		return b
+	}
+	return a
+}
 
 /**
 NC16 判断二叉树是否对称

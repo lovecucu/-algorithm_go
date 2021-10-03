@@ -313,3 +313,23 @@ func TestOddEvenList(t *testing.T) {
 		t.Error(`deleteDuplicatesEasy failed`)
 	}
 }
+
+func TestMaxPathSum(t *testing.T) {
+	root := &TreeNode{Val: -2}
+	root.Left = &TreeNode{Val: 1}
+	if maxPathSum(root) != 1 {
+		t.Error(`TestMaxPathSum failed`)
+	}
+
+	/* root = &TreeNode{Val: -2}
+	root.Right = &TreeNode{Val: -3}
+	if maxPathSum(root) != -2 {
+		t.Error(`TestMaxPathSum failed`)
+	}
+
+	root = &TreeNode{Val: 1}
+	root.Right = &TreeNode{Val: 2}
+	if maxPathSum(root) != 3 {
+		t.Error(`TestMaxPathSum failed`)
+	} */
+}
