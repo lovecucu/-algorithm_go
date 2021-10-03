@@ -280,3 +280,15 @@ func TestAtoi(t *testing.T) {
 		t.Error(`TestAtoi failed`)
 	}
 }
+
+func TestSolveLostNumber(t *testing.T) {
+	if solveLostNumber([]int{0, 1, 2, 3, 4, 5, 7}) != 6 {
+		t.Error(`TestSolveLostNumber failed`)
+	}
+	if solveLostNumber([]int{0, 2, 3}) != 1 {
+		t.Error(`TestSolveLostNumber failed`)
+	}
+	if solveLostNumber([]int{0, 1, 2, 3, 4}) != 5 {
+		t.Error(`TestSolveLostNumber failed`)
+	}
+}

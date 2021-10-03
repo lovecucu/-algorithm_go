@@ -1274,9 +1274,19 @@ NC101 缺失数字
  * @param a int整型一维数组 给定的数字串
  * @return int整型
  */
-// func solve(a []int) int {
-// 	// write code here
-// }
+func solveLostNumber(a []int) int {
+	// write code here
+	left, right := 0, len(a)-1
+	for left <= right {
+		mid := (left + right) >> 1
+		if a[mid] <= mid {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return left
+}
 
 /**
 NC133 链表的奇偶重排
