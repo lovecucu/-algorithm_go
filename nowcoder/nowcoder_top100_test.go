@@ -321,7 +321,7 @@ func TestMaxPathSum(t *testing.T) {
 		t.Error(`TestMaxPathSum failed`)
 	}
 
-	/* root = &TreeNode{Val: -2}
+	root = &TreeNode{Val: -2}
 	root.Right = &TreeNode{Val: -3}
 	if maxPathSum(root) != -2 {
 		t.Error(`TestMaxPathSum failed`)
@@ -331,5 +331,16 @@ func TestMaxPathSum(t *testing.T) {
 	root.Right = &TreeNode{Val: 2}
 	if maxPathSum(root) != 3 {
 		t.Error(`TestMaxPathSum failed`)
-	} */
+	}
+
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	root.Left.Left = &TreeNode{Val: 4}
+	root.Left.Right = &TreeNode{Val: 5}
+	root.Right.Left = &TreeNode{Val: 6}
+	root.Right.Right = &TreeNode{Val: 7}
+	if maxPathSum(root) != 18 {
+		t.Error(`TestMaxPathSum failed`)
+	}
 }

@@ -1439,6 +1439,7 @@ func maxPathSum(root *TreeNode) int {
 		input_maxSum := left + root.Val + right
 		maxSum = maxInt(maxSum, input_maxSum)
 		output_maxSum := maxInt(left, right) + root.Val
+		// fmt.Println(left, right, root.Val, output_maxSum, maxSum)
 		return maxInt(output_maxSum, 0)
 	}
 	dfs(root)
