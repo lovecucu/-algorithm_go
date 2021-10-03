@@ -260,3 +260,17 @@ func TestDeleteDuplicatesEasy(t *testing.T) {
 		t.Error(`deleteDuplicatesEasy failed`)
 	}
 }
+
+func TestMinNumberDisappeared(t *testing.T) {
+	if minNumberDisappeared([]int{1, 0, 2}) != 3 {
+		t.Error(`TestMinNumberDisappeared failed`)
+	}
+
+	if minNumberDisappeared([]int{-2, 3, 4, 1, 5}) != 2 {
+		t.Error(`TestMinNumberDisappeared failed`)
+	}
+
+	if minNumberDisappeared([]int{4, 5, 6, 8, 9}) != 1 {
+		t.Error(`TestMinNumberDisappeared failed`)
+	}
+}

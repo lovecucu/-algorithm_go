@@ -1140,9 +1140,37 @@ NC30 缺失的第一个正整数
  * @param nums int整型一维数组
  * @return int整型
  */
-// func minNumberDisappeared(nums []int) int {
-// 	// write code here
-// }
+func minNumberDisappeared(nums []int) int {
+	// write code here
+	size := len(nums)
+	for i, v := range nums {
+		if v <= 0 {
+			nums[i] = math.MaxInt64 // 初始化为无关紧要的最大值，因为num长度有限，不可能大于MaxInt64，故不会影响结果
+		}
+	}
+
+	// 出现过的值，乘个-1
+	for i := 0; i < size; i++ { // 值小于size的，对应下标的值*-1
+		positiveV := abs(nums[i])
+		if positiveV <= size && nums[positiveV-1] > 0 {
+			nums[positiveV-1] *= -1
+		}
+	}
+
+	for i, v := range nums { // 顺序遍历，第一个为正数的下标+1就是缺少的正数
+		if v >= 0 {
+			return i + 1
+		}
+	}
+	return size + 1 // 如果没有，则size+1
+}
+
+func abs(v int) int {
+	if v < 0 {
+		return v * -1
+	}
+	return v
+}
 
 /**
 NC101 缺失数字
