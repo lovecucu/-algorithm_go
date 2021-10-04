@@ -333,7 +333,7 @@ func TestMaxPathSum(t *testing.T) {
 		t.Error(`TestMaxPathSum failed`)
 	}
 
-	root := &TreeNode{Val: 1}
+	root = &TreeNode{Val: 1}
 	root.Left = &TreeNode{Val: 2}
 	root.Right = &TreeNode{Val: 3}
 	root.Left.Left = &TreeNode{Val: 4}
@@ -342,5 +342,41 @@ func TestMaxPathSum(t *testing.T) {
 	root.Right.Right = &TreeNode{Val: 7}
 	if maxPathSum(root) != 18 {
 		t.Error(`TestMaxPathSum failed`)
+	}
+}
+
+func TestIsSymmetric(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 2}
+	if isSymmetric(root) != true {
+		t.Error("TestIsSymmetric failed")
+	}
+
+	root = &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 2}
+	root.Left.Right = &TreeNode{Val: 3}
+	root.Right.Right = &TreeNode{Val: 3}
+	if isSymmetric(root) != false {
+		t.Error("TestIsSymmetric failed")
+	}
+}
+
+func TestIsSymmetricRecursion(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 2}
+	if isSymmetricRecursion(root) != true {
+		t.Error("TestIsSymmetricRecursion failed")
+	}
+
+	root = &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 2}
+	root.Left.Right = &TreeNode{Val: 3}
+	root.Right.Right = &TreeNode{Val: 3}
+	if isSymmetricRecursion(root) != false {
+		t.Error("TestIsSymmetricRecursion failed")
 	}
 }

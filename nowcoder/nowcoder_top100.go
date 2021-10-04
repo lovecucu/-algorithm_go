@@ -1502,9 +1502,72 @@ false
  * @param root TreeNode类
  * @return bool布尔型
  */
-// func isSymmetric(root *TreeNode) bool {
-// 	// write code here
-// }
+// 迭代解法
+func isSymmetric(root *TreeNode) bool {
+	// write code here
+	// 层序遍历
+	if root == nil {
+		return true
+	}
+
+	queue := make([]*TreeNode, 0)
+	queue = append(queue, root)
+
+	depth := 1
+	maxInt := 1001
+	for len(queue) > 0 {
+		size := len(queue)
+		if depth != 1 && size%2 > 0 {
+			return false
+		}
+		tmpArr := make([]int, size*2)
+		for i := 0; i < size; i++ {
+			tmp := queue[i]
+			tmpArr[2*i], tmpArr[2*i+1] = maxInt, maxInt
+			if tmp.Left != nil {
+				queue = append(queue, tmp.Left)
+				tmpArr[2*i] = tmp.Left.Val
+			}
+
+			if tmp.Right != nil {
+				queue = append(queue, tmp.Right)
+				tmpArr[2*i+1] = tmp.Right.Val
+			}
+		}
+
+		for i := 0; i < size; i++ {
+			if tmpArr[i] != tmpArr[2*size-i-1] {
+				return false
+			}
+		}
+
+		queue = queue[size:]
+		depth++
+	}
+	return true
+}
+
+// 递归解法
+func isSymmetricRecursion(root *TreeNode) bool {
+	// write code here
+	if root == nil {
+		return true
+	}
+	return Symmetric(root.Left, root.Right)
+}
+
+func Symmetric(left, right *TreeNode) bool {
+	if left == nil && right == nil {
+		return true
+	}
+	if left == nil || right == nil {
+		return false
+	}
+	if left.Val != right.Val {
+		return false
+	}
+	return Symmetric(left.Left, right.Right) && Symmetric(left.Right, right.Left)
+}
 
 /**
 NC26 括号生成
