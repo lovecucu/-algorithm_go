@@ -3419,5 +3419,23 @@ O(n⋅V)
  */
 func knapsack(V int, n int, vw [][]int) int {
 	// write code here
-	return 0
+	if V == 0 || n == 0 || vw == nil {
+		return 0
+	}
+
+	dp := make([][]int, n+1)
+	for i := 0; i <= n; i++ {
+		dp[i] = make([]int, V+1)
+		if i == 0 { // 初始化dp[0]
+			continue
+		}
+		for j := 1; j <= V; j++ {
+			if j < vw[i-1][0] {
+				dp[i][j] = dp[i-1][j]
+			} else {
+				dp[i][j] = maxInt(dp[i-1][j], dp[i-1][j-vw[i-1][0]]+vw[i-1][1])
+			}
+		}
+	}
+	return dp[n][V]
 }
