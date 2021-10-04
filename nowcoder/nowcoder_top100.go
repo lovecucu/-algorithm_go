@@ -1678,9 +1678,38 @@ NC18 顺时针旋转矩阵
  * @param n int整型
  * @return int整型二维数组
  */
-// func rotateMatrix(mat [][]int, n int) [][]int {
-// 	// write code here
-// }
+func rotateMatrix(mat [][]int, n int) [][]int {
+	// write code here
+	if n <= 1 {
+		return mat
+	}
+	// 方法一：空间复杂度O(N)
+	/*
+		ret := make([][]int, n)
+		for i := 0; i < n; i++ {
+			ret[i] = make([]int, n)
+		}
+		for i := 0; i < n; i++ {
+			for j := 0; j < n; j++ {
+				ret[j][n-1-i] = mat[i][j]
+			}
+		}
+		return ret
+	*/
+
+	// 方法二：空间复杂度O(1)
+	for i := 0; i < n/2; i++ {
+		for j := 0; j < (n+1)/2; j++ {
+			tmp := mat[j][n-1-i]
+			mat[j][n-1-i] = mat[i][j]
+			mat[i][j] = mat[n-1-j][i]
+			mat[n-1-j][i] = mat[n-1-i][n-1-j]
+			mat[n-1-i][n-1-j] = tmp
+			// fmt.Println(mat)
+		}
+	}
+	return mat
+}
 
 /**
 NC20 数字字符串转化成IP地址
