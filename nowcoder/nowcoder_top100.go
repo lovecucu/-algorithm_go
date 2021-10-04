@@ -1585,7 +1585,7 @@ NC26 括号生成
 "((()))", "(()())", "(())()", "()()()", "()(())"
 
  数据范围：
- 要求：空间复杂度 ，时间复杂度
+ 要求：空间复杂度O(n!) ，时间复杂度O(n!)
 示例1
 输入：
 1
@@ -1605,9 +1605,45 @@ NC26 括号生成
  * @param n int整型
  * @return string字符串一维数组
  */
-// func generateParenthesis( n int ) []string {
-//     // write code here
-// }
+func generateParenthesis(n int) []string {
+	// write code here
+	/*
+		选择
+			这道题每次最多两个选择，选左括号，或右括号，“选择”会展开出一棵解的空间树。
+			用 DFS 的方式遍历这棵树，找出所有的解，这个过程叫回溯。
+		约束条件
+			即什么情况下可以选左括号，什么情况下可以选右括号。
+			利用约束做“剪枝”，即，去掉不会产生解的选项，即，剪去不会通往合法解的分支。
+			比如()，现在左右括号各剩一个，再选)就成了())，这是错的选择，不能让它成为选项（不落入递归）：
+				if (right > left) { // 右括号剩的比较多，才能选右括号
+					dfs(left, right - 1, str + ')');
+				}
+		目标
+			构建出一个用尽 n 对括号的合法括号串。
+			意味着，当构建的长度达到 2*n，就可以结束递归（不用继续选了）。
+	*/
+
+	res := []string{}
+	var dfs1 func(lRemain, rRemain int, path string)
+	dfs1 = func(lRemain, rRemain int, path string) {
+		if 2*n == len(path) {
+			res = append(res, path)
+			return
+		}
+
+		if lRemain > 0 { // 左括号有，就可以取
+			dfs1(lRemain-1, rRemain, path+"(")
+		}
+
+		if lRemain < rRemain { // 左括号少于右括号
+			dfs1(lRemain, rRemain-1, path+")")
+		}
+	}
+
+	dfs1(n, n, "")
+	fmt.Println(res)
+	return res
+}
 
 /**
 NC18 顺时针旋转矩阵

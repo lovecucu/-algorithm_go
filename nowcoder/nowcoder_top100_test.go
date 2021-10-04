@@ -380,3 +380,17 @@ func TestIsSymmetricRecursion(t *testing.T) {
 		t.Error("TestIsSymmetricRecursion failed")
 	}
 }
+
+func TestGenerateParenthesis(t *testing.T) {
+	if fmt.Sprint(generateParenthesis(1)) != "[()]" {
+		t.Error(`TestGenerateParenthesis failed`)
+	}
+
+	if fmt.Sprint(generateParenthesis(2)) != "[(()) ()()]" {
+		t.Error(`TestGenerateParenthesis failed`)
+	}
+
+	if fmt.Sprint(generateParenthesis(3)) != "[((())) (()()) (())() ()(()) ()()()]" {
+		t.Error(`TestGenerateParenthesis failed`)
+	}
+}
