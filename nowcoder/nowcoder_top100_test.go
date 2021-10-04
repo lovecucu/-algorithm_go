@@ -396,7 +396,7 @@ func TestGenerateParenthesis(t *testing.T) {
 }
 
 func TestRotateMatrix(t *testing.T) {
-	/* if fmt.Sprint(rotateMatrix([][]int{
+	if fmt.Sprint(rotateMatrix([][]int{
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 9},
@@ -409,7 +409,7 @@ func TestRotateMatrix(t *testing.T) {
 		{3, 4},
 	}, 2)) != "[[3 1] [4 2]]" {
 		t.Error(`TestRotateMatrix failed`)
-	} */
+	}
 
 	if fmt.Sprint(rotateMatrix([][]int{
 		{1, 2, 3, 4},
@@ -418,5 +418,19 @@ func TestRotateMatrix(t *testing.T) {
 		{13, 14, 15, 16},
 	}, 4)) != "[[3 1] [4 2]]" {
 		t.Error(`TestRotateMatrix failed`)
+	}
+}
+
+func TestRestoreIpAddresses(t *testing.T) {
+	if fmt.Sprint(restoreIpAddresses("25525522135")) != "[255.255.22.135 255.255.221.35]" {
+		t.Error(`TestRestoreIpAddresses failed`)
+	}
+
+	if fmt.Sprint(restoreIpAddresses("1111")) != "[1.1.1.1]" {
+		t.Error(`TestRestoreIpAddresses failed`)
+	}
+
+	if fmt.Sprint(restoreIpAddresses("000256")) != "[]" {
+		t.Error(`TestRestoreIpAddresses failed`)
 	}
 }

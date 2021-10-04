@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"sort"
+	"strconv"
 )
 
 /**
@@ -1759,9 +1760,56 @@ NC20 数字字符串转化成IP地址
  * @param s string字符串
  * @return string字符串一维数组
  */
-// func restoreIpAddresses( s string ) []string {
-//     // write code here
-// }
+func restoreIpAddresses(s string) []string {
+	// write code here
+	ret := []string{}
+
+	var dfsIp func(s string, path string, size int)
+	dfsIp = func(s string, path string, size int) {
+		if len(s) > 3*size || len(s) == 0 {
+			return
+		}
+
+		if size == 1 {
+
+			if s[0] == '0' && len(s) > 1 {
+				return
+			}
+
+			if atoiIp(s) <= 255 {
+				ret = append(ret, path+"."+s)
+			}
+			return
+		}
+
+		dfsIp(s[1:], pathAdd(path, string(s[0:1])), size-1)
+
+		if s[0] != '0' {
+			if len(s) >= 2 && atoiIp(s[:2]) <= 255 {
+				dfsIp(s[2:], pathAdd(path, string(s[0:2])), size-1)
+			}
+
+			if len(s) >= 3 && atoiIp(s[:3]) <= 255 {
+				dfsIp(s[3:], pathAdd(path, string(s[0:3])), size-1)
+			}
+		}
+	}
+	dfsIp(s, "", 4)
+	return ret
+}
+
+func pathAdd(path, add string) string {
+	if path == "" {
+		return add
+	}
+
+	return path + "." + add
+}
+
+func atoiIp(s string) int {
+	val, _ := strconv.Atoi(s)
+	return val
+}
 
 /**
 NC94 LFU缓存结构设计
