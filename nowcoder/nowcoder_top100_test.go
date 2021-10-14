@@ -459,3 +459,8 @@ func TestLFU(t *testing.T) {
 		t.Error(`TestLFU failed`)
 	}
 }
+
+func TestRemoveKey(t *testing.T) {
+	data := []int{1, 2, 3}
+	fmt.Println(removeKey(data, 4))
+}

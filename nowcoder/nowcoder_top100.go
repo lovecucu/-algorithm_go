@@ -1913,6 +1913,7 @@ func LFU(operators [][]int, k int) []int {
 		case 2:
 			ret = append(ret, cache.get(operators[i][1]))
 		}
+		fmt.Println(cache)
 	}
 
 	return ret
@@ -1977,12 +1978,33 @@ func (c *LFUCache) increaseFreq(key int) {
 	if oldFreq == c.minFreq && len(keys) == 1 {
 		c.minFreq = newFreq
 	}
+	// 从freqTokeys[oldFreq]删除
+	c.freqToKeys[oldFreq] = removeKey(keys, key)
+	c.keyToFreq[key] = newFreq
+
 	newKeys, ok := c.freqToKeys[newFreq]
 	if ok {
 		newKeys = append(newKeys, key)
 		c.freqToKeys[newFreq] = newKeys
 	} else {
 		c.freqToKeys[newFreq] = []int{key}
+	}
+}
+
+func removeKey(data []int, key int) []int {
+	index := -1
+	for i, v := range data {
+		if v == key {
+			index = i
+			break
+		}
+	}
+
+	if index < 1 {
+		return data[index+1:]
+	} else {
+		ret := data[:index]
+		return append(ret, data[index+1:]...)
 	}
 }
 
