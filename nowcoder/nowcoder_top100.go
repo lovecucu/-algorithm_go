@@ -2210,6 +2210,11 @@ func permuteUnique(num []int) [][]int {
 			ret = append(ret, tmp)
 		}
 	}
+
+	sort.SliceStable(ret, func(i, j int) bool {
+		return fmt.Sprint(ret[i]) < fmt.Sprint(ret[j])
+	})
+
 	return ret
 }
 
@@ -2270,9 +2275,15 @@ func maxInWindows(num []int, size int) []int {
 	}
 
 	ret := []int{}
-	for i := 0; i < len(num)-size+1; i++ {
-		tmp := num[i : i+size]
-		ret = append(ret, maxIntSlice(tmp))
+	left, right := 0, 0
+	for right < len(num) {
+		if right-left < size-1 {
+			right++
+		} else {
+			ret = append(ret, maxIntSlice(num[left:right+1]))
+			left++
+			right++
+		}
 	}
 	return ret
 }

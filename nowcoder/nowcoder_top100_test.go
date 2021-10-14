@@ -499,6 +499,11 @@ func TestPermuteUnique(t *testing.T) {
 	if fmt.Sprint(permuteUnique(data)) != "[[1 1 2] [1 2 1] [2 1 1]]" {
 		t.Error(`TestPermuteUnique failed`)
 	}
+
+	data = []int{0, -1}
+	if fmt.Sprint(permuteUnique(data)) != "[[-1 0] [0 -1]]" {
+		t.Error(`TestPermuteUnique failed`)
+	}
 }
 
 func TestMaxInWindows(t *testing.T) {
