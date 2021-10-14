@@ -2080,8 +2080,7 @@ func reorderList(head *ListNode) *ListNode {
 	// 反转后半部分
 	slow = reverseList(next)
 
-	dummy := &ListNode{Next: head}
-	pre := dummy.Next
+	pre := head
 	for slow != nil {
 		next = slow.Next
 		slow.Next = pre.Next
@@ -2089,7 +2088,7 @@ func reorderList(head *ListNode) *ListNode {
 		pre = slow.Next // pre跳到pre.Next
 		slow = next
 	}
-	return dummy.Next
+	return head
 }
 
 /**
