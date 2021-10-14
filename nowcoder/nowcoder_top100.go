@@ -1913,7 +1913,6 @@ func LFU(operators [][]int, k int) []int {
 		case 2:
 			ret = append(ret, cache.get(operators[i][1]))
 		}
-		fmt.Println(cache)
 	}
 
 	return ret
