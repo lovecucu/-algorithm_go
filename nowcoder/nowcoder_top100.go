@@ -2183,9 +2183,35 @@ NC42 有重复项数字的所有排列
  * @param num int整型一维数组
  * @return int整型二维数组
  */
-// func permuteUnique(num []int) [][]int {
-// 	// write code here
-// }
+func permuteUnique(num []int) [][]int {
+	// write code here
+	var ret [][]int
+	if len(num) <= 1 {
+		ret = append(ret, num)
+		return ret
+	}
+
+	son := permuteUnique(num[1:])
+	maps := make(map[string]struct{})
+	for i := 0; i < len(son); i++ { // 遍历每个子数组
+		len1 := len(son[i])
+		for j := 0; j < len1+1; j++ {
+			tmp := make([]int, len1+1)
+			copy(tmp[:j], son[i][:j])
+			if j < len1 {
+				copy(tmp[j+1:], son[i][j:])
+			}
+			tmp[j] = num[0]
+
+			if _, ok := maps[fmt.Sprint(tmp)]; ok {
+				continue
+			}
+			maps[fmt.Sprint(tmp)] = struct{}{}
+			ret = append(ret, tmp)
+		}
+	}
+	return ret
+}
 
 /**
 NC82 滑动窗口的最大值

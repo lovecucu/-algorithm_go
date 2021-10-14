@@ -470,7 +470,7 @@ func TestReorderList(t *testing.T) {
 	root.Next = &ListNode{Val: 2}
 	root.Next.Next = &ListNode{Val: 3}
 
-	/* if SprintNode(reorderList(root)) != "[1 3 2]" {
+	if SprintNode(reorderList(root)) != "[1 3 2]" {
 		t.Error(`TestReorderList failed`)
 	}
 
@@ -480,7 +480,7 @@ func TestReorderList(t *testing.T) {
 	root.Next.Next.Next = &ListNode{Val: 4}
 	if SprintNode(reorderList(root)) != "[1 4 2 3]" {
 		t.Error(`TestReorderList failed`)
-	} */
+	}
 
 	root = &ListNode{Val: 1}
 	root.Next = &ListNode{Val: 2}
@@ -489,5 +489,12 @@ func TestReorderList(t *testing.T) {
 	root.Next.Next.Next.Next = &ListNode{Val: 5}
 	if SprintNode(reorderList(root)) != "[1 5 2 4 3]" {
 		t.Error(`TestReorderList failed`)
+	}
+}
+
+func TestPermuteUnique(t *testing.T) {
+	data := []int{1, 1, 2}
+	if fmt.Sprint(permuteUnique(data)) != "[[1 1 2] [1 2 1] [2 1 1]]" {
+		t.Error(`TestPermuteUnique failed`)
 	}
 }
