@@ -2263,9 +2263,29 @@ NC82 滑动窗口的最大值
  * @param size int整型
  * @return int整型一维数组
  */
-// func maxInWindows( num []int ,  size int ) []int {
-//     // write code here
-// }
+func maxInWindows(num []int, size int) []int {
+	// write code here
+	if len(num) < size || size == 0 {
+		return []int{}
+	}
+
+	ret := []int{}
+	for i := 0; i < len(num)-size+1; i++ {
+		tmp := num[i : i+size]
+		ret = append(ret, maxIntSlice(tmp))
+	}
+	return ret
+}
+
+func maxIntSlice(data []int) int {
+	var max = math.MinInt64
+	for i := 0; i < len(data); i++ {
+		if data[i] > max {
+			max = data[i]
+		}
+	}
+	return max
+}
 
 /**
 NC9 二叉树中是否存在节点和为指定值的路径

@@ -500,3 +500,17 @@ func TestPermuteUnique(t *testing.T) {
 		t.Error(`TestPermuteUnique failed`)
 	}
 }
+
+func TestMaxInWindows(t *testing.T) {
+	if fmt.Sprint(maxInWindows([]int{2, 3, 4, 2, 6, 2, 5, 1}, 3)) != "[4 4 6 6 6 5]" {
+		t.Error(`TestMaxInWindows failed`)
+	}
+
+	if fmt.Sprint(maxInWindows([]int{9, 10, 9, -7, -3, 8, 2, -6}, 5)) != "[10 10 9 8]" {
+		t.Error(`TestMaxInWindows failed`)
+	}
+
+	if fmt.Sprint(maxInWindows([]int{1, 2, 3, 4}, 5)) != "[]" {
+		t.Error(`TestMaxInWindows failed`)
+	}
+}
