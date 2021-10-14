@@ -170,9 +170,50 @@ NC35 最小编辑代价
  * @param rc int整型 replace cost
  * @return int整型
  */
-// func minEditCost(str1 string, str2 string, ic int, dc int, rc int) int {
-// 	// write code here
-// }
+func minEditCost(str1 string, str2 string, ic int, dc int, rc int) int {
+	// write code here
+	m, n := len(str1), len(str2)
+
+	// dp[i][j]表示str1[0...i]和str2[o...j]的最小编辑距离
+	dp := make([][]int, m+1)
+	for i := 0; i < m+1; i++ {
+		dp[i] = make([]int, n+1)
+	}
+
+	// base case
+	for i := 1; i < m+1; i++ {
+		dp[i][0] = i * dc
+	}
+
+	for i := 1; i < n+1; i++ {
+		dp[0][i] = i * ic
+	}
+
+	// 状态转移方程
+	for i := 1; i < m+1; i++ {
+		for j := 1; j < n+1; j++ {
+			if str1[i-1] == str2[j-1] {
+				// 不需操作
+				dp[i][j] = dp[i-1][j-1]
+			} else {
+				dp[i][j] = min(dp[i][j-1]+ic, dp[i-1][j]+dc, dp[i-1][j-1]+rc)
+			}
+		}
+	}
+	return dp[m][n]
+}
+
+func min(a, b, c int) int {
+	min := a
+	if b < a {
+		min = b
+	}
+
+	if c < min {
+		min = c
+	}
+	return min
+}
 
 /**
 NC5 二叉树根节点到叶子节点的所有路径和

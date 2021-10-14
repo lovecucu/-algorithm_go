@@ -444,3 +444,12 @@ func TestKnapsack(t *testing.T) {
 		t.Error(`TestKnapsack failed`)
 	}
 }
+
+func TestMinEditCost(t *testing.T) {
+	if minEditCost("abc", "adc", 5, 3, 2) != 2 {
+		t.Error(`TestMinEditCost failed`)
+	}
+	if minEditCost("abc", "adc", 5, 3, 100) != 8 {
+		t.Error(`TestMinEditCost failed`)
+	}
+}
