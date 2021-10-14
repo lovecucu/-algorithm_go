@@ -2085,8 +2085,8 @@ func reorderList(head *ListNode) *ListNode {
 	for slow != nil {
 		next = slow.Next
 		slow.Next = pre.Next
-		pre.Next = slow
-		pre = slow.Next
+		pre.Next = slow // slow插入pre和pre.Next之间
+		pre = slow.Next // pre跳到pre.Next
 		slow = next
 	}
 	return dummy.Next
