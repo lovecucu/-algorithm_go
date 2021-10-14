@@ -464,3 +464,30 @@ func TestRemoveKey(t *testing.T) {
 	data := []int{1, 2, 3}
 	fmt.Println(removeKey(data, 4))
 }
+
+func TestReorderList(t *testing.T) {
+	root := &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 2}
+	root.Next.Next = &ListNode{Val: 3}
+
+	/* if SprintNode(reorderList(root)) != "[1 3 2]" {
+		t.Error(`TestReorderList failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 2}
+	root.Next.Next = &ListNode{Val: 3}
+	root.Next.Next.Next = &ListNode{Val: 4}
+	if SprintNode(reorderList(root)) != "[1 4 2 3]" {
+		t.Error(`TestReorderList failed`)
+	} */
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 2}
+	root.Next.Next = &ListNode{Val: 3}
+	root.Next.Next.Next = &ListNode{Val: 4}
+	root.Next.Next.Next.Next = &ListNode{Val: 5}
+	if SprintNode(reorderList(root)) != "[1 5 2 4 3]" {
+		t.Error(`TestReorderList failed`)
+	}
+}

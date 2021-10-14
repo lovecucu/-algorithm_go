@@ -2019,38 +2019,8 @@ func (c *LFUCache) removeLeastFreq() int {
 
 /**
 描述
-将给定的单链表\ L L： L_0→L_1→…→L_{n-1}→L_ nL
-0
-​
- →L
-1
-​
- →…→L
-n−1
-​
- →L
-n
-​
-
-重新排序为：L_0→L_n →L_1→L_{n-1}→L_2→L_{n-2}→…L
-0
-​
- →L
-n
-​
- →L
-1
-​
- →L
-n−1
-​
- →L
-2
-​
- →L
-n−2
-​
- →…
+将给定的单链表L： L_0→L_1→…→L_{n-1}→L_n
+重新排序为：L_0→L_n →L_1→L_{n-1}→L_2→L_{n-2}
 要求使用原地算法，不能只改变节点内部的值，需要对实际的节点进行交换。
 
 数据范围：链表长度  ，链表中每个节点的值满足
@@ -2094,9 +2064,33 @@ n−2
  * @param head ListNode类
  * @return void
  */
-// func reorderList( head *ListNode )  {
-//     // write code here
-// }
+func reorderList(head *ListNode) *ListNode {
+	// write code here
+	if head == nil {
+		return head
+	}
+	// 求中点
+	slow, fast := head, head
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	next := slow.Next
+	slow.Next = nil
+	// 反转后半部分
+	slow = reverseList(next)
+
+	dummy := &ListNode{Next: head}
+	pre := dummy.Next
+	for slow != nil {
+		next = slow.Next
+		slow.Next = pre.Next
+		pre.Next = slow
+		pre = slow.Next
+		slow = next
+	}
+	return dummy.Next
+}
 
 /**
 NC25 删除有序链表中重复的元素-I
