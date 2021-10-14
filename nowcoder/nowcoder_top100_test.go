@@ -462,7 +462,9 @@ func TestLFU(t *testing.T) {
 
 func TestRemoveKey(t *testing.T) {
 	data := []int{1, 2, 3}
-	fmt.Println(removeKey(data, 4))
+	if fmt.Sprint(removeKey(data, 1)) != "[2 3]" {
+		t.Error(`TestRemoveKey failed`)
+	}
 }
 
 func TestReorderList(t *testing.T) {
