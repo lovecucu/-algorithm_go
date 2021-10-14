@@ -453,3 +453,9 @@ func TestMinEditCost(t *testing.T) {
 		t.Error(`TestMinEditCost failed`)
 	}
 }
+
+func TestLFU(t *testing.T) {
+	if fmt.Sprint(LFU([][]int{{1, 1, 1}, {1, 2, 2}, {1, 3, 2}, {1, 2, 4}, {1, 3, 5}, {2, 2}, {1, 4, 4}, {2, 1}}, 3)) != "[4 -1]" {
+		t.Error(`TestLFU failed`)
+	}
+}

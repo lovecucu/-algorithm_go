@@ -1897,9 +1897,103 @@ get(key)：返回key对应的value值
  * @param k int整型 the k
  * @return int整型一维数组
  */
-// func LFU( operators [][]int ,  k int ) []int {
-//     // write code here
-// }
+func LFU(operators [][]int, k int) []int {
+	// write code here
+	lens := len(operators)
+	if lens <= 0 {
+		return []int{}
+	}
+
+	ret := []int{}
+	cache := NewLFUCache(k)
+	for i := 0; i < lens; i++ {
+		switch operators[i][0] {
+		case 1:
+			cache.put(operators[i][1], operators[i][2])
+		case 2:
+			ret = append(ret, cache.get(operators[i][1]))
+		}
+	}
+
+	return ret
+}
+
+type LFUCache struct {
+	keyToVal   map[int]int
+	keyToFreq  map[int]int
+	freqToKeys map[int][]int
+	minFreq    int
+	cap        int
+}
+
+func NewLFUCache(capacity int) *LFUCache {
+	return &LFUCache{
+		keyToVal:   make(map[int]int),
+		keyToFreq:  make(map[int]int),
+		freqToKeys: make(map[int][]int),
+		cap:        capacity,
+		minFreq:    math.MaxInt64,
+	}
+}
+
+func (c *LFUCache) get(key int) int {
+	if v, ok := c.keyToVal[key]; ok {
+		c.increaseFreq(key)
+		return v
+	}
+	return -1
+}
+
+func (c *LFUCache) put(key int, val int) {
+	if _, ok := c.keyToVal[key]; ok {
+		c.keyToVal[key] = val
+		c.increaseFreq(key)
+		return
+	}
+
+	if len(c.keyToVal) >= c.cap {
+		c.removeLeastFreq()
+	}
+
+	freq := 1
+	c.keyToVal[key] = val
+	c.keyToFreq[key] = freq
+	c.minFreq = 1
+	v, ok := c.freqToKeys[freq]
+	if !ok {
+		c.freqToKeys[freq] = []int{key}
+	} else {
+		v = append(v, key)
+		c.freqToKeys[freq] = v
+	}
+}
+
+// 增加freq
+func (c *LFUCache) increaseFreq(key int) {
+	oldFreq := c.keyToFreq[key]
+	keys := c.freqToKeys[oldFreq]
+	newFreq := oldFreq + 1
+	// 更新minFreq
+	if oldFreq == c.minFreq && len(keys) == 1 {
+		c.minFreq = newFreq
+	}
+	newKeys, ok := c.freqToKeys[newFreq]
+	if ok {
+		newKeys = append(newKeys, key)
+		c.freqToKeys[newFreq] = newKeys
+	} else {
+		c.freqToKeys[newFreq] = []int{key}
+	}
+}
+
+func (c *LFUCache) removeLeastFreq() int {
+	keys := c.freqToKeys[c.minFreq]
+	removeKey := keys[0]
+	c.freqToKeys[c.minFreq] = keys[1:]
+	delete(c.keyToVal, removeKey)
+	delete(c.keyToFreq, removeKey)
+	return removeKey
+}
 
 /**
 描述
