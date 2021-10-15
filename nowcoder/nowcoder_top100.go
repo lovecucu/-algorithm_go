@@ -2451,7 +2451,7 @@ func combinationSum2(num []int, target int) [][]int {
 			if i > start && num[i] == num[i-1] { // 去重
 				continue
 			}
-			if num[i] <= target {
+			if num[i] <= target { // 过滤后续比target大的情况，注定无解
 				tmp := make([]int, len(path))
 				copy(tmp, path)
 				tmp = append(tmp, num[i])
