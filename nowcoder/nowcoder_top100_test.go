@@ -541,5 +541,16 @@ func TestLongestValidParentheses(t *testing.T) {
 	if longestValidParentheses("(())") != 4 || longestValidParentheses("(()") != 2 || longestValidParentheses(")()())") != 4 {
 		t.Error(`TestLongestValidParentheses failed`)
 	}
-	// fmt.Println(longestValidParentheses("()()"))
+}
+
+func TestLongestCommonPrefix(t *testing.T) {
+	if longestCommonPrefix([]string{}) != "" {
+		t.Error(`TestLongestCommonPrefix failed`)
+	}
+	if longestCommonPrefix([]string{"abc"}) != "abc" {
+		t.Error(`TestLongestCommonPrefix failed`)
+	}
+	if longestCommonPrefix([]string{"abca", "abc", "abca", "abc", "abcc"}) != "abc" {
+		t.Error(`TestLongestCommonPrefix failed`)
+	}
 }

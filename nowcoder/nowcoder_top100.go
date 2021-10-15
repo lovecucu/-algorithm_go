@@ -2570,9 +2570,31 @@ NC55 最长公共前缀
  * @param strs string字符串一维数组
  * @return string字符串
  */
-// func longestCommonPrefix( strs []string ) string {
-//     // write code here
-// }
+func longestCommonPrefix(strs []string) string {
+	// write code here
+	lens := len(strs)
+	if lens < 1 {
+		return ""
+	}
+
+	minLen := math.MaxInt64
+	for i := 0; i < lens; i++ {
+		if len(strs[i]) < minLen {
+			minLen = len(strs[i])
+		}
+	}
+
+	var bytes []byte
+	for i := 0; i < minLen; i++ {
+		for j := 1; j < lens; j++ {
+			if strs[j][i] != strs[0][i] {
+				break
+			}
+		}
+		bytes = append(bytes, strs[0][i])
+	}
+	return string(bytes)
+}
 
 /**
 NC56 回文数字
