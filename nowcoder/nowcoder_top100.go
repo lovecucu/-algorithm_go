@@ -2635,9 +2635,29 @@ false
  * @param x int整型
  * @return bool布尔型
  */
-// func isPalindrome( x int ) bool {
-//     // write code here
-// }
+func isPalindrome(x int) bool {
+	// write code here
+	isNegative := x < 0
+	if isNegative {
+		x = x * -1
+	}
+	realX := x
+	reverse := 0
+	for x/10 > 0 {
+		if reverse*10+x%10 > math.MaxInt64 {
+			return false
+		}
+		reverse = reverse*10 + x%10
+		x = x / 10
+	}
+
+	if reverse*10+x%10 > math.MaxInt64 {
+		return false
+	}
+	reverse = reverse*10 + x%10
+
+	return reverse == realX
+}
 
 /**
 NC105 二分查找-II
