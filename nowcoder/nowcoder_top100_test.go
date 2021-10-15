@@ -542,7 +542,19 @@ func TestCombinationSum2(t *testing.T) {
 }
 
 func TestLongestValidParentheses(t *testing.T) {
-	if longestValidParentheses("(())") != 4 || longestValidParentheses("(()") != 2 || longestValidParentheses(")()())") != 4 {
+	if longestValidParentheses("(())") != 4 {
+		t.Error(`TestLongestValidParentheses failed`)
+	}
+
+	if longestValidParentheses("(()") != 2 {
+		t.Error(`TestLongestValidParentheses failed`)
+	}
+
+	if longestValidParentheses(")()(()()((((((())(") != 4 {
+		t.Error(`TestLongestValidParentheses failed`)
+	}
+
+	if longestValidParentheses(")()())") != 4 {
 		t.Error(`TestLongestValidParentheses failed`)
 	}
 }

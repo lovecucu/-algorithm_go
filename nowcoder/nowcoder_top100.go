@@ -2506,31 +2506,24 @@ NC49 最长的括号子串
  */
 func longestValidParentheses(s string) int {
 	// write code here
-	var stack []byte
-	maxStr := ""
+	stack := []int{-1} // 栈顶元素为遍历过的元素中【最后一个没有被匹配的右括号下标】
 	maxLen := 0
-	for i := 0; i < len(s); {
+	for i := 0; i < len(s); i++ {
 		if s[i] == '(' {
-			stack = append(stack, s[i])
+			stack = append(stack, i)
 		} else {
 			if len(stack) > 0 {
-				for len(stack) > 0 && i < len(s) && s[i] == ')' {
-					maxStr = "()" + maxStr
-					stack = stack[1:]
-					i++
-				}
-				continue
-			} else {
-				if maxLen < len(maxStr) {
-					maxLen = len(maxStr)
+				stack = stack[:len(stack)-1] // 弹出栈顶
+			}
+
+			if len(stack) == 0 { // 说明当前右括号没有匹配的值，入栈
+				stack = append(stack, i)
+			} else { // 有匹配的值，则计算下当前i和栈顶元素的差值，可算出连续匹配长度了
+				if maxLen < i-stack[len(stack)-1] {
+					maxLen = i - stack[len(stack)-1]
 				}
 			}
 		}
-		i++
-	}
-
-	if maxLen < len(maxStr) {
-		maxLen = len(maxStr)
 	}
 
 	return maxLen
