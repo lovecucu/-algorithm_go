@@ -2588,7 +2588,7 @@ func longestCommonPrefix(strs []string) string {
 	for i := 0; i < minLen; i++ {
 		for j := 1; j < lens; j++ {
 			if strs[j][i] != strs[0][i] {
-				break
+				return string(bytes)
 			}
 		}
 		bytes = append(bytes, strs[0][i])
@@ -2639,7 +2639,7 @@ func isPalindrome(x int) bool {
 	// write code here
 	isNegative := x < 0
 	if isNegative {
-		x = x * -1
+		return false
 	}
 	realX := x
 	reverse := 0
