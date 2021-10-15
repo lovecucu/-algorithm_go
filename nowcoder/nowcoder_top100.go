@@ -2504,9 +2504,37 @@ NC49 最长的括号子串
  * @param s string字符串
  * @return int整型
  */
-// func longestValidParentheses(s string) int {
-// 	// write code here
-// }
+func longestValidParentheses(s string) int {
+	// write code here
+	var stack []byte
+	maxStr := ""
+	maxLen := 0
+	for i := 0; i < len(s); {
+		if s[i] == '(' {
+			stack = append(stack, s[i])
+		} else {
+			if len(stack) > 0 {
+				for len(stack) > 0 && i < len(s) && s[i] == ')' {
+					maxStr = "()" + maxStr
+					stack = stack[1:]
+					i++
+				}
+				continue
+			} else {
+				if maxLen < len(maxStr) {
+					maxLen = len(maxStr)
+				}
+			}
+		}
+		i++
+	}
+
+	if maxLen < len(maxStr) {
+		maxLen = len(maxStr)
+	}
+
+	return maxLen
+}
 
 /**
 NC55 最长公共前缀
