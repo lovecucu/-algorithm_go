@@ -2344,9 +2344,26 @@ true
  * @param sum int整型
  * @return bool布尔型
  */
-// func hasPathSum( root *TreeNode ,  sum int ) bool {
-//     // write code here
-// }
+func hasPathSum(root *TreeNode, sum int) bool {
+	// write code here
+	hasFlag := false
+	var dfs func(root *TreeNode, target int)
+	dfs = func(root *TreeNode, target int) {
+		if root == nil || hasFlag {
+			return
+		}
+
+		if root.Left == nil && root.Right == nil && root.Val == target {
+			hasFlag = true
+			return
+		}
+
+		dfs(root.Left, target-root.Val)
+		dfs(root.Right, target-root.Val)
+	}
+	dfs(root, sum)
+	return hasFlag
+}
 
 /**
 NC46 加起来和为目标值的组合

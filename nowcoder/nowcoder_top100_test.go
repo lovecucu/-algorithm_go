@@ -519,3 +519,11 @@ func TestMaxInWindows(t *testing.T) {
 		t.Error(`TestMaxInWindows failed`)
 	}
 }
+
+func TestHasPathSum(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	if hasPathSum(root, 0) != false || hasPathSum(root, 3) != true {
+		t.Error(`TestHasPathSum failed`)
+	}
+}
