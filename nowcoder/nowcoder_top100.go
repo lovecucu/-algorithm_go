@@ -2448,7 +2448,7 @@ func combinationSum2(num []int, target int) [][]int {
 		}
 
 		for i := start; i < len(num); i++ { // 从start开始，每个都试下
-			if i > start && num[i] == num[i-1] { // 去重
+			if i > start && num[i] == num[i-1] { // 去重，相同值仅第一个能用，否则会出现重复结果
 				continue
 			}
 			if num[i] <= target { // 过滤后续比target大的情况，注定无解
@@ -2461,6 +2461,7 @@ func combinationSum2(num []int, target int) [][]int {
 	}
 
 	dfs(num, []int{}, target, 0)
+	fmt.Println(ret)
 	return ret
 }
 
