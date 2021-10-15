@@ -527,3 +527,12 @@ func TestHasPathSum(t *testing.T) {
 		t.Error(`TestHasPathSum failed`)
 	}
 }
+
+func TestCombinationSum2(t *testing.T) {
+	if fmt.Sprint(combinationSum2([]int{2, 1}, 0)) != "[]" {
+		t.Error(`TestCombinationSum2 failed`)
+	}
+	if fmt.Sprint(combinationSum2([]int{100, 10, 20, 70, 60, 10, 50}, 80)) != "[[10 10 60] [10 20 50] [10 70] [20 60]]" {
+		t.Error(`TestCombinationSum2 failed`)
+	}
+}

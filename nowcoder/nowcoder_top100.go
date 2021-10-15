@@ -2429,9 +2429,41 @@ k
  * @param target int整型
  * @return int整型二维数组
  */
-// func combinationSum2( num []int ,  target int ) [][]int {
-//     // write code here
-// }
+func combinationSum2(num []int, target int) [][]int {
+	// write code here
+	sort.SliceStable(num, func(i, j int) bool {
+		return num[i] < num[j]
+	})
+
+	var ret [][]int
+	maps := make(map[string]struct{})
+	var dfs func(num []int, path []int, target int)
+	dfs = func(num []int, path []int, target int) {
+		lens := len(num)
+		if lens == 0 || num[0] > target {
+			return
+		}
+
+		path = append(path, num[0])
+		if num[0] == target {
+			if _, ok := maps[fmt.Sprint(path)]; !ok {
+				ret = append(ret, path)
+				maps[fmt.Sprint(path)] = struct{}{}
+			}
+			return
+		}
+
+		i := 1
+		for i < lens {
+			dfs(num[i:], path, target-num[0])
+			i++
+		}
+	}
+	for i := 0; i < len(num); i++ {
+		dfs(num[i:], []int{}, target)
+	}
+	return ret
+}
 
 /**
 NC49 最长的括号子串
