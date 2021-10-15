@@ -560,3 +560,9 @@ func TestIsPalindrome(t *testing.T) {
 		t.Error(`TestIsPalindrome failed`)
 	}
 }
+
+func TestBinarySearchWithDuplicate(t *testing.T) {
+	if binarySearchWithDuplicate([]int{1, 2, 4, 4, 5}, 3) != -1 || binarySearchWithDuplicate([]int{1, 1, 1, 1, 1}, 1) != 0 {
+		t.Error(`TestBinarySearchWithDuplicate failed`)
+	}
+}

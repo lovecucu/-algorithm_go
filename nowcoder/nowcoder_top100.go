@@ -2703,9 +2703,34 @@ NC105 二分查找-II
  * @param target int整型
  * @return int整型
  */
-// func search( nums []int ,  target int ) int {
-//     // write code here
-// }
+func binarySearchWithDuplicate(nums []int, target int) int {
+	// write code here
+	lens := len(nums)
+	if lens < 1 {
+		return -1
+	}
+
+	left, right := 0, lens-1
+	index := -1
+	for left <= right {
+		mid := (left + right) >> 1
+		if nums[mid] == target {
+			index = mid
+			for mid > 0 && nums[mid-1] == target {
+				index = mid - 1
+				mid = mid - 1
+			}
+			break
+		}
+
+		if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return index
+}
 
 /**
 NC87 丢棋子问题
