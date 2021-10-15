@@ -2436,32 +2436,31 @@ func combinationSum2(num []int, target int) [][]int {
 	})
 
 	var ret [][]int
-	maps := make(map[string]struct{})
-	var dfs func(num []int, path []int, target int)
-	dfs = func(num []int, path []int, target int) {
-		lens := len(num)
-		if lens == 0 || num[0] > target {
+	var dfs func(num []int, path []int, target int, start int)
+	dfs = func(num []int, path []int, target int, start int) {
+		if len(path) > 0 && target == 0 {
+			ret = append(ret, path)
 			return
 		}
 
-		path = append(path, num[0])
-		if num[0] == target {
-			if _, ok := maps[fmt.Sprint(path)]; !ok {
-				ret = append(ret, path)
-				maps[fmt.Sprint(path)] = struct{}{}
+		if start >= len(num) { // 开始下标超出num范围
+			return
+		}
+
+		for i := start; i < len(num); i++ { // 从start开始，每个都试下
+			if i > start && num[i] == num[i-1] { // 去重
+				continue
 			}
-			return
+			if num[i] <= target {
+				tmp := make([]int, len(path))
+				copy(tmp, path)
+				tmp = append(tmp, num[i])
+				dfs(num, tmp, target-num[i], i+1)
+			}
 		}
+	}
 
-		i := 1
-		for i < lens {
-			dfs(num[i:], path, target-num[0])
-			i++
-		}
-	}
-	for i := 0; i < len(num); i++ {
-		dfs(num[i:], []int{}, target)
-	}
+	dfs(num, []int{}, target, 0)
 	return ret
 }
 
