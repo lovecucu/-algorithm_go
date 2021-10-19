@@ -2794,9 +2794,66 @@ NC87 丢棋子问题
  * @param k int整型 棋子数
  * @return int整型
  */
-// func solve( n int ,  k int ) int {
-//     // write code here
-// }
+func solvePieces(n int, k int) int {
+	// write code here
+	if n <= 1 || k <= 1 {
+		return n
+	}
+
+	// 动态规划思考：
+	// 假设dp[n][k]表示n层楼时有k个棋子在最差情况下仍的最少次数
+	// n == 0,棋子在第0层，肯定不会碎，因此dp[0][k] = 0
+	// k == 1，楼层有N层，棋子只有一个，需要一层层尝试，故dp[n][1] = n
+	// n>0 且k>1，需要考虑第一个棋子从哪层开始仍的。如果第1个棋子从i层开始仍，那么有以下两种情况：
+	// (1)碎了。没必要尝试第i层以上的楼层了，接下来问题变成dp[i-1][k-1]的问题了，所以总步数为1+dp[i-1][k-1]
+	// (2)没碎。没必要尝试第i层以下的楼层了，接下来问题变成dp[n-i][k]的问题了，所以总步数为1+dp[n-i][k]
+
+	// 解法一：动态规划
+	// dp := make([][]int, n+1)
+	// for i := 0; i <= n; i++ {
+	// 	dp[i] = make([]int, k+1)
+	// 	dp[i][1] = i
+	// }
+
+	// for i := 1; i <= n; i++ {
+	// 	for j := 2; j <= k; j++ {
+	// 		min := math.MaxInt64
+	// 		for k := 1; k < i+1; k++ { // 尝试找出从[1,i]层开始仍的最小次数
+	// 			max := maxInt(dp[k-1][j-1], dp[i-k][j])
+	// 			if min >= max {
+	// 				min = max
+	// 			}
+	// 			fmt.Println(i, k, j, max)
+	// 		}
+	// 		dp[i][j] = min + 1
+	// 	}
+	// }
+	// return dp[n][k]
+
+	// 解法二：最优解
+	// 每次扔的位置都是最佳的，i个棋子扔time次。
+	// 第1次时，如果碎了，向下可以探测“i-1个棋子扔time-1次”层
+	// 如果没碎，向上可以探测“i个棋子扔time-1次”层
+	// 上下层数加当前1层即为i个棋子扔time次能探测的最大层数
+	best := int(math.Log2(float64(n))) + 1 // 棋子数足够则返回最小次数
+	if k >= best {
+		return best
+	}
+
+	dp := make([]int, k+1) // 用来记扔1~k个棋子能够探测的最大层数
+	for i := 1; i < k+1; i++ {
+		dp[i] = 1 // 不论多少棋子扔1次最大探测层数都为1
+	}
+	for time := 2; ; time++ {
+		for i := k; i >= 2; i-- { // k个棋子扔time次的最大层数
+			dp[i] = dp[i] + dp[i-1] + 1
+			if dp[i] >= n { // 超过n，则返回扔的次数
+				return time
+			}
+		}
+		dp[1] = time // 1个棋子仍time次最多探测time层
+	}
+}
 
 /**
 NC123 序列化二叉树
