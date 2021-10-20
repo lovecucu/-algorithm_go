@@ -584,7 +584,7 @@ func TestBinarySearchWithDuplicate(t *testing.T) {
 }
 
 func TestSolvePieces(t *testing.T) {
-	if solvePieces(10, 1) != 10 || solvePieces(105, 2) != 14 {
-		t.Error(`TestSolvePieces failed`, solvePieces(105, 2))
+	if solvePieces(10, 2) != 4 || solvePieces(105, 2) != 14 {
+		t.Error(`TestSolvePieces failed`)
 	}
 }

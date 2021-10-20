@@ -2726,6 +2726,9 @@ func binarySearchWithDuplicate(nums []int, target int) int {
 }
 
 /**
+
+！！！不懂
+
 NC87 丢棋子问题
  算法知识视频讲解
 中等  通过率：24.24%  时间限制：1秒  空间限制：256M
@@ -2835,23 +2838,24 @@ func solvePieces(n int, k int) int {
 	// 第1次时，如果碎了，向下可以探测“i-1个棋子扔time-1次”层
 	// 如果没碎，向上可以探测“i个棋子扔time-1次”层
 	// 上下层数加当前1层即为i个棋子扔time次能探测的最大层数
-	best := int(math.Log2(float64(n))) + 1 // 棋子数足够则返回最小次数
+	best := int(math.Log2(float64(n))) + 1 // 棋子数足够则返回最小次数(二分最小次数)
 	if k >= best {
 		return best
 	}
 
-	dp := make([]int, k+1) // 用来记扔1~k个棋子能够探测的最大层数
-	for i := 1; i < k+1; i++ {
-		dp[i] = 1 // 不论多少棋子扔1次最大探测层数都为1
-	}
-	for time := 2; ; time++ {
-		for i := k; i >= 2; i-- { // k个棋子扔time次的最大层数
-			dp[i] = dp[i] + dp[i-1] + 1
-			if dp[i] >= n { // 超过n，则返回扔的次数
-				return time
+	dp := make([]int, k) // 用来记扔1~k个棋子能够探测的最大层数
+	res := 0
+	for {
+		res++
+		previous := 0
+		for i := 0; i < len(dp); i++ {
+			tmp := dp[i]
+			dp[i] = dp[i] + previous + 1
+			previous = tmp
+			if dp[i] >= n {
+				return res
 			}
 		}
-		dp[1] = time // 1个棋子仍time次最多探测time层
 	}
 }
 
