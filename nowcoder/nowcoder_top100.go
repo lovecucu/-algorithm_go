@@ -2834,23 +2834,25 @@ func solvePieces(n int, k int) int {
 	// return dp[n][k]
 
 	// 解法二：最优解
-	// 每次扔的位置都是最佳的，i个棋子扔time次。
-	// 第1次时，如果碎了，向下可以探测“i-1个棋子扔time-1次”层
-	// 如果没碎，向上可以探测“i个棋子扔time-1次”层
-	// 上下层数加当前1层即为i个棋子扔time次能探测的最大层数
+	//这里是被迫使用滚动数组，因为j多大是未知的
+	//dp[i][j] = dp[i-1][j-1] + dp[i-1][j] + 1
+	//假设第1个棋子扔在a层楼是最优的尝试。
+	//1.如果第1个棋子已碎，那就向下，看i-1个棋子扔j-1次最多搞定多少层楼。对应dp[i-1][j-1]
+	//2.如果第1个棋子没碎，那就向上，看i个棋子扔j-1次最多搞定多少层楼。对应dp[i-1][j]
+	//3.a层楼本身也是被搞定的1层。 +1
 	best := int(math.Log2(float64(n))) + 1 // 棋子数足够则返回最小次数(二分最小次数)
 	if k >= best {
 		return best
 	}
 
-	dp := make([]int, k) // 用来记扔1~k个棋子能够探测的最大层数
+	dp := make([]int, k)
 	res := 0
 	for {
 		res++
 		previous := 0
 		for i := 0; i < len(dp); i++ {
 			tmp := dp[i]
-			dp[i] = dp[i] + previous + 1
+			dp[i] = dp[i] + previous + 1 // dp[i]代表dp[i-1][j-1]，previous代表dp[i-1][j]
 			previous = tmp
 			if dp[i] >= n {
 				return res
