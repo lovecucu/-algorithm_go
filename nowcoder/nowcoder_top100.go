@@ -3368,9 +3368,48 @@ NC111 最大数
  * @param nums int整型一维数组
  * @return string字符串
  */
-// func solve( nums []int ) string {
-//     // write code here
-// }
+func solveMaxValue(nums []int) string {
+	// write code here
+	if len(nums) == 0 {
+		return ""
+	}
+
+	var ret string
+	sort.SliceStable(nums, func(i, j int) bool {
+		left, right := int2str(nums[i]), int2str(nums[j])
+		minLen := minInt(len(left), len(right))
+		if len(left) == len(right) { // 等长，大的先排
+			return left > right
+		} else { // 不等长
+			if left[:minLen] == right[:minLen] { // 前边相同，按后续和前边的大小排序
+				return left+right > right+left
+			} else {
+				return left[:minLen] > right[:minLen] // 不相同，按前端大的先排
+			}
+		}
+	})
+
+	for i := 0; i < len(nums); i++ {
+		ret += int2str(nums[i])
+	}
+
+	if ret[0] == '0' {
+		ret = "0"
+	}
+
+	return ret
+}
+
+func int2str(a int) string {
+	return fmt.Sprint(a)
+}
+
+func minInt(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
 
 /**
 NC113 验证IP地址

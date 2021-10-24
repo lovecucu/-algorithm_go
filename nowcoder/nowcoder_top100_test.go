@@ -644,3 +644,9 @@ func TestYsf(t *testing.T) {
 		t.Error(`TestYsf failed`)
 	}
 }
+
+func TestSolveMaxValue(t *testing.T) {
+	if solveMaxValue([]int{2, 20, 23, 4, 8}) != "8423220" || solveMaxValue([]int{30, 1}) != "301" {
+		t.Error(`TestSolveMaxValue failed`)
+	}
+}
