@@ -3024,9 +3024,30 @@ NC81 二叉搜索树的第k个结点
  * @param k int整型
  * @return TreeNode类
  */
-// func KthNode( pRoot *TreeNode ,  k int ) *TreeNode {
-//     // write code here
-// }
+func KthNode(pRoot *TreeNode, k int) *TreeNode {
+	// write code here
+	if pRoot == nil || k == 0 {
+		return nil
+	}
+
+	var i int
+	var last *TreeNode
+	var dfs func(root *TreeNode)
+	dfs = func(root *TreeNode) {
+		if root == nil {
+			return
+		}
+		dfs(root.Left)
+		i++
+		if i == k {
+			last = root
+			return
+		}
+		dfs(root.Right)
+	}
+	dfs(pRoot)
+	return last
+}
 
 /**
 NC89 字符串变形
@@ -3078,9 +3099,34 @@ NC89 字符串变形
  * @param n int整型
  * @return string字符串
  */
-// func trans( s string ,  n int ) string {
-//     // write code here
-// }
+func trans(s string, n int) string {
+	// write code here
+	if s == "" || n == 0 {
+		return ""
+	}
+
+	sArr := strings.Split(s, " ")
+	var res []byte
+	for i := len(sArr) - 1; i >= 0; i-- {
+		res = append(res, convert(sArr[i])...)
+		if i > 0 {
+			res = append(res, ' ')
+		}
+	}
+	return string(res)
+}
+
+func convert(b string) []byte {
+	var res []byte
+	for i := 0; i < len(b); i++ {
+		if b[i] >= 97 {
+			res = append(res, b[i]-32)
+		} else {
+			res = append(res, b[i]+32)
+		}
+	}
+	return res
+}
 
 /**
 NC95 数组中的最长连续子序列

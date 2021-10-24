@@ -608,3 +608,24 @@ func TestDeserialize(t *testing.T) {
 	root.Right.Right = &TreeNode{Val: 7}
 	PrintTreeNode(Deserialize(Serialize(root)))
 }
+
+func TestKthNode(t *testing.T) {
+	root := &TreeNode{Val: 2}
+	root.Left = &TreeNode{Val: 1}
+	root.Right = &TreeNode{Val: 6}
+	root.Right.Left = &TreeNode{Val: 3}
+	root.Right.Right = &TreeNode{Val: 7}
+	if KthNode(root, 3).Val != 3 || KthNode(root, 4).Val != 6 || KthNode(root, 6) != nil {
+		t.Error(`TestKthNode failed`)
+	}
+}
+
+func TestTran(t *testing.T) {
+	if trans("This is a sample", 16) != "SAMPLE A IS tHIS" {
+		t.Error(`TestTran failed`)
+	}
+
+	if trans("iOS", 3) != "Ios" || trans("nowcoder", 8) != "NOWCODER" {
+		t.Error(`TestTran failed`)
+	}
+}
