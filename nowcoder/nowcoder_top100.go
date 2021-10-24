@@ -6,6 +6,7 @@ import (
 	"math"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 /**
@@ -2917,12 +2918,63 @@ NC123 序列化二叉树
  * @param root TreeNode类
  * @return TreeNode类
  */
-// func Serialize( root *TreeNode ) string {
-//     // write code here
-// }
-// func Deserialize( s string ) *TreeNode {
-//     // write code here
-// }
+func Serialize(root *TreeNode) string {
+	// write code here
+	s := ""
+	var queue []*TreeNode
+	queue = append(queue, root)
+	for len(queue) > 0 {
+		tmpNode := queue[0]
+		queue = queue[1:]
+		if tmpNode == nil {
+			s += "#,"
+			continue
+		}
+		s += fmt.Sprint(tmpNode.Val)
+		s += ","
+		queue = append(queue, tmpNode.Left)
+		queue = append(queue, tmpNode.Right)
+	}
+
+	return s[:len(s)-1]
+}
+func Deserialize(s string) *TreeNode {
+	// write code here
+	if s == "#" {
+		return nil
+	}
+
+	str := strings.Split(s, ",")
+	var queue []*TreeNode
+	root := &TreeNode{Val: str2int(str[0])}
+	queue = append(queue, root)
+	str = str[1:]
+	for len(str) > 0 && len(queue) > 0 {
+		tmpNode := queue[0]
+		queue = queue[1:]
+		if str[0] == "#" {
+			tmpNode.Left = nil
+		} else {
+			tmpNode.Left = &TreeNode{Val: str2int(str[0])}
+			queue = append(queue, tmpNode.Left)
+		}
+		str = str[1:]
+
+		if str[0] == "#" {
+			tmpNode.Right = nil
+		} else {
+			tmpNode.Right = &TreeNode{Val: str2int(str[0])}
+			queue = append(queue, tmpNode.Right)
+		}
+		str = str[1:]
+	}
+	return root
+}
+
+func str2int(a string) int {
+	val, _ := strconv.Atoi(a)
+	return val
+}
 
 /**
 NC81 二叉搜索树的第k个结点

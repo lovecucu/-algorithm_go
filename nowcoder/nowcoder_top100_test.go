@@ -588,3 +588,23 @@ func TestSolvePieces(t *testing.T) {
 		t.Error(`TestSolvePieces failed`)
 	}
 }
+
+func TestSerialize(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	root.Right.Left = &TreeNode{Val: 6}
+	root.Right.Right = &TreeNode{Val: 7}
+	if Serialize(root) != "1,2,3,#,#,6,7,#,#,#,#" {
+		t.Error(`TestSerialize failed`)
+	}
+}
+
+func TestDeserialize(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	root.Right.Left = &TreeNode{Val: 6}
+	root.Right.Right = &TreeNode{Val: 7}
+	PrintTreeNode(Deserialize(Serialize(root)))
+}
