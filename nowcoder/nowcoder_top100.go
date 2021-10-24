@@ -3173,9 +3173,40 @@ i
  * @param arr int整型一维数组 the array
  * @return int整型
  */
-// func MLS( arr []int ) int {
-//     // write code here
-// }
+func MLS(arr []int) int {
+	// write code here
+	if len(arr) <= 1 {
+		return len(arr)
+	}
+
+	sort.SliceStable(arr, func(i, j int) bool {
+		return arr[i] < arr[j]
+	})
+
+	max, start, last := 0, 0, 0
+	for i := 0; i < len(arr); i++ {
+		if i == 0 {
+			start, last = arr[i], arr[i]
+		} else {
+			if arr[i] == last {
+				continue
+			} else if arr[i] == last+1 {
+				last = arr[i]
+			} else {
+				if max < last-start+1 {
+					max = last - start + 1
+				}
+				start, last = arr[i], arr[i]
+			}
+		}
+	}
+
+	if max < last-start+1 {
+		max = last - start + 1
+	}
+
+	return max
+}
 
 /**
 NC132 环形链表的约瑟夫问题
