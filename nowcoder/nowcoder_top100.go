@@ -3472,9 +3472,43 @@ IPv4,   IPv6,   Neither
  * @param IP string字符串 一个IP地址字符串
  * @return string字符串
  */
-// func solve( IP string ) string {
-//     // write code here
-// }
+func validIP(IP string) string {
+	// write code here
+	if strings.ContainsRune(IP, '.') {
+		arr := strings.Split(IP, ".")
+		if len(arr) != 4 {
+			return "Neither"
+		}
+		for i := 0; i < len(arr); i++ {
+			if len(arr[i]) > 1 && arr[i][0:1] == "0" {
+				return "Neither"
+			}
+			if arr[i] < "0" || arr[i] > "255" {
+				return "Neither"
+			}
+		}
+		return "IPv4"
+	} else if strings.ContainsRune(IP, ':') {
+		arr := strings.Split(IP, ":")
+		if len(arr) != 8 {
+			return "Neither"
+		}
+		for i := 0; i < len(arr); i++ {
+			if len(arr[i]) > 4 {
+				return "Neither"
+			}
+
+			tmpStr := strings.ToLower(arr[i])
+			for i := 0; i < len(tmpStr); i++ {
+				if tmpStr[i] < '0' || tmpStr[i] > 'f' {
+					return "Neither"
+				}
+			}
+		}
+		return "IPv6"
+	}
+	return "Neither"
+}
 
 /**
 NC10 大数乘法
@@ -3654,9 +3688,26 @@ i
  * @param k int整型
  * @return ListNode类
  */
-// func FindKthToTail( pHead *ListNode ,  k int ) *ListNode {
-//     // write code here
-// }
+func FindKthToTail(pHead *ListNode, k int) *ListNode {
+	// write code here
+	slow, fast := pHead, pHead
+	for fast != nil && k > 0 {
+		k--
+		fast = fast.Next
+	}
+	if k > 0 {
+		return nil
+	}
+
+	for slow != nil && fast != nil {
+		slow = slow.Next
+		fast = fast.Next
+		if fast == nil {
+			break
+		}
+	}
+	return slow
+}
 
 /**
 NC126 换钱的最少货币数
