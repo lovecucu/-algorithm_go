@@ -3887,9 +3887,43 @@ false
  * @param array int整型二维数组
  * @return bool布尔型
  */
-// func Find( target int ,  array [][]int ) bool {
-//     // write code here
-// }
+func Find(target int, array [][]int) bool {
+	// write code here
+	if len(array) < 1 {
+		return false
+	}
+
+	minCol := len(array[0])
+	for i := 0; i < len(array); i++ {
+		idx := getLastSmallerIndex(target, array[i], minCol)
+		if idx != -1 && array[i][idx] == target {
+			return true
+		}
+
+		if idx != -1 && minCol > idx {
+			minCol = idx
+		}
+	}
+	return false
+}
+
+func getLastSmallerIndex(target int, arr []int, minCol int) int {
+	idx := -1
+	left, right := 0, len(arr)-1
+	if right > minCol {
+		right = minCol
+	}
+	for left <= right {
+		mid := (left + right) >> 1
+		if arr[mid] <= target {
+			idx = mid
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return idx
+}
 
 /**
 NC131 数据流中的中位数
