@@ -3249,15 +3249,38 @@ n-1 轮结束以后，只剩下一个人，问最后留下的这个人编号是�
 备注：
 1 \leq n, m \leq 100001≤n,m≤10000
 */
+
 /**
  *
  * @param n int整型
  * @param m int整型
  * @return int整型
  */
-// func ysf( n int ,  m int ) int {
-//     // write code here
-// }
+func ysf(n int, m int) int {
+	// write code here
+	head := &ListNode{Val: 1}
+	tail := head
+	for i := 2; i <= n; i++ {
+		tail.Next = &ListNode{Val: i}
+		tail = tail.Next
+	}
+	tail.Next = head // 造环
+
+	index, pre := head, tail
+	k := 0
+	for index.Next != nil && index.Next != index {
+		k++
+		next := index.Next
+		if k == m { // 删除index对应的结点，此时pre不变
+			pre.Next = pre.Next.Next
+			k = 0
+		} else { // index设为pre
+			pre = index
+		}
+		index = next // index都会转为下个结点
+	}
+	return index.Val
+}
 
 /**
 NC99 树的直径

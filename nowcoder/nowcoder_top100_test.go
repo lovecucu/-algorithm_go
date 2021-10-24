@@ -634,7 +634,13 @@ func TestMLS(t *testing.T) {
 	if MLS([]int{7, 8, 2, 6, 1, 1, 7, 2, 4, 3, 4, 7, 5, 6, 8, 2}) != 8 {
 		t.Error(`TestMLS failed`)
 	}
-	// if MLS([]int{100, 4, 200, 1, 3, 2}) != 4 || MLS([]int{1, 1, 1}) != 1 {
-	// 	t.Error(`TestMLS failed`)
-	// }
+	if MLS([]int{100, 4, 200, 1, 3, 2}) != 4 || MLS([]int{1, 1, 1}) != 1 {
+		t.Error(`TestMLS failed`)
+	}
+}
+
+func TestYsf(t *testing.T) {
+	if ysf(5, 2) != 3 || ysf(1, 1) != 1 {
+		t.Error(`TestYsf failed`)
+	}
 }
