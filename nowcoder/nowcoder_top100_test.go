@@ -683,5 +683,7 @@ func TestFindValue(t *testing.T) {
 }
 
 func TestSolveMultiple(t *testing.T) {
-	fmt.Println(solveMultiple("99", "11"))
+	if solveMultiple("99", "11") != "1089" || solveMultiple("999", "111") != "110889" {
+		t.Error(`TestSolveMultiple failed`)
+	}
 }
