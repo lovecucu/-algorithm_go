@@ -3662,6 +3662,7 @@ func subsets(A []int) [][]int {
 
 	var ret [][]int
 	var list []int
+	maps := make(map[string]struct{})
 	ret = append(ret, list)
 	for i := 0; i < len(A); i++ { // 一个个遍历
 		size := len(ret)
@@ -3669,7 +3670,10 @@ func subsets(A []int) [][]int {
 			tmp := make([]int, len(ret[j])+1)
 			copy(tmp, ret[j])
 			tmp[len(tmp)-1] = A[i]
-			ret = append(ret, tmp)
+			if _, ok := maps[fmt.Sprint(tmp)]; !ok {
+				ret = append(ret, tmp)
+				maps[fmt.Sprint(tmp)] = struct{}{}
+			}
 		}
 	}
 
@@ -3713,9 +3717,43 @@ NC43 没有重复项数字的所有排列
  * @param num int整型一维数组
  * @return int整型二维数组
  */
-// func permute( num []int ) [][]int {
-//     // write code here
-// }
+func permute(num []int) [][]int {
+	// write code here
+	if len(num) < 1 {
+		return [][]int{}
+	}
+
+	if len(num) == 1 {
+		return [][]int{num}
+	}
+
+	sort.SliceStable(num, func(i, j int) bool {
+		return num[i] < num[j]
+	})
+
+	var ret [][]int
+	var dfsPermute func(num []int, path []int, maps map[int]struct{})
+	dfsPermute = func(num []int, path []int, maps map[int]struct{}) {
+		if len(path) == len(num) {
+			ret = append(ret, path)
+			return
+		}
+		for i := 0; i < len(num); i++ {
+			if _, ok := maps[num[i]]; !ok {
+				tmp := make([]int, len(path)+1)
+				copy(tmp, path)
+				tmp[len(tmp)-1] = num[i]
+				maps[num[i]] = struct{}{}
+				dfsPermute(num, tmp, maps)
+				delete(maps, num[i]) // 回退maps
+			}
+		}
+	}
+
+	dfsPermute(num, []int{}, make(map[int]struct{}))
+
+	return ret
+}
 
 /**
 NC69 链表中倒数最后k个结点

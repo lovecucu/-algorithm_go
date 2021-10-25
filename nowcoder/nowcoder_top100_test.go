@@ -689,5 +689,17 @@ func TestSolveMultiple(t *testing.T) {
 }
 
 func TestSubsets(t *testing.T) {
-	fmt.Println(subsets([]int{1, 2, 3}))
+	if fmt.Sprint(subsets([]int{1, 2, 3})) != "[[] [1] [2] [3] [1 2] [1 3] [2 3] [1 2 3]]" {
+		t.Error(`TestSubsets failed`)
+	}
+
+	if fmt.Sprint(subsets([]int{1, 1, 2})) != "[[] [1] [2] [1 1] [1 2] [1 1 2]]" {
+		t.Error(`TestSubsets failed`)
+	}
+}
+
+func TestDfsPermute(t *testing.T) {
+	if fmt.Sprint(permute([]int{2, 1, 3})) != "[[1 2 3] [1 3 2] [2 1 3] [2 3 1] [3 1 2] [3 2 1]]" {
+		t.Error(`TestDfsPermute failed`)
+	}
 }
