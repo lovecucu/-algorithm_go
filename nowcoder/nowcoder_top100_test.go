@@ -686,4 +686,6 @@ func TestSolveMultiple(t *testing.T) {
 	if solveMultiple("99", "11") != "1089" || solveMultiple("999", "111") != "110889" {
 		t.Error(`TestSolveMultiple failed`)
 	}
+	// "733064366","459309139"
+	//336703162779040874
 }
