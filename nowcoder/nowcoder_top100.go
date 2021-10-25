@@ -3650,9 +3650,39 @@ NC27 集合的所有子集
  * @param A int整型一维数组
  * @return int整型二维数组
  */
-// func subsets( A []int ) [][]int {
-//     // write code here
-// }
+func subsets(A []int) [][]int {
+	// write code here
+	if len(A) == 0 {
+		return [][]int{{}}
+	}
+
+	sort.SliceStable(A, func(i, j int) bool {
+		return A[i] < A[j]
+	})
+
+	var ret [][]int
+	var list []int
+	ret = append(ret, list)
+	for i := 0; i < len(A); i++ { // 一个个遍历
+		size := len(ret)
+		for j := 0; j < size; j++ { // 将当前元素，结合已有的集合产生新子集，并写入ret
+			tmp := make([]int, len(ret[j])+1)
+			copy(tmp, ret[j])
+			tmp[len(tmp)-1] = A[i]
+			ret = append(ret, tmp)
+		}
+	}
+
+	sort.SliceStable(ret, func(i, j int) bool {
+		if len(ret[i]) == len(ret[j]) {
+			return fmt.Sprint(ret[i]) < fmt.Sprint(ret[j])
+		} else {
+			return len(ret[i]) < len(ret[j])
+		}
+	})
+
+	return ret
+}
 
 /**
 NC43 没有重复项数字的所有排列

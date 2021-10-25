@@ -687,3 +687,7 @@ func TestSolveMultiple(t *testing.T) {
 		t.Error(`TestSolveMultiple failed`)
 	}
 }
+
+func TestSubsets(t *testing.T) {
+	fmt.Println(subsets([]int{1, 2, 3}))
+}
