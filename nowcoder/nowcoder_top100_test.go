@@ -681,3 +681,7 @@ func TestFindValue(t *testing.T) {
 		t.Error(`TestFind failed`)
 	}
 }
+
+func TestSolveMultiple(t *testing.T) {
+	fmt.Println(solveMultiple("99", "11"))
+}

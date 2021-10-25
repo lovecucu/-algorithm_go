@@ -3548,9 +3548,64 @@ NC10 大数乘法
  * @param t string字符串 第二个整数
  * @return string字符串
  */
-// func solve( s string ,  t string ) string {
-//     // write code here
-// }
+func solveMultiple(s string, t string) string {
+	// write code here
+	if s == "0" || t == "0" {
+		return "0"
+	}
+
+	if len(s) == 1 || len(t) == 1 { // 有一个长度是1，则直接算出结果
+		var short, long string
+		if len(s) == 1 {
+			short, long = s, t
+		} else {
+			short, long = t, s
+		}
+
+		str, mod, intShort := "", 0, str2int(short)
+		for i := len(long) - 1; i >= 0; i-- {
+			tmp := intShort * str2int(long[i:i+1])
+			val := tmp + mod
+			str = int2str(val%10) + str
+			mod = val / 10
+		}
+
+		return str
+	}
+
+	ret := []string{}
+	for i := 0; i < len(t); i++ {
+		ret = append(ret, strPadLeft(solveMultiple(s, t[len(t)-1-i:len(t)-i]), i, "0"))
+	}
+
+	res := ""
+	len1 := len(ret[len(ret)-1]) // 最后一个长度为要循环的次数
+	mod := 0
+	for i := 0; i < len1; i++ {
+		cur := 0
+		for j := 0; j < len(ret); j++ {
+			if len(ret[j]) > i {
+				cur += str2int(ret[j][len(ret[j])-1-i : len(ret[j])-i])
+			}
+		}
+		val := cur + mod
+		res = int2str(val%10) + res
+		mod = val / 10
+	}
+
+	if mod > 0 {
+		res = int2str(mod) + res
+	}
+
+	return res
+}
+
+func strPadLeft(str string, padLen int, padStr string) string {
+	for i := 0; i < padLen; i++ {
+		str += padStr
+	}
+	return str
+}
 
 /**
 NC27 集合的所有子集
