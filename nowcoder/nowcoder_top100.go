@@ -3570,6 +3570,10 @@ func solveMultiple(s string, t string) string {
 			mod = val / 10
 		}
 
+		if mod > 0 {
+			str = int2str(mod) + str
+		}
+
 		return str
 	}
 

@@ -683,9 +683,7 @@ func TestFindValue(t *testing.T) {
 }
 
 func TestSolveMultiple(t *testing.T) {
-	if solveMultiple("99", "11") != "1089" || solveMultiple("999", "111") != "110889" {
+	if solveMultiple("99", "11") != "1089" || solveMultiple("999", "111") != "110889" || solveMultiple("733064366", "459309139") != "336703162779040874" {
 		t.Error(`TestSolveMultiple failed`)
 	}
-	// "733064366","459309139"
-	//336703162779040874
 }
