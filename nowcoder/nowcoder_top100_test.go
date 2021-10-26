@@ -704,8 +704,8 @@ func TestDfsPermute(t *testing.T) {
 	}
 }
 
-func TestSolvePeak(t *testing.T) {
-	if solvePeak([]int{2, 4, 1, 2, 7, 8, 4}) != 8 {
-		t.Error(`TestSolvePeak failed`)
+func TestFindPeakElement(t *testing.T) {
+	if findPeakElement([]int{1, 2, 3, 4, 5}) != 4 {
+		t.Error(`TestFindPeakElement failed`)
 	}
 }
