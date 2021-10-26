@@ -709,3 +709,12 @@ func TestFindPeakElement(t *testing.T) {
 		t.Error(`TestFindPeakElement failed`)
 	}
 }
+
+func TestMinWindow(t *testing.T) {
+	if minWindow("XDOYEZODEYXNZ", "XYZ") != "YXNZ" || minWindow("ab", "b") != "b" || minWindow("aa", "aaa") != "" {
+		t.Error(`TestMinWindow failed`)
+	}
+	// fmt.Println(minWindow("XDOYEZODEYXNZ", "XYZ"))
+	// fmt.Println(minWindow("ab", "a"))
+	// fmt.Println(minWindow("aaaa", "aaaa"))
+}

@@ -3994,9 +3994,70 @@ T ="XYZ"T="XYZ"
  * @param T string字符串
  * @return string字符串
  */
-// func minWindow( S string ,  T string ) string {
-//     // write code here
-// }
+func minWindow(S string, T string) string {
+	// write code here
+	mapTarget := make(map[byte]int)
+	for i := 0; i < len(T); i++ {
+		mapTarget[T[i]]++
+	}
+
+	validNum, minLen, start := 0, math.MaxInt64, 0
+	mapCur := make(map[byte]int)
+	left, right := 0, 0
+	for right < len(S) {
+		_, ok := mapTarget[S[right]]
+		if !ok { // 无效字符继续往前
+			right++
+			continue
+		}
+
+		mapCur[S[right]]++ // 增加字符计数
+		if mapCur[S[right]] != mapTarget[S[right]] {
+			right++
+			continue
+		}
+
+		validNum++
+		if validNum != len(mapTarget) {
+			right++
+			continue
+		}
+
+		// left前移，直到不包含T
+		for ; validNum == len(mapTarget) && left <= right; left++ { // 所有字符数都相等了
+			if minLen > right-left+1 { // 能进来说明当前范围是有效的
+				minLen = right - left + 1
+				start = left
+			}
+
+			// 准备前移left
+			v, ok := mapCur[S[left]]
+			if !ok {
+				continue
+			}
+
+			mapCur[S[left]] = v - 1
+			if v-1 >= mapTarget[S[left]] { // 删除left对应字符后，仍满足
+				continue
+			}
+			validNum--
+		}
+		right++
+		if right >= len(S) {
+			break
+		}
+	}
+
+	if minLen < math.MaxInt64 {
+		end := start + minLen
+		if end > len(S) {
+			end = len(S)
+		}
+		return S[start:end]
+	}
+
+	return ""
+}
 
 /**
 NC29 二维数组中的查找
