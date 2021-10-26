@@ -3882,32 +3882,9 @@ NC126 换钱的最少货币数
  * @param aim int整型 the target
  * @return int整型
  */
-func minMoney(arr []int, aim int) int {
-	// write code here
-	if aim == 0 {
-		return 0
-	}
-
-	if len(arr) == 0 {
-		return -1
-	}
-
-	dp := make([][]int, len(arr)+1)
-	/* for i := 0; i <= len(arr); i++ {
-		dp[i] = make([]int, aim+1)
-		if i == 0 { // 初始化dp[0]
-			continue
-		}
-		for j := 1; j <= aim; j++ {
-			if j < vw[i-1][0] {
-				dp[i][j] = dp[i-1][j]
-			} else {
-				dp[i][j] = maxInt(dp[i-1][j], dp[i-1][j-vw[i-1][0]]+vw[i-1][1])
-			}
-		}
-	} */
-	return dp[len(arr)][aim]
-}
+// func minMoney(arr []int, aim int) int {
+//     // write code here
+// }
 
 /**
 NC107 寻找峰值
