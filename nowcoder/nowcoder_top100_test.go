@@ -703,3 +703,9 @@ func TestDfsPermute(t *testing.T) {
 		t.Error(`TestDfsPermute failed`)
 	}
 }
+
+func TestSolvePeak(t *testing.T) {
+	if solvePeak([]int{2, 4, 1, 2, 7, 8, 4}) != 8 {
+		t.Error(`TestSolvePeak failed`)
+	}
+}
