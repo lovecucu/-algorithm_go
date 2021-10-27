@@ -3882,9 +3882,74 @@ NC126 换钱的最少货币数
  * @param aim int整型 the target
  * @return int整型
  */
-// func minMoney(arr []int, aim int) int {
-//     // write code here
-// }
+func minMoney(arr []int, aim int) int {
+	// write code here
+	if len(arr) == 0 || aim == 0 {
+		return -1
+	}
+
+	// 动态规划标准套路
+	// 一、明确“状态”和“选择”
+	// 硬币数量无限，硬币金额也是给定的，只有目标金额不断向base case靠近，所以唯一的“状态”就是目标金额
+	// 选择，每选择1枚硬币，相当于减少了目标金额，所以说所有硬币的面值就是你的“选择”
+	// 二、明确dp数组的定义
+	// dp[n]定义：凑足目标金额n的最少硬币数，base case是dp[0] = 0，目标金额为0时，最少硬币数为0
+	// 三、根据“选择”，思考状态转移的逻辑
+	// 递归遍历arr，将问题拆解成子问题，比如目标是15，面值有1，3，5。子问题可以为面值不变，目标金额是14->1+dp[14],13->1+dp[13],10->1+dp[10]
+
+	// 解法一：递归（带备忘录），自顶向下的解法
+	// var dfsMinMoney func(n int) int
+	// maps := make(map[int]int)
+	// dfsMinMoney = func(n int) int {
+	// 	if n == 0 {
+	// 		return 0
+	// 	}
+	// 	if n < 0 {
+	// 		return -1
+	// 	}
+
+	// 	if v, ok := maps[n]; ok {
+	// 		return v
+	// 	}
+
+	// 	minLen := math.MaxInt64
+	// 	for _, coin := range arr {
+	// 		sub := dfsMinMoney(n - coin)
+	// 		if sub == -1 {
+	// 			continue
+	// 		}
+	// 		minLen = minInt(minLen, 1+sub)
+	// 	}
+
+	// 	if minLen == math.MaxInt64 {
+	// 		minLen = -1
+	// 	}
+
+	// 	// 重复调用较多，加个备忘录
+	// 	maps[n] = minLen
+	// 	return minLen
+	// }
+	// return dfsMinMoney(aim)
+
+	// 解法二：dp数组的迭代解法，自底向上
+	dp := make([]int, aim+1)
+	// base case
+	dp[0] = 0
+	for i := 1; i < len(dp); i++ {
+		dp[i] = aim + 1 // 都初始化为aim+1
+		for _, coin := range arr {
+			if i-coin < 0 {
+				continue
+			}
+			dp[i] = minInt(dp[i], dp[i-coin]+1)
+		}
+	}
+
+	if dp[aim] == aim+1 {
+		return -1
+	}
+	return dp[aim]
+}
 
 /**
 NC107 寻找峰值

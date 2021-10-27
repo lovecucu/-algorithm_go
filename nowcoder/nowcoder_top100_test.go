@@ -718,3 +718,9 @@ func TestMinWindow(t *testing.T) {
 	// fmt.Println(minWindow("ab", "a"))
 	// fmt.Println(minWindow("aaaa", "aaaa"))
 }
+
+func TestMinMoney(t *testing.T) {
+	if minMoney([]int{2, 3, 5}, 20) != 4 {
+		t.Error(`TestMinMoney failed`)
+	}
+}
