@@ -1,6 +1,8 @@
 package nowcoder
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestKnapsack2(t *testing.T) {
 	if knapsack2(10, 2, [][]int{{1, 3}, {10, 4}}) != 4 {

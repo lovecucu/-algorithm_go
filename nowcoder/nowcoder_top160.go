@@ -1,9 +1,5 @@
 package nowcoder
 
-import (
-	"sort"
-)
-
 /**
 NC118 数组中的逆序对
  算法知识视频讲解
@@ -44,42 +40,60 @@ NC118 数组中的逆序对
 */
 func InversePairs(data []int) int {
 	// write code here
-	if len(data) == 0 {
+	if len(data) < 2 {
 		return 0
 	}
 
-	cacheData := make([]int, len(data))
-	copy(cacheData, data)
-	sort.SliceStable(cacheData, func(i, j int) bool {
-		return cacheData[i] < cacheData[j]
-	})
+	count := 0
 
-	res := 0
-	for i := 0; i < len(data); i++ {
-		tmpIndex := getIndex(cacheData, data[i])
-		if tmpIndex < i {
-			res += i - tmpIndex
+	// 归并
+	merges := func(arr []int, left, mid, right int) {
+		tmp := make([]int, right-left+1)
+		c, s, l, r := 0, left, left, mid+1
+		for l <= mid && r <= right {
+			if arr[l] <= arr[r] { // 无逆序
+				tmp[c] = arr[l]
+				c++
+				l++
+			} else {
+				tmp[c] = arr[r]
+				count += mid + 1 - l // mid+1-l是arr[r]的逆序度
+				count %= 1000000007
+				c++
+				r++
+			}
+		}
+
+		for l <= mid {
+			tmp[c] = arr[l]
+			l++
+			c++
+		}
+
+		for r <= right {
+			tmp[c] = arr[r]
+			r++
+			c++
+		}
+
+		for _, num := range tmp {
+			arr[s] = num
+			s++
 		}
 	}
-	return res % 1000000007
-}
 
-// 获取v在cacheData中的index
-func getIndex(cacheData []int, v int) int {
-	left, right := 0, len(cacheData)-1
-	for left <= right {
+	var mergeSort func([]int, int, int)
+	mergeSort = func(arr []int, left, right int) {
 		mid := (left + right) >> 1
-		if cacheData[mid] == v {
-			return mid
-		}
-
-		if cacheData[mid] < v {
-			left = mid + 1
-		} else {
-			right = mid - 1
+		if left < right {
+			mergeSort(arr, left, mid)
+			mergeSort(arr, mid+1, right)
+			merges(arr, left, mid, right)
 		}
 	}
-	return -1
+
+	mergeSort(data, 0, len(data)-1)
+	return count
 }
 
 /**
@@ -152,9 +166,12 @@ func NumberOf1(n int) int {
 				tmpInt = 0
 				incr = true
 			} else {
-				num++
+				if tmpInt == 1 {
+					num++
+				}
 				incr = false
 			}
+			bits[i] = tmpInt
 		}
 	}
 
