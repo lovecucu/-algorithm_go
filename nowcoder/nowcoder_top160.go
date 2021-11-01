@@ -1,5 +1,9 @@
 package nowcoder
 
+import (
+	"sort"
+)
+
 /**
 NC118 数组中的逆序对
  算法知识视频讲解
@@ -38,9 +42,45 @@ NC118 数组中的逆序对
 返回值：
 0
 */
-// func InversePairs( data []int ) int {
-//     // write code here
-// }
+func InversePairs(data []int) int {
+	// write code here
+	if len(data) == 0 {
+		return 0
+	}
+
+	cacheData := make([]int, len(data))
+	copy(cacheData, data)
+	sort.SliceStable(cacheData, func(i, j int) bool {
+		return cacheData[i] < cacheData[j]
+	})
+
+	res := 0
+	for i := 0; i < len(data); i++ {
+		tmpIndex := getIndex(cacheData, data[i])
+		if tmpIndex < i {
+			res += i - tmpIndex
+		}
+	}
+	return res % 1000000007
+}
+
+// 获取v在cacheData中的index
+func getIndex(cacheData []int, v int) int {
+	left, right := 0, len(cacheData)-1
+	for left <= right {
+		mid := (left + right) >> 1
+		if cacheData[mid] == v {
+			return mid
+		}
+
+		if cacheData[mid] < v {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return -1
+}
 
 /**
 NC120 二进制中1的个数
@@ -80,9 +120,46 @@ NC120 二进制中1的个数
 说明：
 负数使用补码表示 ，-1的32位二进制表示为1111 1111 1111 1111 1111 1111 1111 1111，其中32个1
 */
-// func NumberOf1( n int ) int {
-//     // write code here
-// }
+func NumberOf1(n int) int {
+	// write code here
+	isNegative := false
+	if n < 0 {
+		isNegative = true
+		n *= -1
+	}
+
+	num := 0
+	bits := make([]int, 32)
+	for i := 31; i >= 0; i-- {
+		if n < 1<<i {
+			continue
+		} else {
+			num++
+			n -= 1 << i
+			bits[i] = 1
+		}
+	}
+
+	if isNegative {
+		num = 0
+		incr := true
+		for i := 0; i <= 31; i++ {
+			tmpInt := (bits[i] + 1) % 2
+			if incr {
+				tmpInt += 1
+			}
+			if tmpInt > 1 {
+				tmpInt = 0
+				incr = true
+			} else {
+				num++
+				incr = false
+			}
+		}
+	}
+
+	return num
+}
 
 /**
 NC108 最大正方形

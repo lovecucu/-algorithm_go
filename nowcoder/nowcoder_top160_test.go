@@ -11,3 +11,15 @@ func TestKnapsack2(t *testing.T) {
 		t.Error(`TestKnapsack2 failed`)
 	}
 }
+
+func TestInversePairs(t *testing.T) {
+	if InversePairs([]int{1, 2, 3, 4, 5, 6, 7, 0}) != 7 || InversePairs([]int{1, 2, 3}) != 0 || InversePairs([]int{1, 3, 2}) != 1 {
+		t.Error(`TestInversePairs failed`)
+	}
+}
+
+func TestNumberOf1(t *testing.T) {
+	if NumberOf1(1025) != 2 || NumberOf1(1) != 1 || NumberOf1(-1) != 32 {
+		t.Error(`TestNumberOf1 failed`, NumberOf1(-1))
+	}
+}
