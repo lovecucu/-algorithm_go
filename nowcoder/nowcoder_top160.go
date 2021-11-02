@@ -298,11 +298,11 @@ func solveRotateArray(n int, m int, a []int) []int {
 	}
 
 	leftRotateByOne := func(arr []int) []int {
-		temp := arr[0]
-		for i := 1; i < n; i++ {
-			arr[i-1] = arr[i]
+		temp := arr[n-1]
+		for i := n - 1; i > 0; i-- {
+			arr[i] = arr[i-1]
 		}
-		arr[n-1] = temp
+		arr[0] = temp
 		return arr
 	}
 

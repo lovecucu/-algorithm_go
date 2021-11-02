@@ -28,7 +28,7 @@ func TestNumberOf1(t *testing.T) {
 }
 
 func TestSolveRotateArray(t *testing.T) {
-	if fmt.Sprint(solveRotateArray(4, 2, []int{1, 2, 3, 4})) != "[3 4 1 2]" || fmt.Sprint(solveRotateArray(5, 2, []int{1, 2, 3, 4, 5})) != "[3 4 5 1 2]" {
+	if fmt.Sprint(solveRotateArray(4, 2, []int{1, 2, 3, 4})) != "[3 4 1 2]" || fmt.Sprint(solveRotateArray(5, 2, []int{1, 2, 3, 4, 5})) != "[4 5 1 2 3]" {
 		t.Error(`TestSolveRotateArray failed`)
 	}
 }
