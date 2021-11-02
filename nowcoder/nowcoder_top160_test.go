@@ -32,3 +32,17 @@ func TestSolveRotateArray(t *testing.T) {
 		t.Error(`TestSolveRotateArray failed`)
 	}
 }
+
+func TestSolveMaxSquare(t *testing.T) {
+	if solveMaxSquare([][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}}) != 4 {
+		t.Error(`TestSolveMaxSquare failed`)
+	}
+
+	if solveMaxSquare([][]byte{{'1', '0', '0'}, {'0', '0', '0'}, {'0', '0', '0'}}) != 1 {
+		t.Error(`TestSolveMaxSquare failed`)
+	}
+
+	if solveMaxSquare([][]byte{{'1', '1', '1'}, {'1', '1', '1'}, {'1', '1', '1'}}) != 9 {
+		t.Error(`TestSolveMaxSquare failed`)
+	}
+}

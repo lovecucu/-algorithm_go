@@ -211,9 +211,53 @@ NC108 最大正方形
 返回值：
 1
 */
-// func solve(matrix [][]byte) int {
-// 	// write code here
-// }
+func solveMaxSquare(matrix [][]byte) int {
+	// write code here
+	if len(matrix) == 0 {
+		return 0
+	}
+
+	n := len(matrix)
+	dp := make([][]int, n)
+	for i := 0; i < n; i++ {
+		dp[i] = make([]int, len(matrix[0]))
+	}
+
+	max := 0
+	for i := 0; i < n; i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			if matrix[i][j] == '0' {
+				continue
+			}
+			if i == 0 || j == 0 {
+				dp[i][j] = 1
+				if max < 1 {
+					max = 1
+				}
+				continue
+			}
+			temp := minInts(dp[i-1][j-1], dp[i-1][j], dp[i][j-1]) + 1
+			if temp > max {
+				max = temp
+			}
+			dp[i][j] = temp
+		}
+	}
+	// fmt.Println(dp)
+	return max * max
+}
+
+func minInts(a, b, c int) int {
+	min := a
+	if b < min {
+		min = b
+	}
+
+	if c < min {
+		min = c
+	}
+	return min
+}
 
 /**
 NC110 旋转数组
@@ -253,8 +297,7 @@ func solveRotateArray(n int, m int, a []int) []int {
 		return a
 	}
 
-	var leftRotateByOne func(arr []int) []int
-	leftRotateByOne = func(arr []int) []int {
+	leftRotateByOne := func(arr []int) []int {
 		temp := arr[0]
 		for i := 1; i < n; i++ {
 			arr[i-1] = arr[i]
