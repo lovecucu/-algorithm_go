@@ -247,9 +247,27 @@ NC110 旋转数组
 备注：
 (1<=N<=100,M>=0)
 */
-// func solve( n int ,  m int ,  a []int ) []int {
-//     // write code here
-// }
+func solveRotateArray(n int, m int, a []int) []int {
+	// write code here
+	if n < 2 || m == 0 {
+		return a
+	}
+
+	var leftRotateByOne func(arr []int) []int
+	leftRotateByOne = func(arr []int) []int {
+		temp := arr[0]
+		for i := 1; i < n; i++ {
+			arr[i-1] = arr[i]
+		}
+		arr[n-1] = temp
+		return arr
+	}
+
+	for i := 0; i < m; i++ {
+		a = leftRotateByOne(a)
+	}
+	return a
+}
 
 /**
 NC122 正则表达式匹配
