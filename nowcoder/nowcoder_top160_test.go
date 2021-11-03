@@ -109,3 +109,9 @@ func TestMaxProfit134(t *testing.T) {
 		t.Error(`TestMaxProfit134 failed`)
 	}
 }
+
+func TestReOrderArray(t *testing.T) {
+	if fmt.Sprint(reOrderArray([]int{1, 2, 3, 4})) != "[1 3 2 4]" || fmt.Sprint(reOrderArray([]int{2, 4, 6, 5, 7})) != "[5 7 2 4 6]" || fmt.Sprint(reOrderArray([]int{1, 3, 5, 6, 7})) != "[1 3 5 7 6]" {
+		t.Error(`TestReOrderArray failed`)
+	}
+}

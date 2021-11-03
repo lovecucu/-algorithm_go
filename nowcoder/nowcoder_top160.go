@@ -806,9 +806,34 @@ NC77 调整数组顺序使奇数位于偶数前面(一)
 返回值：
 [1,3,5,7,6]
 */
-// func reOrderArray( array []int ) []int {
-//     // write code here
-// }
+func reOrderArray(array []int) []int {
+	// write code here
+	if len(array) <= 1 {
+		return array
+	}
+
+	evenS := -1
+	ret := make([]int, len(array))
+	for i := 0; i < len(array); i++ {
+		if array[i]%2 == 0 { // 偶数
+			ret[i] = array[i]
+			if evenS < 0 {
+				evenS = i
+			}
+		} else { // 奇数
+			if evenS < 0 {
+				ret[i] = array[i]
+				continue
+			}
+			for j := i; j > evenS; j-- {
+				ret[j] = ret[j-1]
+			}
+			ret[evenS] = array[i]
+			evenS++
+		}
+	}
+	return ret
+}
 
 /**
 NC98 判断t1树中是否有与t2树完全相同的子树
