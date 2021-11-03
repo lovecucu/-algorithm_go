@@ -862,9 +862,62 @@ true
 备注：
 1 \leq n \leq 5000001≤n≤500000
 */
-// func isContains( root1 *TreeNode ,  root2 *TreeNode ) bool {
-//     // write code here
-// }
+func isContains(root1 *TreeNode, root2 *TreeNode) bool {
+	// write code here
+	if root1 == nil && root2 != nil {
+		return false
+	}
+	if root2 == nil {
+		return true
+	}
+
+	ret := false
+
+	var isSame func(t1, t2 *TreeNode) bool
+	isSame = func(t1, t2 *TreeNode) bool {
+		if t1 == nil && t2 == nil {
+			return true
+		}
+
+		if t1 == nil && t2 != nil || t1 != nil && t2 == nil {
+			return false
+		}
+
+		// 根结点一致
+		if t1.Val != t2.Val {
+			return false
+		}
+
+		// 子树也一致
+		if isSame(t1.Left, t2.Left) && isSame(t1.Right, t2.Right) {
+			return true
+		}
+		return false
+	}
+
+	var dfsTree func(t1 *TreeNode)
+	dfsTree = func(t1 *TreeNode) {
+		if ret { // 已存在直接退出
+			return
+		}
+		if t1.Val == root2.Val && isSame(t1, root2) {
+			ret = true
+			return
+		}
+
+		if t1.Left != nil {
+			dfsTree(t1.Left)
+		}
+
+		if t1.Right != nil {
+			dfsTree(t1.Right)
+		}
+	}
+
+	// 遍历root1
+	dfsTree(root1)
+	return ret
+}
 
 /**
 NC117 合并二叉树
