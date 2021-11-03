@@ -1463,9 +1463,34 @@ false
 返回值：
 false
 */
-// func IsContinuous( numbers []int ) bool {
-//     // write code here
-// }
+func IsContinuous(numbers []int) bool {
+	// write code here
+	maps := make(map[int]struct{})
+	min, max, zeroNum := 15, 0, 0
+	for i := 0; i < len(numbers); i++ {
+		if numbers[i] == 0 {
+			zeroNum++
+		} else {
+			if _, ok := maps[numbers[i]]; ok {
+				return false
+			}
+			if numbers[i] < min {
+				min = numbers[i]
+			}
+
+			if numbers[i] > max {
+				max = numbers[i]
+			}
+			maps[numbers[i]] = struct{}{}
+		}
+	}
+
+	if max-min > 4 || zeroNum < 4-(max-min) {
+		return false
+	}
+
+	return true
+}
 
 /**
 NC31 第一个只出现一次的字符

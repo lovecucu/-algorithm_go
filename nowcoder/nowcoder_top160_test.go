@@ -137,3 +137,9 @@ func TestIsContains(t *testing.T) {
 		t.Error(`TestIsContains failed`)
 	}
 }
+
+func TestIsContinuous(t *testing.T) {
+	if !IsContinuous([]int{6, 0, 2, 0, 4}) || !IsContinuous([]int{0, 3, 2, 6, 4}) || IsContinuous([]int{1, 0, 0, 1, 0}) || IsContinuous([]int{13, 12, 11, 0, 1}) {
+		t.Error(`TestIsContinuous failed`)
+	}
+}
