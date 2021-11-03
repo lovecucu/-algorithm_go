@@ -143,3 +143,9 @@ func TestIsContinuous(t *testing.T) {
 		t.Error(`TestIsContinuous failed`)
 	}
 }
+
+func TestFirstNotRepeatingChar(t *testing.T) {
+	if FirstNotRepeatingChar("google") != 4 || FirstNotRepeatingChar("aa") != -1 {
+		t.Error(`TestFirstNotRepeatingChar failed`)
+	}
+}

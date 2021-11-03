@@ -1522,9 +1522,25 @@ NC31 第一个只出现一次的字符
 返回值：
 -1
 */
-// func FirstNotRepeatingChar( str string ) int {
-//     // write code here
-// }
+func FirstNotRepeatingChar(str string) int {
+	// write code here
+	if len(str) == 0 {
+		return -1
+	}
+
+	maps := make(map[rune]int)
+	for _, b := range str {
+		maps[b]++
+	}
+
+	for i, b := range str {
+		if maps[b] == 1 {
+			return i
+		}
+	}
+
+	return -1
+}
 
 /**
 NC139 孩子们的游戏(圆圈中最后剩下的数)
