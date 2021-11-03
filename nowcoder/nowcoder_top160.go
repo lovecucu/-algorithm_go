@@ -2342,9 +2342,28 @@ nums为空，返回-1
 数组元素长度在[0,10000]之间
 数组每个元素都在 [-9999, 9999]之间。
 */
-// func search( nums []int ,  target int ) int {
-//     // write code here
-// }
+func searchEasy(nums []int, target int) int {
+	// write code here
+	if len(nums) == 0 {
+		return -1
+	}
+
+	lens := len(nums)
+	left, right := 0, lens-1
+	for left <= right {
+		mid := (left + right) >> 1
+		if nums[mid] == target {
+			return mid
+		}
+
+		if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+	return -1
+}
 
 /**
 NC161 二叉树的中序遍历

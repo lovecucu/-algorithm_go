@@ -97,3 +97,9 @@ func TestInorderTraversal(t *testing.T) {
 		t.Error(`TestInorderTraversal failed`)
 	}
 }
+
+func TestSearchEasy(t *testing.T) {
+	if searchEasy([]int{-1, 0, 3, 4, 6, 10, 13, 14}, 13) != 6 || searchEasy([]int{}, 3) != -1 || searchEasy([]int{-1, 0, 3, 4, 6, 10, 13, 14}, 2) != -1 {
+		t.Error(`TestSearchEasy failed`)
+	}
+}
