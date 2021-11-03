@@ -513,9 +513,34 @@ bfs
 返回值：
 []
 */
-// func Print( pRoot *TreeNode ) [][]int {
-//     // write code here
-// }
+func PrintTree(pRoot *TreeNode) [][]int {
+	// write code here
+	if pRoot == nil {
+		return [][]int{}
+	}
+	var ret [][]int
+	var tmp []int
+	var queue []*TreeNode
+	queue = append(queue, pRoot)
+	for len(queue) > 0 {
+		lens := len(queue)
+		tmp = []int{}
+		for i := 0; i < lens; i++ {
+			tmpNode := queue[i]
+			tmp = append(tmp, tmpNode.Val)
+			if tmpNode.Left != nil {
+				queue = append(queue, tmpNode.Left)
+			}
+
+			if tmpNode.Right != nil {
+				queue = append(queue, tmpNode.Right)
+			}
+		}
+		ret = append(ret, tmp)
+		queue = queue[lens:]
+	}
+	return ret
+}
 
 /**
 NC83 子数组最大乘积
