@@ -103,3 +103,9 @@ func TestSearchEasy(t *testing.T) {
 		t.Error(`TestSearchEasy failed`)
 	}
 }
+
+func TestMaxProfit134(t *testing.T) {
+	if maxProfit134([]int{5, 4, 3, 2, 1}) != 0 || maxProfit134([]int{1, 2, 3, 4, 5}) != 4 {
+		t.Error(`TestMaxProfit134 failed`)
+	}
+}

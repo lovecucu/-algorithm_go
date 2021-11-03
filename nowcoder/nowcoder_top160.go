@@ -663,9 +663,21 @@ i
 备注：
 总天数不大于200000。保证股票每一天的价格在[1,100]范围内。
 */
-// func maxProfit( prices []int ) int {
-//     // write code here
-// }
+func maxProfit134(prices []int) int {
+	// write code here
+	days := len(prices)
+	if days <= 1 {
+		return 0
+	}
+
+	max := 0
+	for i := 1; i < days; i++ {
+		if prices[i] > prices[i-1] {
+			max += prices[i] - prices[i-1]
+		}
+	}
+	return max
+}
 
 /**
 NC44 通配符匹配
