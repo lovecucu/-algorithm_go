@@ -2402,9 +2402,25 @@ iOS工程师
 树中节点数目在范围 [0, 100] 内
 树中的节点的值在[-100,100]以内
 */
-// func inorderTraversal( root *TreeNode ) []int {
-//     // write code here
-// }
+func inorderTraversal(root *TreeNode) []int {
+	// write code here
+	var ret []int
+	if root == nil {
+		return ret
+	}
+	var dfsInOrder func(node *TreeNode)
+	dfsInOrder = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+
+		dfsInOrder(node.Left)
+		ret = append(ret, node.Val)
+		dfsInOrder(node.Right)
+	}
+	dfsInOrder(root)
+	return ret
+}
 
 /**
 NC147 主持人调度
