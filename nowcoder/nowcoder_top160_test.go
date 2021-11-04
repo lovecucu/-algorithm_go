@@ -186,3 +186,7 @@ func TestFindError(t *testing.T) {
 		t.Error(`TestFindError failed`)
 	}
 }
+
+func TestSortedArrayToBST(t *testing.T) {
+
+}

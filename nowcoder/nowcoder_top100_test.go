@@ -572,8 +572,8 @@ func TestLongestCommonPrefix(t *testing.T) {
 }
 
 func TestIsPalindrome(t *testing.T) {
-	if isPalindrome(-1) != true || isPalindrome(121) != true || isPalindrome(122) != false {
-		t.Error(`TestIsPalindrome failed`)
+	if isPalindrome(-1) != false || isPalindrome(121) != true || isPalindrome(122) != false {
+		t.Error(`TestIsPalindrome failed`, isPalindrome(-1))
 	}
 }
 

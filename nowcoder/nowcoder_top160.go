@@ -1425,9 +1425,33 @@ dfs
 返回值：
 {}
 */
-// func sortedArrayToBST( num []int ) *TreeNode {
-//     // write code here
-// }
+func sortedArrayToBST(num []int) *TreeNode {
+	// write code here
+	var head *TreeNode
+	lens := len(num)
+	if lens == 0 {
+		return head
+	}
+
+	var dfsBST func(start, end int) *TreeNode
+	dfsBST = func(start, end int) *TreeNode {
+		if start < end {
+			return nil
+		}
+
+		if start == end {
+			return &TreeNode{Val: num[start]}
+		}
+
+		mid := (start + end) >> 1
+		root := &TreeNode{Val: num[mid]}
+		root.Left = dfsBST(start, mid-1)
+		root.Right = dfsBST(mid+1, end)
+		return root
+	}
+	head = dfsBST(0, lens-1)
+	return head
+}
 
 /**
 描述
