@@ -1268,7 +1268,11 @@ func findError(root *TreeNode) []int {
 	min, max := math.MinInt64, math.MinInt64
 	for i := 0; i < len(arr)-1; i++ {
 		if arr[i+1] < arr[i] {
-			max, min = i, max
+			if max == math.MinInt64 {
+				max = i
+			} else {
+				min = i + 1
+			}
 			continue
 		}
 	}
