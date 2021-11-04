@@ -1688,7 +1688,7 @@ func minNumberInRotateArray(rotateArray []int) int {
 		} else if rotateArray[mid] > rotateArray[right] { // 处于旋转前半部分，最小值在这之后
 			left = mid + 1
 			continue
-		} else { // 相等时，不确定是在左边还是右边，让last = last - 1慢慢缩小区间，同时不会错过答案
+		} else { // 相等时，不确定是在左边还是右边，让right = right - 1慢慢缩小区间，同时不会错过答案
 			right -= 1
 		}
 	}
