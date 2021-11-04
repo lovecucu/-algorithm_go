@@ -1727,9 +1727,42 @@ NC74 数字在升序数组中出现的次数
 返回值：
 0
 */
-// func GetNumberOfK( data []int ,  k int ) int {
-//     // write code here
-// }
+func GetNumberOfK(data []int, k int) int {
+	// write code here
+	lens := len(data)
+	if lens == 0 {
+		return 0
+	}
+
+	num := 0
+	left, right := 0, lens-1
+	for left <= right {
+		mid := (left + right) >> 1
+		if data[mid] == k {
+			num++
+			for i := mid - 1; i >= 0; i-- {
+				if data[i] == k {
+					num++
+				}
+			}
+
+			for i := mid + 1; i <= right; i++ {
+				if data[i] == k {
+					num++
+				}
+			}
+			break
+		}
+
+		if data[mid] < k {
+			left = mid + 1
+		} else {
+			right = mid - 1
+		}
+	}
+
+	return num
+}
 
 /**
 NC79 丑数

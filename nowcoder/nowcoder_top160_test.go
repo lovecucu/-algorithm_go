@@ -202,3 +202,9 @@ func TestMinNumberInRotateArray(t *testing.T) {
 		t.Error(`TestMinNumberInRotateArray failed`)
 	}
 }
+
+func TestGetNumberOfK(t *testing.T) {
+	if GetNumberOfK([]int{1, 2, 3, 3, 3, 3, 4, 5}, 3) != 4 || GetNumberOfK([]int{1, 3, 4, 5}, 6) != 0 {
+		t.Error(`TestGetNumberOfK failed`)
+	}
+}
