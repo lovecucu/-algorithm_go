@@ -1681,20 +1681,18 @@ func minNumberInRotateArray(rotateArray []int) int {
 	// write code here
 	lens := len(rotateArray)
 	left, right := 0, lens-1
-	min := math.MaxInt64
 	for left <= right {
 		mid := (left + right) >> 1
-		if rotateArray[mid] <= rotateArray[right] { // 处于递增，左移
-			if rotateArray[mid] < min {
-				min = rotateArray[mid]
-			}
-			right = mid - 1
-			continue
-		} else { // 处于非递增区域，右移
+		if rotateArray[mid] < rotateArray[right] { // 处于后半部分的递增区，最小值在这之前
+			right = mid
+		} else if rotateArray[mid] > rotateArray[right] { // 处于旋转前半部分，最小值在这之后
 			left = mid + 1
+			continue
+		} else { // 相等时，不确定是在左边还是右边，让last = last - 1慢慢缩小区间，同时不会错过答案
+			right -= 1
 		}
 	}
-	return min
+	return rotateArray[left]
 }
 
 /**
