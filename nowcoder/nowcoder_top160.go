@@ -1876,9 +1876,28 @@ i
 ​
  ⩽100
 ​*/
-// func maxlenEqualK( arr []int ,  k int ) int {
-//     // write code here
-// }
+func maxlenEqualK(arr []int, k int) int {
+	// write code here
+	lens := len(arr)
+	if lens == 0 {
+		return 0
+	}
+
+	maps := make(map[int]int)
+	maps[0] = -1
+	max, sum := 0, 0
+	for i := 0; i < lens; i++ {
+		sum += arr[i]
+		if v, ok := maps[sum-k]; ok { // 是否存在v...i子数组和为k，有则存储下最大长度
+			max = maxInt(max, i-v)
+		}
+		if _, ok := maps[sum]; !ok { // 保存值为sum的第一个索引，这样计算出的长度是最大值
+			maps[sum] = i
+		}
+	}
+
+	return max
+}
 
 /**
 NC130 分糖果问题

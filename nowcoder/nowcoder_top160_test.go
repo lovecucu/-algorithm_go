@@ -208,3 +208,9 @@ func TestGetNumberOfK(t *testing.T) {
 		t.Error(`TestGetNumberOfK failed`)
 	}
 }
+
+func TestMaxlenEqualK(t *testing.T) {
+	if maxlenEqualK([]int{1, -2, 1, 1, 1}, 0) != 3 || maxlenEqualK([]int{0, 1, 2, 3}, 3) != 3 {
+		t.Error(`TestMaxlenEqualK failed`)
+	}
+}
