@@ -214,3 +214,9 @@ func TestMaxlenEqualK(t *testing.T) {
 		t.Error(`TestMaxlenEqualK failed`)
 	}
 }
+
+func TestSolveThreeMaxProduct(t *testing.T) {
+	if solveThreeMaxProduct([]int{3, 4, 1, 2}) != 24 || solveThreeMaxProduct([]int{-1, -2, -3, -4}) != -6 || solveThreeMaxProduct([]int{-3, -4, 3, 2, 4}) != 48 {
+		t.Error(`TestSolveThreeMaxProduct failed`)
+	}
+}

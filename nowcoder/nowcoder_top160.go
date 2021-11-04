@@ -2210,9 +2210,33 @@ NC106 三个数的最大乘积
 返回值：
 24
 */
-// func solve( A []int ) int64 {
-//     // write code here
-// }
+func solveThreeMaxProduct(A []int) int64 {
+	// write code here
+	lens := len(A)
+	if lens == 3 {
+		return int64(A[0] * A[1] * A[2])
+	}
+
+	min_1, min_2 := math.MaxInt64, math.MaxInt64
+	max_1, max_2, max_3 := math.MinInt64, math.MinInt64, math.MinInt64
+	for i := 0; i < lens; i++ {
+		if A[i] < min_1 {
+			min_1, min_2 = A[i], min_1
+		} else if A[i] < min_2 {
+			min_2 = A[i]
+		}
+
+		if A[i] > max_1 {
+			max_1, max_2, max_3 = A[i], max_1, max_2
+		} else if A[i] > max_2 {
+			max_2, max_3 = A[i], max_2
+		} else if A[i] > max_3 {
+			max_3 = A[i]
+		}
+	}
+
+	return int64(maxInt(min_1*min_2*max_1, max_1*max_2*max_3))
+}
 
 /**
 NC114 旋转字符串
