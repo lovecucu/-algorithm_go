@@ -1,5 +1,9 @@
 package nowcoder
 
+import (
+	"math"
+)
+
 /**
 NC118 数组中的逆序对
  算法知识视频讲解
@@ -1255,9 +1259,29 @@ dfs
 返回值：
 [1,3]
 */
-// func findError( root *TreeNode ) []int {
-//     // write code here
-// }
+func findError(root *TreeNode) []int {
+	// write code here
+	arr := order(root)
+	if len(arr) < 2 {
+		return []int{}
+	}
+	min, max := math.MinInt64, math.MinInt64
+	for i := 0; i < len(arr)-1; i++ {
+		if arr[i+1] < arr[i] {
+			max, min = i, max
+			continue
+		}
+	}
+	if max == math.MinInt64 {
+		return []int{}
+	}
+
+	if min == math.MinInt64 {
+		min = max + 1
+	}
+
+	return []int{arr[min], arr[max]}
+}
 
 /**
 NC142 最长重复子串

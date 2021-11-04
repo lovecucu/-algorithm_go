@@ -167,5 +167,22 @@ func TestMergeTrees(t *testing.T) {
 	if SprintTreeNode(mergeTrees(r1, r2)) != "[3 4 5 4 5 7]" {
 		t.Error(`TestMergeTrees failed`)
 	}
+}
 
+func TestFindError(t *testing.T) {
+	root := &TreeNode{Val: 1}
+	root.Left = &TreeNode{Val: 2}
+	root.Right = &TreeNode{Val: 3}
+	if fmt.Sprint(findError(root)) != "[1 2]" {
+		t.Error(`TestFindError failed`)
+	}
+
+	root = &TreeNode{Val: 4}
+	root.Left = &TreeNode{Val: 3}
+	root.Right = &TreeNode{Val: 5}
+	root.Left.Left = &TreeNode{Val: 1}
+	root.Left.Right = &TreeNode{Val: 2}
+	if fmt.Sprint(findError(root)) != "[2 3]" {
+		t.Error(`TestFindError failed`)
+	}
 }
