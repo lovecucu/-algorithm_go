@@ -220,3 +220,9 @@ func TestSolveThreeMaxProduct(t *testing.T) {
 		t.Error(`TestSolveThreeMaxProduct failed`)
 	}
 }
+
+func TestSolveRotateString(t *testing.T) {
+	if solveRotateString("youzan", "zanyou") == false || solveRotateString("youzan", "youzan") == false || solveRotateString("ba", "aa") == true {
+		t.Error(`TestSolveRotateString failed`)
+	}
+}

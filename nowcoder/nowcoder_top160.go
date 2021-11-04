@@ -2278,9 +2278,25 @@ false
 返回值：
 true
 */
-// func solve( A string ,  B string ) bool {
-//     // write code here
-// }
+func solveRotateString(A string, B string) bool {
+	// write code here
+	if A == B {
+		return true
+	}
+	if A == "" || B == "" || len(A) != len(B) {
+		return false
+	}
+
+	lens := len(A)
+	for i := 0; i < lens; i++ {
+		tmpA := A[i+1:] + A[0:i+1]
+		if tmpA == B {
+			return true
+		}
+	}
+
+	return false
+}
 
 /**
 NC115 栈和排序
