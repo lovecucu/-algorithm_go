@@ -1677,9 +1677,25 @@ NC71 旋转数组的最小数字
 返回值：
 3
 */
-// func minNumberInRotateArray( rotateArray []int ) int {
-//     // write code here
-// }
+func minNumberInRotateArray(rotateArray []int) int {
+	// write code here
+	lens := len(rotateArray)
+	left, right := 0, lens-1
+	min := math.MaxInt64
+	for left <= right {
+		mid := (left + right) >> 1
+		if rotateArray[mid] <= rotateArray[right] { // 处于递增，左移
+			if rotateArray[mid] < min {
+				min = rotateArray[mid]
+			}
+			right = mid - 1
+			continue
+		} else { // 处于非递增区域，右移
+			left = mid + 1
+		}
+	}
+	return min
+}
 
 /**
 NC74 数字在升序数组中出现的次数

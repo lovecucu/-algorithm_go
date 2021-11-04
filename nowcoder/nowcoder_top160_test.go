@@ -196,3 +196,9 @@ func TestSortedArrayToBST(t *testing.T) {
 		t.Error(`TestSortedArrayToBST failed`)
 	}
 }
+
+func TestMinNumberInRotateArray(t *testing.T) {
+	if minNumberInRotateArray([]int{3, 4, 5, 1, 2}) != 1 || minNumberInRotateArray([]int{3, 100, 200, 3}) != 3 || minNumberInRotateArray([]int{4, 3, 3}) != 3 {
+		t.Error(`TestMinNumberInRotateArray failed`)
+	}
+}
