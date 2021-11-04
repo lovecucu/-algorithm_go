@@ -149,3 +149,23 @@ func TestFirstNotRepeatingChar(t *testing.T) {
 		t.Error(`TestFirstNotRepeatingChar failed`)
 	}
 }
+
+func TestMergeTrees(t *testing.T) {
+	r1 := &TreeNode{Val: 1}
+	r1.Left = &TreeNode{Val: 3}
+	r1.Right = &TreeNode{Val: 2}
+	r1.Left.Left = &TreeNode{Val: 5}
+	if mergeTrees(r1, nil) != r1 {
+		t.Error(`TestMergeTrees failed`)
+	}
+
+	r2 := &TreeNode{Val: 2}
+	r2.Left = &TreeNode{Val: 1}
+	r2.Right = &TreeNode{Val: 3}
+	r2.Left.Right = &TreeNode{Val: 4}
+	r2.Right.Right = &TreeNode{Val: 7}
+	if SprintTreeNode(mergeTrees(r1, r2)) != "[3 4 5 4 5 7]" {
+		t.Error(`TestMergeTrees failed`)
+	}
+
+}

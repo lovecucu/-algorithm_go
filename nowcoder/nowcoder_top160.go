@@ -957,9 +957,25 @@ NC117 合并二叉树
 返回值：
 {1}
 */
-// func mergeTrees(t1 *TreeNode, t2 *TreeNode) *TreeNode {
-// 	// write code here
-// }
+func mergeTrees(t1 *TreeNode, t2 *TreeNode) *TreeNode {
+	// write code here
+	var mergeTreeSub func(r1, r2 *TreeNode) *TreeNode
+	mergeTreeSub = func(r1, r2 *TreeNode) *TreeNode {
+		if r1 == nil {
+			return r2
+		}
+
+		if r2 == nil {
+			return r1
+		}
+
+		head := &TreeNode{Val: r1.Val + r2.Val}
+		head.Left = mergeTreeSub(r1.Left, r2.Left)
+		head.Right = mergeTreeSub(r1.Right, r2.Right)
+		return head
+	}
+	return mergeTreeSub(t1, t2)
+}
 
 /**
 NC135 股票交易的最大收益（二）
