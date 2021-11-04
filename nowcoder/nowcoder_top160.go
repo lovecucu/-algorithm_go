@@ -1435,7 +1435,7 @@ func sortedArrayToBST(num []int) *TreeNode {
 
 	var dfsBST func(start, end int) *TreeNode
 	dfsBST = func(start, end int) *TreeNode {
-		if start < end {
+		if start > end {
 			return nil
 		}
 
@@ -1443,7 +1443,7 @@ func sortedArrayToBST(num []int) *TreeNode {
 			return &TreeNode{Val: num[start]}
 		}
 
-		mid := (start + end) >> 1
+		mid := (start+end)>>1 + 1 // 左测结点多于右侧
 		root := &TreeNode{Val: num[mid]}
 		root.Left = dfsBST(start, mid-1)
 		root.Right = dfsBST(mid+1, end)

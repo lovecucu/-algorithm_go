@@ -188,5 +188,11 @@ func TestFindError(t *testing.T) {
 }
 
 func TestSortedArrayToBST(t *testing.T) {
-
+	if sortedArrayToBST([]int{}) != nil {
+		t.Error(`TestSortedArrayToBST failed`)
+	}
+	root := sortedArrayToBST([]int{-1, 0, 1, 2})
+	if SprintTreeNode(root) != "[1 0 -1 2]" {
+		t.Error(`TestSortedArrayToBST failed`)
+	}
 }
