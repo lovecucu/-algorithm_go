@@ -2511,9 +2511,21 @@ NC156 数组中只出现一次的数（其它数出现k次）
 返回值：
 1
 */
-// func foundOnceNumber( arr []int ,  k int ) int {
-//     // write code here
-// }
+func foundOnceNumber(arr []int, k int) int {
+	// write code here
+	bits := make([]int, 32)
+	for _, num := range arr {
+		for i := 0; i < 32; i++ {
+			bits[i] += (num >> i) & 1
+		}
+	}
+
+	ret := 0
+	for i := 0; i < 32; i++ {
+		ret |= (bits[i] % k) << i
+	}
+	return ret
+}
 
 /**
 NC67 汉诺塔问题

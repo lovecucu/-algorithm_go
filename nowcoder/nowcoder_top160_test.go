@@ -226,3 +226,9 @@ func TestSolveRotateString(t *testing.T) {
 		t.Error(`TestSolveRotateString failed`)
 	}
 }
+
+func TestFoundOnceNumber(t *testing.T) {
+	if foundOnceNumber([]int{1, 1, 1, 2, 3, 3, 3}, 3) != 2 || foundOnceNumber([]int{1, 1, 1, 1, 4, 3, 3, 3, 3}, 4) != 4 || foundOnceNumber([]int{4}, 4) != 4 {
+		t.Error(`TestFoundOnceNumber failed`)
+	}
+}
