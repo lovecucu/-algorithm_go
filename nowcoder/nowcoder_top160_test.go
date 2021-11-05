@@ -238,3 +238,9 @@ func TestJump(t *testing.T) {
 		t.Error(`TestJump failed`, Jump(5, []int{1, 3, 2, 1, 1}))
 	}
 }
+
+func TestFindNumsAppearOnce(t *testing.T) {
+	if fmt.Sprint(FindNumsAppearOnce([]int{1, 4, 1, 6})) != "[4 6]" || fmt.Sprint(FindNumsAppearOnce([]int{1, 2, 3, 3, 2, 9})) != "[1 9]" {
+		t.Error(`TestFindNumsAppearOnce failed`)
+	}
+}

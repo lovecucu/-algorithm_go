@@ -2174,9 +2174,28 @@ NC75 数组中只出现一次的两个数字
 返回值：
 [1,9]
 */
-// func FindNumsAppearOnce( array []int ) []int {
-//     // write code here
-// }
+func FindNumsAppearOnce(array []int) []int {
+	// write code here
+	type1, type2 := 0, 0
+	xorsum := 0 // = type1 ^ type2
+	for _, num := range array {
+		xorsum ^= num
+	}
+
+	lsb := xorsum & -xorsum // 可找出xorsum中最低位的1，有1则表示该位上type1和type2值不同，一个是0，一个是1
+	for _, num := range array {
+		if num&lsb > 0 { // lsb位为1的分类到type1中
+			type1 ^= num
+		} else {
+			type2 ^= num
+		}
+	}
+
+	if type1 > type2 {
+		type1, type2 = type2, type1
+	}
+	return []int{type1, type2}
+}
 
 /**
 NC106 三个数的最大乘积
