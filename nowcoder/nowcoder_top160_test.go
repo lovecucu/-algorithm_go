@@ -228,7 +228,13 @@ func TestSolveRotateString(t *testing.T) {
 }
 
 func TestFoundOnceNumber(t *testing.T) {
-	if foundOnceNumber([]int{1, 1, 1, 2, 3, 3, 3}, 3) != 2 || foundOnceNumber([]int{1, 1, 1, 1, 4, 3, 3, 3, 3}, 4) != 4 || foundOnceNumber([]int{4}, 4) != 4 {
+	if foundOnceNumber([]int{-1, -1, -1, 2, -3, -3, -3}, 3) != 2 || foundOnceNumber([]int{1, 1, 1, 1, 4, 3, 3, 3, 3}, 4) != 4 || foundOnceNumber([]int{4}, 4) != 4 {
 		t.Error(`TestFoundOnceNumber failed`)
+	}
+}
+
+func TestJump(t *testing.T) {
+	if Jump(3, []int{2, 3, 1}) != 1 || Jump(2, []int{1, 2}) != 1 || Jump(5, []int{1, 3, 2, 1, 1}) != 2 {
+		t.Error(`TestJump failed`, Jump(5, []int{1, 3, 2, 1, 1}))
 	}
 }
