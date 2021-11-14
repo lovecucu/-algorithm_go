@@ -96,9 +96,29 @@ URL化。编写一种方法，将字符串中的空格全部替换为%20。假�
 
 字符串长度在 [0, 500000] 范围内。
 */
-// func replaceSpaces(S string, length int) string {
+func replaceSpaces(S string, length int) string {
+	spaceCount := 0 // 先找出空格数
+	for i := 0; i < length; i++ {
+		if S[i] == ' ' {
+			spaceCount++
+		}
+	}
 
-// }
+	trueLength := length + spaceCount*2 // 确定要返回的字符串真实长度
+	bytes := []byte(S)[:trueLength]
+	for i := length - 1; i >= 0; i-- { // 倒序填充字符串
+		if bytes[i] == ' ' {
+			bytes[trueLength-1] = '0'
+			bytes[trueLength-2] = '2'
+			bytes[trueLength-3] = '%'
+			trueLength -= 3
+		} else {
+			bytes[trueLength-1] = bytes[i]
+			trueLength--
+		}
+	}
+	return string(bytes)
+}
 
 /**
 面试题 01.04. 回文排列
