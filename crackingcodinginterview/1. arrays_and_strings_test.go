@@ -25,3 +25,9 @@ func TestCanPermutePalindrome(t *testing.T) {
 		t.Error(`TestCanPermutePalindrome failed`)
 	}
 }
+
+func TestOneEditAway(t *testing.T) {
+	if !oneEditAway("pale", "ple") || oneEditAway("pales", "ple") {
+		t.Error(`TestOneEditAway failed`)
+	}
+}

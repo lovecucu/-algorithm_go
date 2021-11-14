@@ -191,9 +191,87 @@ first = "pales"
 second = "pal"
 输出: False
 */
-// func oneEditAway(first string, second string) bool {
+func oneEditAway(first string, second string) bool {
+	// 解法一：根据长度分为replace和insert两类
+	// if len(first) == len(second) {
+	// 	return oneEditReplace(first, second)
+	// } else if len(first)+1 == len(second) {
+	// 	return oneEditInsert(first, second)
+	// } else if len(first)-1 == len(second) {
+	// 	return oneEditInsert(second, first)
+	// }
+	// return false
 
-// }
+	// 解法二：合并replace和insert
+	if abs(len(first)-len(second)) > 1 {
+		return false
+	}
+
+	var short, long string
+	if len(first) < len(second) {
+		short = first
+		long = second
+	} else {
+		short = second
+		long = first
+	}
+
+	oneDifference := false
+	indexs, indexl := 0, 0
+	for indexs < len(short) && indexl < len(long) {
+		if short[indexs] != long[indexl] {
+			if oneDifference { // 不止一处不同，直接返回
+				return false
+			}
+			oneDifference = true
+			if len(short) == len(long) { // 相等则两者都跳过该位置的字符，不等则认为是短字符串缺少的字符，长字符串位置前移
+				indexs++
+			}
+		} else { // 字符相等则正常同时前移位置
+			indexs++
+		}
+		indexl++
+	}
+
+	return true
+}
+
+func abs(a int) int {
+	if a < 0 {
+		return a * -1
+	}
+	return a
+}
+
+// 只有一处不同，则为true，否则为false
+func oneEditReplace(first, second string) bool {
+	oneDifference := false
+	for i := 0; i < len(first); i++ {
+		if first[i] != second[i] {
+			if oneDifference {
+				return false
+			}
+			oneDifference = true
+		}
+	}
+	return true
+}
+
+func oneEditInsert(short, long string) bool {
+	indexs, indexl := 0, 0
+	for indexs < len(short) && indexl < len(long) {
+		if short[indexs] != long[indexl] {
+			if indexl != indexs { // 之前有不同的地方了
+				return false
+			}
+			indexl++
+		} else {
+			indexl++
+			indexs++
+		}
+	}
+	return true
+}
 
 /**
 面试题 01.06. 字符串压缩
