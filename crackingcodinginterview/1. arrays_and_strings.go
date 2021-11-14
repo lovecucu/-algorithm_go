@@ -1,5 +1,10 @@
 package crackingcodinginterview
 
+import (
+	"strconv"
+	"strings"
+)
+
 /**
 面试题 01.01. 判定字符是否唯一
 实现一个算法，确定一个字符串 s 的所有字符是否全都不同。
@@ -290,9 +295,27 @@ func oneEditInsert(short, long string) bool {
 
 字符串长度在[0, 50000]范围内。
 */
-// func compressString(S string) string {
+func compressString(S string) string {
+	if S == "" {
+		return ""
+	}
 
-// }
+	var sb strings.Builder
+	count := 0
+	for i := 0; i < len(S); i++ { // 遍历
+		count++                              // 计数
+		if i+1 >= len(S) || S[i] != S[i+1] { // 阶段性结束，计数清空，同时拼接字符串
+			sb.WriteByte(S[i])
+			sb.WriteString(strconv.Itoa(count))
+			count = 0
+		}
+	}
+	if sb.Len() >= len(S) {
+		return S
+	} else {
+		return sb.String()
+	}
+}
 
 /**
 面试题 01.07. 旋转矩阵

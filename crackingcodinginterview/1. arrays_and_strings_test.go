@@ -31,3 +31,9 @@ func TestOneEditAway(t *testing.T) {
 		t.Error(`TestOneEditAway failed`)
 	}
 }
+
+func TestCompressString(t *testing.T) {
+	if compressString("aabcccccaaa") != "a2b1c5a3" || compressString("abbccd") != "abbccd" {
+		t.Error(`TestcompressString failed`)
+	}
+}
