@@ -19,3 +19,9 @@ func TestReplaceSpaces(t *testing.T) {
 		t.Error(`TestReplaceSpaces failed`)
 	}
 }
+
+func TestCanPermutePalindrome(t *testing.T) {
+	if !canPermutePalindrome("tactcoa") || canPermutePalindrome("aabc") {
+		t.Error(`TestCanPermutePalindrome failed`)
+	}
+}

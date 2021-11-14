@@ -135,9 +135,40 @@ func replaceSpaces(S string, length int) string {
 输入："tactcoa"
 输出：true（排列有"tacocat"、"atcocta"，等等）
 */
-// func canPermutePalindrome(s string) bool {
+func canPermutePalindrome(s string) bool {
+	// 解法一：map计数法
+	// maps := make(map[byte]int)
+	// oddnum := 0
+	// for i := 0; i < len(s); i++ {
+	// 	if v, ok := maps[s[i]]; ok {
+	// 		maps[s[i]] = v + 1
+	// 	} else {
+	// 		maps[s[i]] = 1
+	// 	}
 
-// }
+	// 	if maps[s[i]]%2 > 0 {
+	// 		oddnum++
+	// 	} else {
+	// 		oddnum--
+	// 	}
+	// }
+
+	// return oddnum <= 1
+
+	// 解法二：bit计数法
+	// 假定都是字母，
+	bit := uint64(0)
+	for k := 0; k < len(s); k++ {
+		if 'a' <= s[k] && s[k] <= 'z' { // 0-26位给a-z
+			bit ^= 1 << (s[k] - 'a')
+		}
+
+		if 'A' <= s[k] && s[k] <= 'Z' { // 27-52位给A-Z
+			bit ^= 1 << (s[k] - 'A' + 26)
+		}
+	}
+	return bit&(bit-1) == 0
+}
 
 /**
 面试题 01.05. 一次编辑
