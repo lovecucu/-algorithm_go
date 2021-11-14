@@ -1,0 +1,644 @@
+package crackingcodinginterview
+
+/**
+面试题 16.01. 交换数字
+编写一个函数，不用临时变量，直接交换numbers = [a, b]中a与b的值。
+
+示例：
+
+输入: numbers = [1,2]
+输出: [2,1]
+提示：
+
+numbers.length == 2
+-2147483647 <= numbers[i] <= 2147483647
+*/
+func swapNumbers(numbers []int) []int {
+
+}
+
+/**
+面试题 16.02. 单词频率
+设计一个方法，找出任意指定单词在一本书中的出现频率。
+
+你的实现应该支持如下操作：
+
+WordsFrequency(book)构造函数，参数为字符串数组构成的一本书
+get(word)查询指定单词在书中出现的频率
+示例：
+
+WordsFrequency wordsFrequency = new WordsFrequency({"i", "have", "an", "apple", "he", "have", "a", "pen"});
+wordsFrequency.get("you"); //返回0，"you"没有出现过
+wordsFrequency.get("have"); //返回2，"have"出现2次
+wordsFrequency.get("an"); //返回1
+wordsFrequency.get("apple"); //返回1
+wordsFrequency.get("pen"); //返回1
+提示：
+
+book[i]中只包含小写字母
+1 <= book.length <= 100000
+1 <= book[i].length <= 10
+get函数的调用次数不会超过100000
+*/
+type WordsFrequency struct {
+}
+
+func Constructor(book []string) WordsFrequency {
+
+}
+
+func (this *WordsFrequency) Get(word string) int {
+
+}
+
+/**
+ * Your WordsFrequency object will be instantiated and called as such:
+ * obj := Constructor(book);
+ * param_1 := obj.Get(word);
+ */
+
+/**
+ 面试题 16.03. 交点
+给定两条线段（表示为起点start = {X1, Y1}和终点end = {X2, Y2}），如果它们有交点，请计算其交点，没有交点则返回空值。
+
+要求浮点型误差不超过10^-6。若有多个交点（线段重叠）则返回 X 值最小的点，X 坐标相同则返回 Y 值最小的点。
+
+
+
+示例 1：
+
+输入：
+line1 = {0, 0}, {1, 0}
+line2 = {1, 1}, {0, -1}
+输出： {0.5, 0}
+示例 2：
+
+输入：
+line1 = {0, 0}, {3, 3}
+line2 = {1, 1}, {2, 2}
+输出： {1, 1}
+示例 3：
+
+输入：
+line1 = {0, 0}, {1, 1}
+line2 = {1, 0}, {2, 1}
+输出： {}，两条线段没有交点
+
+
+提示：
+
+坐标绝对值不会超过 2^7
+输入的坐标均是有效的二维坐标
+*/
+func intersection(start1 []int, end1 []int, start2 []int, end2 []int) []float64 {
+
+}
+
+/**
+面试题 16.04. 井字游戏
+设计一个算法，判断玩家是否赢了井字游戏。输入是一个 N x N 的数组棋盘，由字符" "，"X"和"O"组成，其中字符" "代表一个空位。
+
+以下是井字游戏的规则：
+
+玩家轮流将字符放入空位（" "）中。
+第一个玩家总是放字符"O"，且第二个玩家总是放字符"X"。
+"X"和"O"只允许放置在空位中，不允许对已放有字符的位置进行填充。
+当有N个相同（且非空）的字符填充任何行、列或对角线时，游戏结束，对应该字符的玩家获胜。
+当所有位置非空时，也算为游戏结束。
+如果游戏结束，玩家不允许再放置字符。
+如果游戏存在获胜者，就返回该游戏的获胜者使用的字符（"X"或"O"）；如果游戏以平局结束，则返回 "Draw"；如果仍会有行动（游戏未结束），则返回 "Pending"。
+
+示例 1：
+
+输入： board = ["O X"," XO","X O"]
+输出： "X"
+示例 2：
+
+输入： board = ["OOX","XXO","OXO"]
+输出： "Draw"
+解释： 没有玩家获胜且不存在空位
+示例 3：
+
+输入： board = ["OOX","XXO","OX "]
+输出： "Pending"
+解释： 没有玩家获胜且仍存在空位
+提示：
+
+1 <= board.length == board[i].length <= 100
+输入一定遵循井字棋规则
+*/
+func tictactoe(board []string) string {
+
+}
+
+/**
+面试题 16.05. 阶乘尾数
+设计一个算法，算出 n 阶乘有多少个尾随零。
+
+示例 1:
+
+输入: 3
+输出: 0
+解释: 3! = 6, 尾数中没有零。
+示例 2:
+
+输入: 5
+输出: 1
+解释: 5! = 120, 尾数中有 1 个零.
+说明: 你算法的时间复杂度应为 O(log n) 。
+*/
+func trailingZeroes(n int) int {
+
+}
+
+/**
+面试题 16.06. 最小差
+给定两个整数数组a和b，计算具有最小差绝对值的一对数值（每个数组中取一个值），并返回该对数值的差
+
+
+
+示例：
+
+输入：{1, 3, 15, 11, 2}, {23, 127, 235, 19, 8}
+输出：3，即数值对(11, 8)
+
+
+提示：
+
+1 <= a.length, b.length <= 100000
+-2147483648 <= a[i], b[i] <= 2147483647
+正确结果在区间 [0, 2147483647] 内
+*/
+func smallestDifference(a []int, b []int) int {
+
+}
+
+/**
+面试题 16.07. 最大数值
+编写一个方法，找出两个数字a和b中最大的那一个。不得使用if-else或其他比较运算符。
+
+示例：
+
+输入： a = 1, b = 2
+输出： 2
+*/
+func maximum(a int, b int) int {
+
+}
+
+/**
+面试题 16.08. 整数的英语表示
+给定一个整数，打印该整数的英文描述。
+
+示例 1:
+
+输入: 123
+输出: "One Hundred Twenty Three"
+示例 2:
+
+输入: 12345
+输出: "Twelve Thousand Three Hundred Forty Five"
+示例 3:
+
+输入: 1234567
+输出: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+示例 4:
+
+输入: 1234567891
+输出: "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+注意：本题与 273 题相同：https://leetcode-cn.com/problems/integer-to-english-words/
+*/
+func numberToWords(num int) string {
+
+}
+
+/**
+面试题 16.09. 运算
+请实现整数数字的乘法、减法和除法运算，运算结果均为整数数字，程序中只允许使用加法运算符和逻辑运算符，允许程序中出现正负常数，不允许使用位运算。
+
+你的实现应该支持如下操作：
+
+Operations() 构造函数
+minus(a, b) 减法，返回a - b
+multiply(a, b) 乘法，返回a * b
+divide(a, b) 除法，返回a / b
+示例：
+
+Operations operations = new Operations();
+operations.minus(1, 2); //返回-1
+operations.multiply(3, 4); //返回12
+operations.divide(5, -2); //返回-2
+提示：
+
+你可以假设函数输入一定是有效的，例如不会出现除法分母为0的情况
+单个用例的函数调用次数不会超过1000次
+*/
+type Operations struct {
+}
+
+func Constructor() Operations {
+
+}
+
+func (this *Operations) Minus(a int, b int) int {
+
+}
+
+func (this *Operations) Multiply(a int, b int) int {
+
+}
+
+func (this *Operations) Divide(a int, b int) int {
+
+}
+
+/**
+ * Your Operations object will be instantiated and called as such:
+ * obj := Constructor();
+ * param_1 := obj.Minus(a,b);
+ * param_2 := obj.Multiply(a,b);
+ * param_3 := obj.Divide(a,b);
+ */
+
+/**
+ 面试题 16.10. 生存人数
+给定 N 个人的出生年份和死亡年份，第 i 个人的出生年份为 birth[i]，死亡年份为 death[i]，实现一个方法以计算生存人数最多的年份。
+
+你可以假设所有人都出生于 1900 年至 2000 年（含 1900 和 2000 ）之间。如果一个人在某一年的任意时期处于生存状态，那么他应该被纳入那一年的统计中。例如，生于 1908 年、死于 1909 年的人应当被列入 1908 年和 1909 年的计数。
+
+如果有多个年份生存人数相同且均为最大值，输出其中最小的年份。
+
+
+
+示例：
+
+输入：
+birth = {1900, 1901, 1950}
+death = {1948, 1951, 2000}
+输出： 1901
+
+
+提示：
+
+0 < birth.length == death.length <= 10000
+birth[i] <= death[i]
+*/
+func maxAliveYear(birth []int, death []int) int {
+
+}
+
+/**
+面试题 16.11. 跳水板
+你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
+
+返回的长度需要从小到大排列。
+
+示例 1
+
+输入：
+shorter = 1
+longer = 2
+k = 3
+输出： [3,4,5,6]
+解释：
+可以使用 3 次 shorter，得到结果 3；使用 2 次 shorter 和 1 次 longer，得到结果 4 。以此类推，得到最终结果。
+提示：
+
+0 < shorter <= longer
+0 <= k <= 100000
+*/
+func divingBoard(shorter int, longer int, k int) []int {
+
+}
+
+/**
+面试题 16.13. 平分正方形
+给定两个正方形及一个二维平面。请找出将这两个正方形分割成两半的一条直线。假设正方形顶边和底边与 x 轴平行。
+
+每个正方形的数据square包含3个数值，正方形的左下顶点坐标[X,Y] = [square[0],square[1]]，以及正方形的边长square[2]。所求直线穿过两个正方形会形成4个交点，请返回4个交点形成线段的两端点坐标（两个端点即为4个交点中距离最远的2个点，这2个点所连成的线段一定会穿过另外2个交点）。2个端点坐标[X1,Y1]和[X2,Y2]的返回格式为{X1,Y1,X2,Y2}，要求若X1 != X2，需保证X1 < X2，否则需保证Y1 <= Y2。
+
+若同时有多条直线满足要求，则选择斜率最大的一条计算并返回（与Y轴平行的直线视为斜率无穷大）。
+
+示例：
+
+输入：
+square1 = {-1, -1, 2}
+square2 = {0, -1, 2}
+输出： {-1,0,2,0}
+解释： 直线 y = 0 能将两个正方形同时分为等面积的两部分，返回的两线段端点为[-1,0]和[2,0]
+提示：
+
+square.length == 3
+square[2] > 0
+*/
+func cutSquares(square1 []int, square2 []int) []float64 {
+
+}
+
+/**
+面试题 16.14. 最佳直线
+给定一个二维平面及平面上的 N 个点列表Points，其中第i个点的坐标为Points[i]=[Xi,Yi]。请找出一条直线，其通过的点的数目最多。
+
+设穿过最多点的直线所穿过的全部点编号从小到大排序的列表为S，你仅需返回[S[0],S[1]]作为答案，若有多条直线穿过了相同数量的点，则选择S[0]值较小的直线返回，S[0]相同则选择S[1]值较小的直线返回。
+
+示例：
+
+输入： [[0,0],[1,1],[1,0],[2,0]]
+输出： [0,2]
+解释： 所求直线穿过的3个点的编号为[0,2,3]
+提示：
+
+2 <= len(Points) <= 300
+len(Points[i]) = 2
+*/
+func bestLine(points [][]int) []int {
+
+}
+
+/**
+面试题 16.15. 珠玑妙算
+珠玑妙算游戏（the game of master mind）的玩法如下。
+
+计算机有4个槽，每个槽放一个球，颜色可能是红色（R）、黄色（Y）、绿色（G）或蓝色（B）。例如，计算机可能有RGGB 4种（槽1为红色，槽2、3为绿色，槽4为蓝色）。作为用户，你试图猜出颜色组合。打个比方，你可能会猜YRGB。要是猜对某个槽的颜色，则算一次“猜中”；要是只猜对颜色但槽位猜错了，则算一次“伪猜中”。注意，“猜中”不能算入“伪猜中”。
+
+给定一种颜色组合solution和一个猜测guess，编写一个方法，返回猜中和伪猜中的次数answer，其中answer[0]为猜中的次数，answer[1]为伪猜中的次数。
+
+示例：
+
+输入： solution="RGBY",guess="GGRR"
+输出： [1,1]
+解释： 猜中1次，伪猜中1次。
+提示：
+
+len(solution) = len(guess) = 4
+solution和guess仅包含"R","G","B","Y"这4种字符
+*/
+func masterMind(solution string, guess string) []int {
+
+}
+
+/**
+面试题 16.16. 部分排序
+给定一个整数数组，编写一个函数，找出索引m和n，只要将索引区间[m,n]的元素排好序，整个数组就是有序的。注意：n-m尽量最小，也就是说，找出符合条件的最短序列。函数返回值为[m,n]，若不存在这样的m和n（例如整个数组是有序的），请返回[-1,-1]。
+
+示例：
+
+输入： [1,2,4,7,10,11,7,12,6,7,16,18,19]
+输出： [3,9]
+提示：
+
+0 <= len(array) <= 1000000
+*/
+func subSort(array []int) []int {
+
+}
+
+/**
+面试题 16.17. 连续数列
+给定一个整数数组，找出总和最大的连续数列，并返回总和。
+
+示例：
+
+输入： [-2,1,-3,4,-1,2,1,-5,4]
+输出： 6
+解释： 连续子数组 [4,-1,2,1] 的和最大，为 6。
+进阶：
+
+如果你已经实现复杂度为 O(n) 的解法，尝试使用更为精妙的分治法求解。
+*/
+func maxSubArray(nums []int) int {
+
+}
+
+/**
+面试题 16.18. 模式匹配
+你有两个字符串，即pattern和value。 pattern字符串由字母"a"和"b"组成，用于描述字符串中的模式。例如，字符串"catcatgocatgo"匹配模式"aabab"（其中"cat"是"a"，"go"是"b"），该字符串也匹配像"a"、"ab"和"b"这样的模式。但需注意"a"和"b"不能同时表示相同的字符串。编写一个方法判断value字符串是否匹配pattern字符串。
+
+示例 1：
+
+输入： pattern = "abba", value = "dogcatcatdog"
+输出： true
+示例 2：
+
+输入： pattern = "abba", value = "dogcatcatfish"
+输出： false
+示例 3：
+
+输入： pattern = "aaaa", value = "dogcatcatdog"
+输出： false
+示例 4：
+
+输入： pattern = "abba", value = "dogdogdogdog"
+输出： true
+解释： "a"="dogdog",b=""，反之也符合规则
+提示：
+
+1 <= len(pattern) <= 1000
+0 <= len(value) <= 1000
+你可以假设pattern只包含字母"a"和"b"，value仅包含小写字母。
+*/
+func patternMatching(pattern string, value string) bool {
+
+}
+
+/**
+面试题 16.19. 水域大小
+你有一个用于表示一片土地的整数矩阵land，该矩阵中每个点的值代表对应地点的海拔高度。若值为0则表示水域。由垂直、水平或对角连接的水域为池塘。池塘的大小是指相连接的水域的个数。编写一个方法来计算矩阵中所有池塘的大小，返回值需要从小到大排序。
+
+示例：
+
+输入：
+[
+  [0,2,1,0],
+  [0,1,0,1],
+  [1,1,0,1],
+  [0,1,0,1]
+]
+输出： [1,2,4]
+提示：
+
+0 < len(land) <= 1000
+0 < len(land[i]) <= 1000
+*/
+func pondSizes(land [][]int) []int {
+
+}
+
+/**
+面试题 16.20. T9键盘
+在老式手机上，用户通过数字键盘输入，手机将提供与这些数字相匹配的单词列表。每个数字映射到0至4个字母。给定一个数字序列，实现一个算法来返回匹配单词的列表。你会得到一张含有有效单词的列表。映射如下图所示：
+
+
+
+示例 1:
+
+输入: num = "8733", words = ["tree", "used"]
+输出: ["tree", "used"]
+示例 2:
+
+输入: num = "2", words = ["a", "b", "c", "d"]
+输出: ["a", "b", "c"]
+提示：
+
+num.length <= 1000
+words.length <= 500
+words[i].length == num.length
+num中不会出现 0, 1 这两个数字
+*/
+func getValidT9Words(num string, words []string) []string {
+
+}
+
+/**
+面试题 16.21. 交换和
+给定两个整数数组，请交换一对数值（每个数组中取一个数值），使得两个数组所有元素的和相等。
+
+返回一个数组，第一个元素是第一个数组中要交换的元素，第二个元素是第二个数组中要交换的元素。若有多个答案，返回任意一个均可。若无满足条件的数值，返回空数组。
+
+示例:
+
+输入: array1 = [4, 1, 2, 1, 1, 2], array2 = [3, 6, 3, 3]
+输出: [1, 3]
+示例:
+
+输入: array1 = [1, 2, 3], array2 = [4, 5, 6]
+输出: []
+提示：
+
+1 <= array1.length, array2.length <= 100000
+*/
+func findSwapValues(array1 []int, array2 []int) []int {
+
+}
+
+/**
+面试题 16.22. 兰顿蚂蚁
+一只蚂蚁坐在由白色和黑色方格构成的无限网格上。开始时，网格全白，蚂蚁面向右侧。每行走一步，蚂蚁执行以下操作。
+
+(1) 如果在白色方格上，则翻转方格的颜色，向右(顺时针)转 90 度，并向前移动一个单位。
+(2) 如果在黑色方格上，则翻转方格的颜色，向左(逆时针方向)转 90 度，并向前移动一个单位。
+
+编写程序来模拟蚂蚁执行的前 K 个动作，并返回最终的网格。
+
+网格由数组表示，每个元素是一个字符串，代表网格中的一行，黑色方格由 'X' 表示，白色方格由 '_' 表示，蚂蚁所在的位置由 'L', 'U', 'R', 'D' 表示，分别表示蚂蚁 左、上、右、下 的朝向。只需要返回能够包含蚂蚁走过的所有方格的最小矩形。
+
+示例 1:
+
+输入: 0
+输出: ["R"]
+示例 2:
+
+输入: 2
+输出:
+[
+  "_X",
+  "LX"
+]
+示例 3:
+
+输入: 5
+输出:
+[
+  "_U",
+  "X_",
+  "XX"
+]
+说明：
+
+K <= 100000
+*/
+func printKMoves(K int) []string {
+
+}
+
+/**
+面试题 16.24. 数对和
+设计一个算法，找出数组中两数之和为指定值的所有整数对。一个数只能属于一个数对。
+
+示例 1:
+
+输入: nums = [5,6,5], target = 11
+输出: [[5,6]]
+示例 2:
+
+输入: nums = [5,6,5,6], target = 11
+输出: [[5,6],[5,6]]
+提示：
+
+nums.length <= 100000
+*/
+func pairSums(nums []int, target int) [][]int {
+
+}
+
+/**
+面试题 16.25. LRU 缓存
+设计和构建一个“最近最少使用”缓存，该缓存会删除最近最少使用的项目。缓存应该从键映射到值(允许你插入和检索特定键对应的值)，并在初始化时指定最大容量。当缓存被填满时，它应该删除最近最少使用的项目。
+
+它应该支持以下操作： 获取数据 get 和 写入数据 put 。
+
+获取数据 get(key) - 如果密钥 (key) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1。
+写入数据 put(key, value) - 如果密钥不存在，则写入其数据值。当缓存容量达到上限时，它应该在写入新数据之前删除最近最少使用的数据值，从而为新的数据值留出空间。
+
+示例:
+
+LRUCache cache = new LRUCache( 2 );
+
+cache.put(1, 1);
+cache.put(2, 2);
+cache.get(1);       // 返回  1
+cache.put(3, 3);    // 该操作会使得密钥 2 作废
+cache.get(2);       // 返回 -1 (未找到)
+cache.put(4, 4);    // 该操作会使得密钥 1 作废
+cache.get(1);       // 返回 -1 (未找到)
+cache.get(3);       // 返回  3
+cache.get(4);       // 返回  4
+*/
+type LRUCache struct {
+}
+
+func Constructor(capacity int) LRUCache {
+
+}
+
+func (this *LRUCache) Get(key int) int {
+
+}
+
+func (this *LRUCache) Put(key int, value int) {
+
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * obj := Constructor(capacity);
+ * param_1 := obj.Get(key);
+ * obj.Put(key,value);
+ */
+
+/**
+ 面试题 16.26. 计算器
+给定一个包含正整数、加(+)、减(-)、乘(*)、除(/)的算数表达式(括号除外)，计算其结果。
+
+表达式仅包含非负整数，+， - ，*，/ 四种运算符和空格  。 整数除法仅保留整数部分。
+
+示例 1:
+
+输入: "3+2*2"
+输出: 7
+示例 2:
+
+输入: " 3/2 "
+输出: 1
+示例 3:
+
+输入: " 3+5 / 2 "
+输出: 5
+说明：
+
+你可以假设所给定的表达式都是有效的。
+请不要使用内置的库函数 eval。
+*/
+func calculate(s string) int {
+
+}
