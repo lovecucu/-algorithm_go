@@ -445,6 +445,29 @@ func setZeroes(matrix [][]int) [][]int {
 
 你能只调用一次检查子串的方法吗？
 */
-// func isFlipedString(s1 string, s2 string) bool {
+func isFlipedString(s1 string, s2 string) bool {
+	if s1 == s2 {
+		return true
+	}
 
-// }
+	if len(s1) != len(s2) {
+		return false
+	}
+
+	flag := true
+	for i := 0; i < len(s1); i++ {
+		if strings.Contains(s2, s1[0:i+1]) {
+			continue
+		} else {
+			var sb strings.Builder
+			sb.WriteString(s1[i:])
+			sb.WriteString(s1[0:i])
+			if sb.String() != s2 {
+				flag = false
+			}
+			break
+		}
+	}
+
+	return flag
+}
