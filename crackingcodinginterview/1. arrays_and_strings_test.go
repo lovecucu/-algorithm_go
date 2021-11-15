@@ -47,7 +47,7 @@ func TestSetZeroes(t *testing.T) {
 	}
 }
 
-func TestIsFlippedString(t *testing.T) {
+func TestIsFlipedString(t *testing.T) {
 	if !isFlipedString("erbottlewat", "bottlewater") || isFlipedString("aa", "aba") {
 		t.Error(`TestIsFlippedString`)
 	}

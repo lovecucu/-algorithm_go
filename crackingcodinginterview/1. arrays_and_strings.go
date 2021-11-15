@@ -500,25 +500,8 @@ func isFlipedString(s1 string, s2 string) bool {
 	if s1 == s2 {
 		return true
 	}
-
-	if len(s1) != len(s2) {
-		return false
+	if len(s1) == len(s2) {
+		return strings.Contains(s1+s1, s2)
 	}
-
-	flag := true
-	for i := 0; i < len(s1); i++ {
-		if strings.Contains(s2, s1[0:i+1]) {
-			continue
-		} else {
-			var sb strings.Builder
-			sb.WriteString(s1[i:])
-			sb.WriteString(s1[0:i])
-			if sb.String() != s2 {
-				flag = false
-			}
-			break
-		}
-	}
-
-	return flag
+	return false
 }
