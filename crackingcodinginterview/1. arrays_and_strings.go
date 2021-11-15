@@ -359,9 +359,19 @@ func compressString(S string) string {
 ]
 注意：本题与主站 48 题相同：https://leetcode-cn.com/problems/rotate-image/
 */
-// func rotate(matrix [][]int) {
-
-// }
+func rotate(matrix [][]int) [][]int {
+	n := len(matrix)
+	for i := 0; i < n/2; i++ {
+		for j := i; j < n-i-1; j++ {
+			tmp := matrix[i][j]
+			matrix[i][j] = matrix[n-j-1][i]
+			matrix[n-j-1][i] = matrix[n-i-1][n-j-1]
+			matrix[n-i-1][n-j-1] = matrix[j][n-i-1]
+			matrix[j][n-i-1] = tmp
+		}
+	}
+	return matrix
+}
 
 /**
 面试题 01.08. 零矩阵
