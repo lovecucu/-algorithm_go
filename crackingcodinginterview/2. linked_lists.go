@@ -1,5 +1,30 @@
 package crackingcodinginterview
 
+import "fmt"
+
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
+
+func SprintNode(head *ListNode) string {
+	real := []int{}
+	for head != nil {
+		real = append(real, head.Val)
+		head = head.Next
+	}
+	return fmt.Sprint(real)
+}
+
+func PrintNode(head *ListNode) {
+	real := []int{}
+	for head != nil {
+		real = append(real, head.Val)
+		head = head.Next
+	}
+	fmt.Println(real)
+}
+
 /**
 面试题 02.01. 移除重复节点
 编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。
@@ -20,15 +45,38 @@ package crackingcodinginterview
 
 如果不得使用临时缓冲区，该怎么解决？
 */
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
 func removeDuplicateNodes(head *ListNode) *ListNode {
+	// 解法一：使用buffer，时间复杂度O(n)，空间复杂度O(n)
+	// maps := make(map[int]struct{})
+	// var root, prev *ListNode
+	// for head != nil {
+	// 	if _, ok := maps[head.Val]; ok {
+	// 		prev.Next = head.Next
+	// 	} else {
+	// 		if prev == nil {
+	// 			root = head
+	// 		}
+	// 		prev = head
+	// 		maps[head.Val] = struct{}{}
+	// 	}
+	// 	head = head.Next
+	// }
+	// return root
 
+	// 解法二：不使用buffer，时间复杂度O(n^2)，空间复杂度O(1)（！！！）
+	current := head // current为head前进的指针，每进一步，head加一个结点，同时去除后续值重复的结点
+	for current != nil {
+		runner := current // runner为current的指针，用于前移去除与current重复的结点
+		for runner.Next != nil {
+			if runner.Next.Val == current.Val { // 与current值相同的结点，直接跳过
+				runner.Next = runner.Next.Next
+			} else {
+				runner = runner.Next
+			}
+		}
+		current = current.Next // current前移
+	}
+	return head
 }
 
 /**
@@ -52,9 +100,9 @@ func removeDuplicateNodes(head *ListNode) *ListNode {
  *     Next *ListNode
  * }
  */
-func kthToLast(head *ListNode, k int) int {
+// func kthToLast(head *ListNode, k int) int {
 
-}
+// }
 
 /**
 面试题 02.03. 删除中间节点
@@ -78,9 +126,9 @@ func kthToLast(head *ListNode, k int) int {
  *     Next *ListNode
  * }
  */
-func deleteNode(node *ListNode) {
+// func deleteNode(node *ListNode) {
 
-}
+// }
 
 /**
 面试题 02.04. 分割链表
@@ -114,9 +162,9 @@ func deleteNode(node *ListNode) {
  *     Next *ListNode
  * }
  */
-func partition(head *ListNode, x int) *ListNode {
+// func partition(head *ListNode, x int) *ListNode {
 
-}
+// }
 
 /**
 面试题 02.05. 链表求和
@@ -146,9 +194,9 @@ func partition(head *ListNode, x int) *ListNode {
  *     Next *ListNode
  * }
  */
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+// func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
-}
+// }
 
 /**
 面试题 02.06. 回文链表
@@ -176,9 +224,9 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
  *     Next *ListNode
  * }
  */
-func isPalindrome(head *ListNode) bool {
+// func isPalindrome(head *ListNode) bool {
 
-}
+// }
 
 /**
 面试题 02.07. 链表相交
@@ -241,9 +289,9 @@ listB 中节点数目为 n
  *     Next *ListNode
  * }
  */
-func getIntersectionNode(headA, headB *ListNode) *ListNode {
+// func getIntersectionNode(headA, headB *ListNode) *ListNode {
 
-}
+// }
 
 /**
 面试题 02.08. 环路检测
@@ -287,6 +335,6 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
  *     Next *ListNode
  * }
  */
-func detectCycle(head *ListNode) *ListNode {
+// func detectCycle(head *ListNode) *ListNode {
 
-}
+// }
