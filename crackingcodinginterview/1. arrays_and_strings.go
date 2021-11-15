@@ -398,9 +398,33 @@ func compressString(S string) string {
   [0,3,1,0]
 ]
 */
-// func setZeroes(matrix [][]int) {
+func setZeroes(matrix [][]int) [][]int {
+	mapi := make(map[int]struct{})
+	mapj := make(map[int]struct{})
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[0]); j++ {
+			if matrix[i][j] == 0 {
+				mapi[i] = struct{}{}
+				mapj[j] = struct{}{}
+				break
+			}
+		}
+	}
 
-// }
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[0]); j++ {
+			if matrix[i][j] == 0 {
+				continue
+			}
+			_, oki := mapi[i]
+			_, okj := mapi[j]
+			if oki || okj {
+				matrix[i][j] = 0
+			}
+		}
+	}
+	return matrix
+}
 
 /**
 面试题 01.09. 字符串轮转

@@ -1,6 +1,9 @@
 package crackingcodinginterview
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestIsUnique(t *testing.T) {
 	if !isUnique("abc") || isUnique("aabc") || isUnique("leetcode") {
@@ -35,5 +38,15 @@ func TestOneEditAway(t *testing.T) {
 func TestCompressString(t *testing.T) {
 	if compressString("aabcccccaaa") != "a2b1c5a3" || compressString("abbccd") != "abbccd" {
 		t.Error(`TestcompressString failed`)
+	}
+}
+
+func TestSetZeroes(t *testing.T) {
+	if fmt.Sprint(setZeroes([][]int{
+		{1, 1, 1},
+		{1, 0, 1},
+		{1, 1, 1},
+	})) != "[[1 0 1] [0 0 0] [1 0 1]]" {
+		t.Error(`TestSetZeroes failed`)
 	}
 }
