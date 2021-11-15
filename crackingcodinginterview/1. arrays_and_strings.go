@@ -405,28 +405,73 @@ func rotate(matrix [][]int) [][]int {
 ]
 */
 func setZeroes(matrix [][]int) [][]int {
-	mapi := make(map[int]struct{})
-	mapj := make(map[int]struct{})
-	for i := 0; i < len(matrix); i++ {
-		for j := 0; j < len(matrix[0]); j++ {
+	// 解法一：两个bool数组
+	// booli := make([]bool, len(matrix))
+	// boolj := make([]bool, len(matrix[0]))
+	// for i := 0; i < len(matrix); i++ {
+	// 	for j := 0; j < len(matrix[0]); j++ {
+	// 		if matrix[i][j] == 0 {
+	// 			booli[i] = true
+	// 			boolj[j] = true
+	// 		}
+	// 	}
+	// }
+
+	// for i := 0; i < len(matrix); i++ {
+	// 	for j := 0; j < len(matrix[0]); j++ {
+	// 		if matrix[i][j] != 0 && (booli[i] || boolj[j]) {
+	// 			matrix[i][j] = 0
+	// 		}
+	// 	}
+	// }
+
+	// 解法二：两个标记变量
+	m, n := len(matrix), len(matrix[0])
+	row0, col0 := false, false
+	for i := 0; i < m; i++ {
+		if matrix[i][0] == 0 {
+			col0 = true
+			break
+		}
+	}
+
+	for i := 0; i < n; i++ {
+		if matrix[0][i] == 0 {
+			row0 = true
+			break
+		}
+	}
+
+	// 将0行，0列的值置为0
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
 			if matrix[i][j] == 0 {
-				mapi[i] = struct{}{}
-				mapj[j] = struct{}{}
-				break
+				matrix[i][0] = 0
+				matrix[0][j] = 0
 			}
 		}
 	}
 
-	for i := 0; i < len(matrix); i++ {
-		for j := 0; j < len(matrix[0]); j++ {
-			if matrix[i][j] == 0 {
-				continue
-			}
-			_, oki := mapi[i]
-			_, okj := mapi[j]
-			if oki || okj {
+	// 非0行，0列的数据根据列头列尾的值来确认是否变为0
+	for i := 1; i < m; i++ {
+		for j := 1; j < n; j++ {
+			if matrix[i][0] == 0 || matrix[0][j] == 0 {
 				matrix[i][j] = 0
 			}
+		}
+	}
+
+	// 把第0行所有值变成0
+	if row0 {
+		for i := 0; i < n; i++ {
+			matrix[0][i] = 0
+		}
+	}
+
+	// 把第0列所有值变成0
+	if col0 {
+		for i := 0; i < m; i++ {
+			matrix[i][0] = 0
 		}
 	}
 	return matrix
