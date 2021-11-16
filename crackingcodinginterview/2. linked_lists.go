@@ -100,9 +100,38 @@ func removeDuplicateNodes(head *ListNode) *ListNode {
  *     Next *ListNode
  * }
  */
-// func kthToLast(head *ListNode, k int) int {
+func kthToLast(head *ListNode, k int) int {
+	// 解法一：迭代，时间复杂度O(N)，空间复杂度O(1)
+	// fast := head
+	// i := 1
+	// for ; i <= k && fast != nil; i++ {
+	// 	fast = fast.Next
+	// }
 
-// }
+	// slow := head
+	// for fast != nil {
+	// 	slow = slow.Next
+	// 	fast = fast.Next
+	// }
+	// return slow.Val
+
+	// 解法二：递归，时间复杂度O(N)，空间复杂度O(N)
+	index := 0
+	var kthToLastSub func(root *ListNode, k int) *ListNode
+	kthToLastSub = func(root *ListNode, k int) *ListNode {
+		if root == nil {
+			return nil
+		}
+
+		node := kthToLastSub(root.Next, k) // 先遍历下一个
+		index += 1                         // 相当于从后往前计数，因此index=k时，表示找到了倒数第k个结点
+		if index == k {
+			return root
+		}
+		return node
+	}
+	return kthToLastSub(head, k).Val
+}
 
 /**
 面试题 02.03. 删除中间节点
