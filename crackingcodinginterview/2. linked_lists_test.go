@@ -68,3 +68,15 @@ func TestPartition(t *testing.T) {
 		t.Error(`TestPartition failed`)
 	}
 }
+
+func TestReverseList(t *testing.T) {
+	root := &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 4}
+	root.Next.Next = &ListNode{Val: 3}
+	root.Next.Next.Next = &ListNode{Val: 2}
+	root.Next.Next.Next.Next = &ListNode{Val: 5}
+	root.Next.Next.Next.Next.Next = &ListNode{Val: 2}
+	if SprintNode(ReverseList(root)) != "[2 5 2 3 4 1]" {
+		t.Error(`TestReverseList failed`, SprintNode(ReverseList(root)))
+	}
+}

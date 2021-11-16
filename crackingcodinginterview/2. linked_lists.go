@@ -297,9 +297,30 @@ func partition(head *ListNode, x int) *ListNode {
  *     Next *ListNode
  * }
  */
-// func isPalindrome(head *ListNode) bool {
+func isPalindrome(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return true
+	}
+	// 反转链表
+	return false
+}
 
-// }
+func ReverseList(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var pre *ListNode
+	dummyhead := &ListNode{}
+	dummyhead.Next = pre
+	for head != nil {
+		next := head.Next
+		head.Next = pre
+		pre = head
+		head = next
+	}
+	return dummyhead.Next
+}
 
 /**
 面试题 02.07. 链表相交
