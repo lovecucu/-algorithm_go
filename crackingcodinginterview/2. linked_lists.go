@@ -134,7 +134,7 @@ func kthToLast(head *ListNode, k int) int {
 			return nil
 		}
 
-		node := kthToLastSub(root.Next, k) // 先遍历下一个
+		node := kthToLastSub(root.Next, k) // 后序遍历
 		index += 1                         // 相当于从后往前计数，因此index=k时，表示找到了倒数第k个结点
 		if index == k {
 			return root
