@@ -155,9 +155,13 @@ func kthToLast(head *ListNode, k int) int {
  *     Next *ListNode
  * }
  */
-// func deleteNode(node *ListNode) {
-
-// }
+func deleteNode(node *ListNode) {
+	if node == nil || node.Next == nil {
+		return
+	}
+	node.Val = node.Next.Val
+	node.Next = node.Next.Next
+}
 
 /**
 面试题 02.04. 分割链表

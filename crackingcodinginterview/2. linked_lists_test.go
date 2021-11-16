@@ -25,3 +25,21 @@ func TestKthToLast(t *testing.T) {
 		t.Error(`TestKthToLast failed`)
 	}
 }
+
+func TestDeleteNode(t *testing.T) {
+	root := &ListNode{Val: 1}
+	second := &ListNode{Val: 2}
+	root.Next = second
+	third := &ListNode{Val: 3}
+	root.Next.Next = third
+	root.Next.Next.Next = &ListNode{Val: 4}
+	deleteNode(second)
+	if SprintNode(root) != "[1 3 4]" {
+		t.Error(`TestDeleteNode failed`)
+	}
+
+	deleteNode(root.Next)
+	if SprintNode(root) != "[1 4]" {
+		t.Error(`TestDeleteNode failed`, SprintNode(root))
+	}
+}
