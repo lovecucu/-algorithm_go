@@ -1,10 +1,21 @@
 package crackingcodinginterview
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type ListNode struct {
 	Val  int
 	Next *ListNode
+}
+
+func Node2Array(head *ListNode) []int {
+	real := []int{}
+	for head != nil {
+		real = append(real, head.Val)
+		head = head.Next
+	}
+	return real
 }
 
 func SprintNode(head *ListNode) string {
@@ -156,9 +167,6 @@ func kthToLast(head *ListNode, k int) int {
  * }
  */
 func deleteNode(node *ListNode) {
-	if node == nil || node.Next == nil {
-		return
-	}
 	node.Val = node.Next.Val
 	node.Next = node.Next.Next
 }
@@ -195,9 +203,41 @@ func deleteNode(node *ListNode) {
  *     Next *ListNode
  * }
  */
-// func partition(head *ListNode, x int) *ListNode {
+func partition(head *ListNode, x int) *ListNode {
+	// 解法一：造两个头结点，分别用于存储小于、大于等于的结点
+	// big, small := &ListNode{}, &ListNode{}
+	// bighead, smallhead := big, small
+	// for head != nil {
+	// 	next := head.Next
+	// 	if head.Val < x {
+	// 		small.Next = head
+	// 		small = head
+	// 	} else {
+	// 		big.Next = head
+	// 		big = head
+	// 	}
+	// 	head = next
+	// }
+	// big.Next = nil            // 避免循环，big的最后一个结点的Next置nil
+	// small.Next = bighead.Next // small的最后一个结点的Next置为big开始结点
+	// return smallhead.Next     // 返回small第一个结点
 
-// }
+	// 解法二：原地（第一个结点会先成环）
+	start, end := head, head
+	for head != nil {
+		next := head.Next
+		if head.Val < x { // 小于，放在最前面
+			head.Next = start
+			start = head
+		} else { // 大于，放在最后面
+			end.Next = head
+			end = head
+		}
+		head = next // next用来保证指针不断前移
+	}
+	end.Next = nil // 避免循环，最后一个结点的Next置为nil
+	return start
+}
 
 /**
 面试题 02.05. 链表求和
