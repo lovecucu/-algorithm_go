@@ -450,16 +450,50 @@ listB 中节点数目为 n
  * }
  */
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
-	var ret *ListNode
 	if headA == nil || headB == nil {
-		return ret
+		return nil
 	}
 
 	if headA == headB {
 		return headA
 	}
 
-	return ret
+	// 获取链表最后一个结点及长度
+	var getTailAndSize func(head *ListNode) (*ListNode, int)
+	getTailAndSize = func(head *ListNode) (*ListNode, int) {
+		size := 1
+		for head.Next != nil {
+			size++
+			head = head.Next
+		}
+		return head, size
+	}
+
+	tailA, sizeA := getTailAndSize(headA)
+	tailB, sizeB := getTailAndSize(headB)
+	if tailA != tailB {
+		return nil
+	}
+	var short, long *ListNode
+	if sizeA < sizeB {
+		short, long = headA, headB
+	} else {
+		short, long = headB, headA
+	}
+
+	// 去除较长链表之前的结点，使两个链表等长
+	diffsize := abs(sizeA - sizeB)
+	for diffsize > 0 {
+		long = long.Next
+		diffsize--
+	}
+
+	for short != long {
+		short = short.Next
+		long = long.Next
+	}
+
+	return long
 }
 
 /**
