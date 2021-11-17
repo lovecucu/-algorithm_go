@@ -114,3 +114,25 @@ func TestIsPalindrome(t *testing.T) {
 		t.Error(`TestIsPalindrome failed`)
 	}
 }
+
+func TestAddTwoNumbers(t *testing.T) {
+	l1 := &ListNode{Val: 7}
+	l1.Next = &ListNode{Val: 1}
+	l1.Next.Next = &ListNode{Val: 6}
+	l2 := &ListNode{Val: 5}
+	l2.Next = &ListNode{Val: 9}
+	l2.Next.Next = &ListNode{Val: 2}
+	if SprintNode(addTwoNumbers(l1, l2)) != "[2 1 9]" {
+		t.Error(`TestAddTwoNumbers failed`)
+	}
+
+	l1 = &ListNode{Val: 7}
+	l1.Next = &ListNode{Val: 1}
+	l1.Next.Next = &ListNode{Val: 6}
+	l2 = &ListNode{Val: 5}
+	l2.Next = &ListNode{Val: 9}
+	l2.Next.Next = &ListNode{Val: 3}
+	if SprintNode(addTwoNumbers(l1, l2)) != "[2 1 0 1]" {
+		t.Error(`TestAddTwoNumbers failed`)
+	}
+}

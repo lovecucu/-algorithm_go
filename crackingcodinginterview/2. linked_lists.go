@@ -267,9 +267,43 @@ func partition(head *ListNode, x int) *ListNode {
  *     Next *ListNode
  * }
  */
-// func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	var head, pre *ListNode
+	mod := 0
+	var dfsAddTwoNumbers func(d1, d2 *ListNode)
+	dfsAddTwoNumbers = func(d1, d2 *ListNode) {
+		if d1 == nil && d2 == nil {
+			if mod > 0 {
+				pre.Next = &ListNode{Val: mod}
+			}
+			return
+		}
 
-// }
+		sum := mod
+		var d1next, d2next *ListNode
+		if d1 != nil {
+			sum += d1.Val
+			d1next = d1.Next
+		}
+		if d2 != nil {
+			sum += d2.Val
+			d2next = d2.Next
+		}
+		mod = sum / 10
+
+		tmp := &ListNode{Val: sum % 10}
+		if pre == nil {
+			head = tmp
+			pre = tmp
+		} else {
+			pre.Next = tmp
+			pre = tmp
+		}
+		dfsAddTwoNumbers(d1next, d2next)
+	}
+	dfsAddTwoNumbers(l1, l2)
+	return head
+}
 
 /**
 面试题 02.06. 回文链表
