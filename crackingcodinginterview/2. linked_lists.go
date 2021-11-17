@@ -310,16 +310,17 @@ func ReverseList(head *ListNode) *ListNode {
 		return head
 	}
 
-	var pre *ListNode
-	dummyhead := &ListNode{}
-	dummyhead.Next = pre
-	for head != nil {
-		next := head.Next
-		head.Next = pre
-		pre = head
-		head = next
+	dummyHead := &ListNode{Next: head}
+	for head.Next != nil {
+		tmp := head.Next
+		head.Next = head.Next.Next
+
+		tmp.Next = dummyHead.Next
+		dummyHead.Next = tmp
 	}
-	return dummyhead.Next
+	head.Next = nil
+
+	return dummyHead.Next
 }
 
 /**

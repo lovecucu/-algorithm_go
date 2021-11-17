@@ -77,6 +77,12 @@ func TestReverseList(t *testing.T) {
 	root.Next.Next.Next.Next = &ListNode{Val: 5}
 	root.Next.Next.Next.Next.Next = &ListNode{Val: 2}
 	if SprintNode(ReverseList(root)) != "[2 5 2 3 4 1]" {
-		t.Error(`TestReverseList failed`, SprintNode(ReverseList(root)))
+		t.Error(`TestReverseList failed`)
+	}
+
+	root = &ListNode{Val: 2}
+	root.Next = &ListNode{Val: 1}
+	if SprintNode(ReverseList(root)) != "[1 2]" {
+		t.Error(`TestReverseList failed`)
 	}
 }
