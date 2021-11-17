@@ -156,3 +156,24 @@ func TestGetIntersectionNode(t *testing.T) {
 		t.Error(`TestGetIntersectionNode failed`)
 	}
 }
+
+func TestDetectCycle(t *testing.T) {
+	root := &ListNode{Val: 1}
+	loops := &ListNode{Val: 2}
+	root.Next = loops
+	loops.Next = &ListNode{Val: 3}
+	loops.Next.Next = &ListNode{Val: 4}
+	loops.Next.Next.Next = loops
+	if detectCycle(root) != loops {
+		t.Error(`TestDetectCycle failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	loops = &ListNode{Val: 2}
+	root.Next = loops
+	loops.Next = &ListNode{Val: 3}
+	loops.Next.Next = loops
+	if detectCycle(root) != loops {
+		t.Error(`TestDetectCycle failed`)
+	}
+}
