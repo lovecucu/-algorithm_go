@@ -335,14 +335,37 @@ func isPalindrome(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return true
 	}
-	// 反转链表
-	reverse := ReverseList(head)
-	for head != nil {
-		if head.Val != reverse.Val {
+	// 解法一：反转链表，再比对
+	// reverse := ReverseList(head)
+	// for head != nil {
+	// 	if head.Val != reverse.Val {
+	// 		return false
+	// 	}
+	// 	head = head.Next
+	// 	reverse = reverse.Next
+	// }
+	// return true
+
+	// 解法二：快慢指针（借助stack比对前后两部分的值是否一致）
+	slow, fast := head, head
+	stack := []int{}
+	for fast != nil && fast.Next != nil {
+		stack = append(stack, slow.Val)
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	if fast != nil { // 奇数个结点，跳过中间结点
+		slow = slow.Next
+	}
+
+	for slow != nil {
+		top := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if top != slow.Val {
 			return false
 		}
-		head = head.Next
-		reverse = reverse.Next
+		slow = slow.Next
 	}
 	return true
 }
@@ -426,9 +449,18 @@ listB 中节点数目为 n
  *     Next *ListNode
  * }
  */
-// func getIntersectionNode(headA, headB *ListNode) *ListNode {
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	var ret *ListNode
+	if headA == nil || headB == nil {
+		return ret
+	}
 
-// }
+	if headA == headB {
+		return headA
+	}
+
+	return ret
+}
 
 /**
 面试题 02.08. 环路检测
