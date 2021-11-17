@@ -204,6 +204,9 @@ func deleteNode(node *ListNode) {
  * }
  */
 func partition(head *ListNode, x int) *ListNode {
+	if head == nil {
+		return nil
+	}
 	// 解法一：造两个头结点，分别用于存储小于、大于等于的结点
 	// big, small := &ListNode{}, &ListNode{}
 	// bighead, smallhead := big, small
