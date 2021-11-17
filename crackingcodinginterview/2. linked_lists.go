@@ -302,7 +302,15 @@ func isPalindrome(head *ListNode) bool {
 		return true
 	}
 	// 反转链表
-	return false
+	reverse := ReverseList(head)
+	for head != nil {
+		if head.Val != reverse.Val {
+			return false
+		}
+		head = head.Next
+		reverse = reverse.Next
+	}
+	return true
 }
 
 func ReverseList(head *ListNode) *ListNode {

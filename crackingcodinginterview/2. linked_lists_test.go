@@ -86,3 +86,31 @@ func TestReverseList(t *testing.T) {
 		t.Error(`TestReverseList failed`)
 	}
 }
+
+func TestIsPalindrome(t *testing.T) {
+	root := &ListNode{Val: 1}
+	if !isPalindrome(root) {
+		t.Error(`TestIsPalindrome failed`)
+	}
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 2}
+	if isPalindrome(root) {
+		t.Error(`TestIsPalindrome failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 2}
+	root.Next.Next = &ListNode{Val: 1}
+	if !isPalindrome(root) {
+		t.Error(`TestIsPalindrome failed`)
+	}
+
+	root = &ListNode{Val: 1}
+	root.Next = &ListNode{Val: 2}
+	root.Next.Next = &ListNode{Val: 1}
+	root.Next.Next.Next = &ListNode{Val: 2}
+	root.Next.Next.Next.Next = &ListNode{Val: 1}
+	if !isPalindrome(root) {
+		t.Error(`TestIsPalindrome failed`)
+	}
+}
