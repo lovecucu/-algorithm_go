@@ -172,7 +172,7 @@ func canPermutePalindrome(s string) bool {
 			bit ^= 1 << (s[k] - 'A' + 26)
 		}
 	}
-	return bit&(bit-1) == 0
+	return bit&(bit-1) == 0 // 表示bit中最多有一个1
 }
 
 /**

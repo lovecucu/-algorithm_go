@@ -24,28 +24,28 @@ package crackingcodinginterview
  输出：
 [null, null, null, null, 2, 1, -1, -1]
 */
-type TripleInOne struct {
-}
+// type TripleInOne struct {
+// }
 
-func Constructor(stackSize int) TripleInOne {
+// func Constructor(stackSize int) TripleInOne {
 
-}
+// }
 
-func (this *TripleInOne) Push(stackNum int, value int) {
+// func (this *TripleInOne) Push(stackNum int, value int) {
 
-}
+// }
 
-func (this *TripleInOne) Pop(stackNum int) int {
+// func (this *TripleInOne) Pop(stackNum int) int {
 
-}
+// }
 
-func (this *TripleInOne) Peek(stackNum int) int {
+// func (this *TripleInOne) Peek(stackNum int) int {
 
-}
+// }
 
-func (this *TripleInOne) IsEmpty(stackNum int) bool {
+// func (this *TripleInOne) IsEmpty(stackNum int) bool {
 
-}
+// }
 
 /**
  * Your TripleInOne object will be instantiated and called as such:
@@ -72,29 +72,29 @@ minStack.pop();
 minStack.top();      --> 返回 0.
 minStack.getMin();   --> 返回 -2.
 */
-type MinStack struct {
-}
+// type MinStack struct {
+// }
 
-/** initialize your data structure here. */
-func Constructor() MinStack {
+// /** initialize your data structure here. */
+// func Constructor() MinStack {
 
-}
+// }
 
-func (this *MinStack) Push(x int) {
+// func (this *MinStack) Push(x int) {
 
-}
+// }
 
-func (this *MinStack) Pop() {
+// func (this *MinStack) Pop() {
 
-}
+// }
 
-func (this *MinStack) Top() int {
+// func (this *MinStack) Top() int {
 
-}
+// }
 
-func (this *MinStack) GetMin() int {
+// func (this *MinStack) GetMin() int {
 
-}
+// }
 
 /**
  * Your MinStack object will be instantiated and called as such:
@@ -126,24 +126,24 @@ func (this *MinStack) GetMin() int {
  输出：
 [null, null, null, null, 2, 1, 3]
 */
-type StackOfPlates struct {
-}
+// type StackOfPlates struct {
+// }
 
-func Constructor(cap int) StackOfPlates {
+// func Constructor(cap int) StackOfPlates {
 
-}
+// }
 
-func (this *StackOfPlates) Push(val int) {
+// func (this *StackOfPlates) Push(val int) {
 
-}
+// }
 
-func (this *StackOfPlates) Pop() int {
+// func (this *StackOfPlates) Pop() int {
 
-}
+// }
 
-func (this *StackOfPlates) PopAt(index int) int {
+// func (this *StackOfPlates) PopAt(index int) int {
 
-}
+// }
 
 /**
  * Your StackOfPlates object will be instantiated and called as such:
@@ -174,33 +174,33 @@ queue.empty(); // 返回 false
 你所使用的语言也许不支持栈。你可以使用 list 或者 deque（双端队列）来模拟一个栈，只要是标准的栈操作即可。
 假设所有操作都是有效的 （例如，一个空的队列不会调用 pop 或者 peek 操作）。
 */
-type MyQueue struct {
-}
+// type MyQueue struct {
+// }
 
-/** Initialize your data structure here. */
-func Constructor() MyQueue {
+// /** Initialize your data structure here. */
+// func Constructor() MyQueue {
 
-}
+// }
 
-/** Push element x to the back of queue. */
-func (this *MyQueue) Push(x int) {
+// /** Push element x to the back of queue. */
+// func (this *MyQueue) Push(x int) {
 
-}
+// }
 
-/** Removes the element from in front of queue and returns that element. */
-func (this *MyQueue) Pop() int {
+// /** Removes the element from in front of queue and returns that element. */
+// func (this *MyQueue) Pop() int {
 
-}
+// }
 
-/** Get the front element. */
-func (this *MyQueue) Peek() int {
+// /** Get the front element. */
+// func (this *MyQueue) Peek() int {
 
-}
+// }
 
-/** Returns whether the queue is empty. */
-func (this *MyQueue) Empty() bool {
+// /** Returns whether the queue is empty. */
+// func (this *MyQueue) Empty() bool {
 
-}
+// }
 
 /**
  * Your MyQueue object will be instantiated and called as such:
@@ -233,28 +233,28 @@ func (this *MyQueue) Empty() bool {
 
 栈中的元素数目在[0, 5000]范围内。
 */
-type SortedStack struct {
-}
+// type SortedStack struct {
+// }
 
-func Constructor() SortedStack {
+// func Constructor() SortedStack {
 
-}
+// }
 
-func (this *SortedStack) Push(val int) {
+// func (this *SortedStack) Push(val int) {
 
-}
+// }
 
-func (this *SortedStack) Pop() {
+// func (this *SortedStack) Pop() {
 
-}
+// }
 
-func (this *SortedStack) Peek() int {
+// func (this *SortedStack) Peek() int {
 
-}
+// }
 
-func (this *SortedStack) IsEmpty() bool {
+// func (this *SortedStack) IsEmpty() bool {
 
-}
+// }
 
 /**
  * Your SortedStack object will be instantiated and called as such:
@@ -291,28 +291,28 @@ dequeue*方法返回一个列表[动物编号, 动物种类]，若没有可以�
 
 收纳所的最大容量为20000
 */
-type AnimalShelf struct {
-}
+// type AnimalShelf struct {
+// }
 
-func Constructor() AnimalShelf {
+// func Constructor() AnimalShelf {
 
-}
+// }
 
-func (this *AnimalShelf) Enqueue(animal []int) {
+// func (this *AnimalShelf) Enqueue(animal []int) {
 
-}
+// }
 
-func (this *AnimalShelf) DequeueAny() []int {
+// func (this *AnimalShelf) DequeueAny() []int {
 
-}
+// }
 
-func (this *AnimalShelf) DequeueDog() []int {
+// func (this *AnimalShelf) DequeueDog() []int {
 
-}
+// }
 
-func (this *AnimalShelf) DequeueCat() []int {
+// func (this *AnimalShelf) DequeueCat() []int {
 
-}
+// }
 
 /**
  * Your AnimalShelf object will be instantiated and called as such:
