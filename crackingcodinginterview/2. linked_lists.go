@@ -339,56 +339,50 @@ func isPalindrome(head *ListNode) bool {
 		return true
 	}
 	// 解法一：反转链表，再比对
-	// reverse := ReverseList(head)
-	// for head != nil {
-	// 	if head.Val != reverse.Val {
-	// 		return false
-	// 	}
-	// 	head = head.Next
-	// 	reverse = reverse.Next
-	// }
-	// return true
-
-	// 解法二：快慢指针（借助stack比对前后两部分的值是否一致）
-	slow, fast := head, head
-	stack := []int{}
-	for fast != nil && fast.Next != nil {
-		stack = append(stack, slow.Val)
-		slow = slow.Next
-		fast = fast.Next.Next
-	}
-
-	if fast != nil { // 奇数个结点，跳过中间结点
-		slow = slow.Next
-	}
-
-	for slow != nil {
-		top := stack[len(stack)-1]
-		stack = stack[:len(stack)-1]
-		if top != slow.Val {
+	reverse := ReverseList(head)
+	for head != nil {
+		if head.Val != reverse.Val {
 			return false
 		}
-		slow = slow.Next
+		head = head.Next
+		reverse = reverse.Next
 	}
 	return true
+
+	// 解法二：快慢指针（借助stack比对前后两部分的值是否一致）
+	// slow, fast := head, head
+	// stack := []int{}
+	// for fast != nil && fast.Next != nil {
+	// 	stack = append(stack, slow.Val)
+	// 	slow = slow.Next
+	// 	fast = fast.Next.Next
+	// }
+
+	// if fast != nil { // 奇数个结点，跳过中间结点
+	// 	slow = slow.Next
+	// }
+
+	// for slow != nil {
+	// 	top := stack[len(stack)-1]
+	// 	stack = stack[:len(stack)-1]
+	// 	if top != slow.Val {
+	// 		return false
+	// 	}
+	// 	slow = slow.Next
+	// }
+	// return true
 }
 
 func ReverseList(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
+	var pre *ListNode
+	cur := head
+	for cur != nil {
+		next := cur.Next
+		cur.Next = pre
+		pre = cur
+		cur = next
 	}
-
-	dummyHead := &ListNode{Next: head}
-	for head.Next != nil {
-		tmp := head.Next
-		head.Next = head.Next.Next
-
-		tmp.Next = dummyHead.Next
-		dummyHead.Next = tmp
-	}
-	head.Next = nil
-
-	return dummyHead.Next
+	return pre
 }
 
 /**
