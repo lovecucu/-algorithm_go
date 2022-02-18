@@ -493,6 +493,25 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	return long
 }
 
+// 更简洁的方法
+func getIntersectionNode2(headA, headB *ListNode) *ListNode {
+	pa, pb := headA, headB
+	for pa != pb {
+		if pa == nil {
+			pa = headB
+		} else {
+			pa = pa.Next
+		}
+
+		if pb == nil {
+			pb = headA
+		} else {
+			pb = pb.Next
+		}
+	}
+	return pa
+}
+
 /**
 面试题 02.08. 环路检测
 给定一个链表，如果它是有环链表，实现一个算法返回环路的开头节点。若环不存在，请返回 null。
